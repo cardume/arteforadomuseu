@@ -9,3 +9,5 @@ function afdm_marker_extent() {
 	return true;
 }
 add_action('mappress_use_marker_extent', 'afdm_marker_extent');
+
+add_filter('show_admin_bar', '__return_false');
