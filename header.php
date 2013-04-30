@@ -25,7 +25,7 @@
 <body <?php body_class(get_bloginfo('language')); ?>>
 	<header id="masthead">
 		<div class="container">
-			<div class="four columns">
+			<div class="three columns">
 				<div class="site-meta">
 					<h1>
 						<a href="<?php echo home_url('/'); ?>" title="<?php bloginfo('name'); ?>">
@@ -35,13 +35,14 @@
 					</h1>
 				</div>
 			</div>
-			<div class="eight columns">
+			<div class="nine columns">
 				<div id="masthead-nav">
 					<div class="clearfix">
 						<nav id="main-nav">
 							<?php wp_nav_menu(array('theme_location' => 'header_menu')); ?>
 						</nav>
 						<?php get_search_form(); ?>
+						<?php afdm_get_user_menu(); ?>
 					</div>
 				</div>
 			</div>
