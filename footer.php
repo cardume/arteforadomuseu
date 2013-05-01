@@ -1,4 +1,3 @@
-
 <footer id="colophon">
 	<div class="container">
 		<div class="six columns">

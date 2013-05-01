@@ -1,10 +1,11 @@
 <?php
 
 // Art Guide
-require_once(STYLESHEETPATH . '/inc/artguides.php');
+require_once(STYLESHEETPATH . '/inc/artguides/artguides.php');
 
 function afdm_scripts() {
-	wp_enqueue_style('afdm-main', get_stylesheet_directory_uri() . '/css/main.css');
+	wp_enqueue_style('afdm-main', get_stylesheet_directory_uri() . '/css/main.css', array(), '1.0');
+	wp_enqueue_script('afdm', get_stylesheet_directory_uri(). '/js/arteforadomuseu.js', array('jquery'));
 }
 add_action('wp_enqueue_scripts', 'afdm_scripts', 100);
 
@@ -39,22 +40,17 @@ function afdm_get_user_menu() {
 			<?php
 		else :
 			?>
-			<span class="dropdown-title login"><span class="lsf">user</span> <?php _e('Account', 'arteforadomuseu'); ?></span>
+			<span class="dropdown-title login"><span class="lsf">user</span> <span class="user-name"><?php echo wp_get_current_user()->display_name; ?></span></span>
 			<div class="dropdown-content">
 				<div class="logged-in">
 					<p><?php _e('Hello', 'arteforadomuseu'); ?>, <?php echo wp_get_current_user()->display_name; ?>. <a class="logout" href="<?php echo wp_logout_url(home_url()); ?>" title="<?php _e('Logout', 'arteforadomuseu'); ?>"><?php _e('Logout', 'arteforadomuseu'); ?> <span class="lsf">logout</span></a></p>
-					<?php if(current_user_can('edit_posts')) : ?>
-						<ul class="user-actions">
-							<?php if(afdm_get_user_artguides()) : ?>
-								<li><a href="<?php echo home_url('/guides/?author=' . wp_get_current_user()->ID); ?>"><?php _e('My art guides', 'arteforadomuseu'); ?></a></li>
-							<?php endif; ?>
-							<li><a href="#"><?php _e('Create an art guide', 'arteforadomuseu'); ?></a></li>
-							<li><a href="#"><?php _e('Submit an artwork', 'arteforadomuseu'); ?></a></li>
-							<?php if(current_user_can('edit_others_posts')) : ?>
-								<li><a href="<?php echo get_admin_url(); ?>"><?php _e('Administration', 'arteforadomuseu'); ?></a></li>
-							<?php endif; ?>
-						</ul>
-					<?php endif; ?>
+					<ul class="user-actions">
+						<?php do_action('afdm_logged_in_user_menu_items'); ?>
+						<li><a href="#"><?php _e('Submit an artwork', 'arteforadomuseu'); ?></a></li>
+						<?php if(current_user_can('edit_others_posts')) : ?>
+							<li><a href="<?php echo get_admin_url(); ?>"><?php _e('Administration', 'arteforadomuseu'); ?></a></li>
+						<?php endif; ?>
+					</ul>
 				</div>
 			</div>
 			<?php

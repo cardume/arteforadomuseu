@@ -5,7 +5,7 @@
 				<li id="post-<?php the_ID(); ?>">
 					<article id="post-<?php the_ID(); ?>">
 						<header class="post-header">
-							<?php do_action('afdm_before_artwork_header'); ?>
+							<?php do_action('afdm_loop_before_artwork_header'); ?>
 							<h3><a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php the_title(); ?></a></h3>
 							<p class="meta">
 								<span class="date"><?php echo get_the_date(); ?></span>
@@ -18,9 +18,9 @@
 								<?php the_excerpt(); ?>
 							</div>
 						</section>
-						<aside class="actions">
+						<aside class="actions clearfix">
 							<?php echo mappress_find_post_on_map_button(); ?>
-							<?php afdm_artguides_artwork_button(); ?>
+							<?php do_action('afdm_loop_artwork_actions'); ?>
 						</aside>
 					</article>
 				</li>

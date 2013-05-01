@@ -8,7 +8,7 @@
 					<?php if(isset($_GET['author']) && get_userdata($_GET['author'])) : ?>
 						<h2><?php _e('by', 'arteforadomuseu'); ?> <?php echo get_userdata($_GET['author'])->display_name; ?></h2>
 					<?php endif; ?>
-					<a class="new_artguide button" href="#"><?php _e('Create an art guide', 'arteforadomuseu'); ?></a>
+					<a class="add_guide button" href="#"><?php _e('Create an art guide', 'arteforadomuseu'); ?></a>
 				</div>
 			</div>
 		</header>
@@ -20,12 +20,16 @@
 							<div class="twelve columns">
 								<div class="three columns alpha">
 									<header class="post-header">
-										<h2><a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php the_title(); ?></a></h2>
+										<?php if(!afdm_artguides_can_edit()) : ?>
+											<h2><a href="<?php the_permalink(); ?>" title="<?php echo $post->post_title; ?>"><?php the_title(); ?></a></h2>
+										<?php else : ?>
+											<h2><?php the_title(); ?></h2>
+										<?php endif; ?>
 										<p><span class="lsf">user</span> <?php _e('by', 'arteforadomuseu'); ?> <?php the_author(); ?></p>
 										<p><span class="lsf">time</span> <?php _e('added', 'arteforadomuseu'); ?> <?php echo get_the_date(); ?></p>
 										<p><span class="lsf">checkboxempty</span> <?php echo sprintf(_n('1 artwork', '%s artworks', afdm_get_artguide_artwork_count(), 'arteforadomuseu'), afdm_get_artguide_artwork_count()); ?></p>
 										<div class="buttons">
-											<a class="button" href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php _e('Visit art guide', 'arteforadomuseu'); ?></a>
+											<a class="button" href="<?php the_permalink(); ?>" title="<?php echo $post->post_title; ?>"><?php _e('Visit art guide', 'arteforadomuseu'); ?></a>
 											<?php afdm_get_artguide_delete_button(); ?>
 										</div>
 									</header>
