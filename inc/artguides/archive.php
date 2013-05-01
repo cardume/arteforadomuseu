@@ -46,6 +46,13 @@
 						</article>
 					<?php endwhile; ?>
 				</section>
+			<?php else : ?>
+				<section class="art-guide">
+					<section class="featured">
+						<?php query_posts(afdm_artguides_get_featured_query()); ?>
+						<?php wp_reset_query(); ?>
+					</section>
+				</section>
 			<?php endif; ?>
 		</div>
 	</section>
