@@ -8,7 +8,7 @@
 					<?php if(isset($_GET['author']) && get_userdata($_GET['author'])) : ?>
 						<h2><?php _e('by', 'arteforadomuseu'); ?> <?php echo get_userdata($_GET['author'])->display_name; ?></h2>
 					<?php endif; ?>
-					<a class="add_guide button" href="#"><?php _e('Create an art guide', 'arteforadomuseu'); ?></a>
+					<a class="add_guide button hide-if-mobile" href="#"><?php _e('Create an art guide', 'arteforadomuseu'); ?></a>
 				</div>
 			</div>
 		</header>
@@ -28,7 +28,7 @@
 										<p><span class="lsf">user</span> <?php _e('by', 'arteforadomuseu'); ?> <?php the_author(); ?></p>
 										<p><span class="lsf">time</span> <?php _e('added', 'arteforadomuseu'); ?> <?php echo get_the_date(); ?></p>
 										<p><span class="lsf">checkboxempty</span> <?php echo sprintf(_n('1 artwork', '%s artworks', afdm_get_artguide_artwork_count(), 'arteforadomuseu'), afdm_get_artguide_artwork_count()); ?></p>
-										<div class="buttons">
+										<div class="buttons clearfix">
 											<a class="button" href="<?php the_permalink(); ?>" title="<?php echo $post->post_title; ?>"><?php _e('Visit art guide', 'arteforadomuseu'); ?></a>
 											<?php afdm_get_artguide_delete_button(); ?>
 										</div>

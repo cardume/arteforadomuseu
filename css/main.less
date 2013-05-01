@@ -701,7 +701,7 @@ button {
 							width: auto !important;
 							height: 100%;
 							img {
-								margin-left: 65%;
+								margin-left: 55%;
 							}
 						}
 					}
@@ -747,7 +747,7 @@ button {
 						}
 					}
 					.buttons {
-						margin-top: 20px;
+						margin: 20px 0;
 						> * {
 							margin-right: 10px;
 							.lsf {
@@ -819,6 +819,7 @@ button {
 	.lightbox_content {
 		margin: 4% auto;
 		width: 60%;
+		max-width: 700px;
 		max-height: 75%;
 		padding: 2.5%;
 		overflow: auto;
@@ -1020,5 +1021,103 @@ body.wysiwyg p {
 	.home .map-container,
 	.map-container {
 		top: @top/1.2;
+	}
+}
+
+// responsive nav
+.js #main-nav {
+	position: relative;
+	max-height: none;
+	top: auto;
+	right: auto;
+}
+#nav-toggle {
+	display: none;
+}
+@media screen and (max-width: 767px) {
+	.hide-if-mobile {
+		display: none !important;
+	}
+	#masthead {
+		&.scrolled {
+			height: 0;
+			overflow: hidden;
+		}
+		#masthead-nav {
+			#searchform {
+				width: 40%;
+				height: auto;
+				position: absolute;
+				top: 35px;
+				right: 0;
+				margin: 0;
+				> div {
+					width: auto;
+					height: auto;
+					input#s {
+						width: 100%;
+						height: auto;
+						box-sizing: border-box;
+						padding: 13px 13px 13px 40px !important;
+						background: #111;
+						z-index: 1;
+						&:hover,
+						&:focus {
+							width: 100%;
+							padding: 13px 13px 13px 40px !important;
+						}
+					}
+					&:hover {
+						input#s {
+							padding: 13px 13px 13px 40px !important;
+						}
+					}
+				}
+			}
+		}
+	}
+	.js #main-nav {
+		//clip: rect(0 0 0 0);
+		max-height: 0;
+		position: absolute !important;
+		display: block;
+		overflow: hidden;
+		zoom: 1;
+		top: @top;
+		right: 0px;
+		left: 0px;
+		z-index: 99999;
+		ul {
+			margin: 0;
+			padding: 0;
+			li {
+				float: none !important;
+				display: block;
+				margin: 0 !important;
+				a {
+					float:none !important;
+					display: block;
+					padding: 10px;
+					background: #222;
+					.gradient(#303030, #222, #303030);
+					color: #f0f0f0 !important;
+					border-bottom: 1px solid #000 !important;
+					&:hover {
+						background: #000 !important;
+						color: #fff;
+					}
+				}
+			}
+		}
+	}
+	.js #main-nav.opened {
+		z-index: 99999;
+		max-height: 9999px;
+	}
+	#nav-toggle {
+		display: block;
+		position: absolute;
+		top: 0;
+		right: 0;
 	}
 }

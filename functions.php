@@ -5,7 +5,8 @@ require_once(STYLESHEETPATH . '/inc/artguides/artguides.php');
 
 function afdm_scripts() {
 	wp_enqueue_style('afdm-main', get_stylesheet_directory_uri() . '/css/main.css', array(), '1.0');
-	wp_enqueue_script('afdm', get_stylesheet_directory_uri(). '/js/arteforadomuseu.js', array('jquery'));
+	wp_enqueue_script('responsive-nav', get_stylesheet_directory_uri(). '/js/responsive-nav.min.js', '', '1.0');
+	wp_enqueue_script('afdm', get_stylesheet_directory_uri(). '/js/arteforadomuseu.js', array('responsive-nav'), '0.1');
 }
 add_action('wp_enqueue_scripts', 'afdm_scripts', 100);
 
@@ -26,7 +27,7 @@ add_action('admin_init', 'afdm_prevent_admin_access', 0);
 
 function afdm_get_user_menu() {
 	?>
-	<div class="user-meta">
+	<div class="user-meta hide-if-mobile">
 		<?php
 		if(!is_user_logged_in()) :
 			?>
