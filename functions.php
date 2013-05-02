@@ -3,12 +3,29 @@
 // Art Guide
 require_once(STYLESHEETPATH . '/inc/artguides/artguides.php');
 
+function afdm_setup() {
+	add_theme_support('post-thumbnails');
+	add_image_size('page-featured', 680, 270, true);
+}
+add_action('after_setup_theme', 'afdm_setup');
+
 function afdm_scripts() {
 	wp_enqueue_style('afdm-main', get_stylesheet_directory_uri() . '/css/main.css', array(), '1.0');
 	wp_enqueue_script('responsive-nav', get_stylesheet_directory_uri(). '/js/responsive-nav.min.js', '', '1.0');
 	wp_enqueue_script('afdm', get_stylesheet_directory_uri(). '/js/arteforadomuseu.js', array('responsive-nav'), '0.1');
 }
 add_action('wp_enqueue_scripts', 'afdm_scripts', 100);
+
+// Set google geocode service
+function afdm_geocode_service() {
+	return 'gmaps';
+}
+add_action('mappress_geocode_service', 'afdm_geocode_service');
+
+function afdm_gmaps_api_key() {
+	return 'AIzaSyABrs0DJWrYC_Imx7VbGw1Hsfr6KEZBdpg';
+}
+add_action('mappress_gmaps_api_key', 'afdm_gmaps_api_key');
 
 function afdm_marker_extent() {
 	return true;
