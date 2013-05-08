@@ -85,7 +85,7 @@
 						<div class="four columns offset-by-one">
 							<section class="popular">
 								<?php
-								$popular = afdm_artguides_get_popular(3);
+								$popular = afdm_artguides_get_popular(4);
 								if($popular) : ?>
 									<h2><?php _e('Popular', 'arteforadomuseu'); ?></h2>
 									<?php

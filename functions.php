@@ -1,7 +1,10 @@
 <?php
 
-// Art Guide
+
+require_once(STYLESHEETPATH . '/inc/lightbox/lightbox.php');
 require_once(STYLESHEETPATH . '/inc/artguides/artguides.php');
+require_once(STYLESHEETPATH . '/inc/artworks/artworks.php');
+require_once(STYLESHEETPATH . '/inc/featured-content/featured.php');
 
 function afdm_setup() {
 	add_theme_support('post-thumbnails');
@@ -11,10 +14,24 @@ add_action('after_setup_theme', 'afdm_setup');
 
 function afdm_scripts() {
 	wp_enqueue_style('afdm-main', get_stylesheet_directory_uri() . '/css/main.css', array(), '1.0');
-	wp_enqueue_script('responsive-nav', get_stylesheet_directory_uri(). '/js/responsive-nav.min.js', '', '1.0');
+	wp_enqueue_script('responsive-nav', get_stylesheet_directory_uri(). '/lib/responsive-nav.min.js', '', '1.0');
 	wp_enqueue_script('afdm', get_stylesheet_directory_uri(). '/js/arteforadomuseu.js', array('responsive-nav'), '0.1');
 }
-add_action('wp_enqueue_scripts', 'afdm_scripts', 100);
+
+function afdm_register_lib() {
+	wp_register_style('jquery-wysiwyg', get_stylesheet_directory_uri() . '/lib/jquery.wysiwyg.css');
+	wp_register_script('jquery-wysiwyg', get_stylesheet_directory_uri() . '/lib/jquery.wysiwyg.js', array('jquery'));
+	wp_register_script('jquery-jeditable', get_stylesheet_directory_uri() . '/lib/jquery.jeditable.mini.js', array('jquery'));
+	wp_register_script('jquery-jeditable-wysiwyg', get_stylesheet_directory_uri() . '/lib/jquery.jeditable.wysiwyg.js', array('jquery', 'jquery-jeditable', 'jquery-wysiwyg'));
+	wp_register_script('jquery-autosize', get_stylesheet_directory_uri() . '/lib/jquery.autosize-min.js', array('jquery'), '1.16.7');
+	wp_register_script('jquery-ui-datepicker-pt-BR', get_stylesheet_directory_uri() . '/lib/jquery.ui.datepicker.pt-BR.js', array('jquery-ui-datepicker'));
+	wp_register_style('jquery-tag-it', get_stylesheet_directory_uri() . '/lib/jquery.tagit.css');
+	wp_register_script('jquery-tag-it', get_stylesheet_directory_uri() . '/lib/tag-it.min.js', array('jquery', 'jquery-ui-core', 'jquery-ui-widget', 'jquery-ui-position', 'jquery-ui-autocomplete'), '2.0');
+}
+
+add_action('wp_enqueue_scripts', 'afdm_scripts');
+add_action('wp_enqueue_scripts', 'afdm_register_lib');
+add_action('admin_footer', 'afdm_register_lib');
 
 // Set google geocode service
 function afdm_geocode_service() {
@@ -64,9 +81,8 @@ function afdm_get_user_menu() {
 					<p><?php _e('Hello', 'arteforadomuseu'); ?>, <?php echo wp_get_current_user()->display_name; ?>. <a class="logout" href="<?php echo wp_logout_url(home_url()); ?>" title="<?php _e('Logout', 'arteforadomuseu'); ?>"><?php _e('Logout', 'arteforadomuseu'); ?> <span class="lsf">logout</span></a></p>
 					<ul class="user-actions">
 						<?php do_action('afdm_logged_in_user_menu_items'); ?>
-						<li><a href="#"><?php _e('Submit an artwork', 'arteforadomuseu'); ?></a></li>
 						<?php if(current_user_can('edit_others_posts')) : ?>
-							<li><a href="<?php echo get_admin_url(); ?>"><?php _e('Administration', 'arteforadomuseu'); ?></a></li>
+							<li><a href="<?php echo get_admin_url(); ?>"><?php _e('Dashboard', 'arteforadomuseu'); ?></a></li>
 						<?php endif; ?>
 					</ul>
 				</div>

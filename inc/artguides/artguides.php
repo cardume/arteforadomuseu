@@ -41,7 +41,8 @@ class ArteForaDoMuseu_ArtGuides {
 
 	function setup_post_type() {
 		add_action('init', array($this, 'register_post_type'));
-		add_action('mappress_mapped_post_types', array($this, 'remove_from_mappress_mapped'));
+		add_filter('mappress_mapped_post_types', array($this, 'remove_from_mappress_mapped'));
+		add_filter('afdm_featured_post_types', array($this, 'setup_featured'));
 	}
 
 	function register_post_type() {
@@ -78,6 +79,11 @@ class ArteForaDoMuseu_ArtGuides {
 
 	function remove_from_mappress_mapped($post_types) {
 		unset($post_types[$this->post_type]);
+		return $post_types;
+	}
+
+	function setup_featured($post_types) {
+		$post_types[] = $this->post_type;
 		return $post_types;
 	}
 
@@ -153,12 +159,18 @@ class ArteForaDoMuseu_ArtGuides {
 	function setup_ajax() {
 		add_action('wp_ajax_nopriv_new_artguide', array($this, 'ajax_add'));
 		add_action('wp_ajax_new_artguide', array($this, 'ajax_add'));
+		add_action('wp_ajax_nopriv_delete_guide', array($this, 'ajax_delete'));
+		add_action('wp_ajax_delete_guide', array($this, 'ajax_delete'));
 		add_action('wp_ajax_nopriv_add_artwork_to_guide', array($this, 'ajax_add_artwork'));
 		add_action('wp_ajax_add_artwork_to_guide', array($this, 'ajax_add_artwork'));
 		add_action('wp_ajax_nopriv_remove_artwork_from_guide', array($this, 'ajax_remove_artwork'));
 		add_action('wp_ajax_remove_artwork_from_guide', array($this, 'ajax_remove_artwork'));
-		add_action('wp_ajax_nopriv_delete_guide', array($this, 'ajax_delete'));
-		add_action('wp_ajax_delete_guide', array($this, 'ajax_delete'));
+	}
+
+	function ajax_response($data) {
+		header('Content Type: application/json');
+		echo json_encode($data);
+		exit;
 	}
 
 	function ajax_add() {
@@ -174,7 +186,15 @@ class ArteForaDoMuseu_ArtGuides {
 		if(!$guide_id)
 			$this->ajax_response(array('error_msg' => __('Something went wrong', 'arteforadomuseu')));
 
-		$this->ajax_response(array('success_msg' => __('Your new art guide has been created', 'arteforadomuseu')));
+		$this->ajax_response(array('success_msg' => __('Your new art guide has been created.', 'arteforadomuseu') . ' <a href="#" class="close">' . __('Click here to close', 'arteforadomuseu') . '</a>'));
+	}
+
+	function ajax_delete() {
+		if(!$this->can_edit($_REQUEST['guide_id']))
+			$this->ajax_response(array('error_msg' => __('You are not allowed to do that', 'arteforadomuseu')));
+
+		wp_delete_post($_REQUEST['guide_id']);
+		$this->ajax_response(array('success_msg' => __('Art guide has been deleted', 'arteforadomuseu')));
 	}
 
 	function ajax_add_artwork() {
@@ -208,7 +228,7 @@ class ArteForaDoMuseu_ArtGuides {
 			$this->ajax_response(array('error_msg' => __('This artwork is already part of the selected guide', 'arteforadomuseu')));
 
 		$this->add_artwork($guide_id, $artwork_id);
-		$this->ajax_response(array('success' => 1));
+		$this->ajax_response(array('success_msg' => __('The selected artwork has been added to your artguide!', 'arteforadomuseu') . ' <a href="#" class="close">' . __('Click here to close', 'arteforadomuseu') . '</a>'));
 	}
 
 	function ajax_remove_artwork() {
@@ -217,20 +237,6 @@ class ArteForaDoMuseu_ArtGuides {
 
 		delete_post_meta($_REQUEST['guide_id'], '_artworks', $_REQUEST['artwork_id']);
 		$this->ajax_response(array('success_msg' => __('Artwork has been removed from this art guide', 'arteforadomuseu')));
-	}
-
-	function ajax_delete() {
-		if(!$this->can_edit($_REQUEST['guide_id']))
-			$this->ajax_response(array('error_msg' => __('You are not allowed to do that', 'arteforadomuseu')));
-
-		wp_delete_post($_REQUEST['guide_id']);
-		$this->ajax_response(array('success_msg' => __('Art guide has been deleted', 'arteforadomuseu')));
-	}
-
-	function ajax_response($data) {
-		header('Content Type: application/json');
-		echo json_encode($data);
-		exit;
 	}
 
 	/*
@@ -276,6 +282,7 @@ class ArteForaDoMuseu_ArtGuides {
 	function get_popular($amount = 5) {
 		$query = array(
 			'post_type' => $this->post_type,
+			'posts_per_page' => $amount,
 			'orderby' => 'meta_value_num',
 			'order' => 'DESC',
 			'meta_key' => '_views'
@@ -423,10 +430,11 @@ class ArteForaDoMuseu_ArtGuides {
 		add_action('afdm_logged_in_user_menu_items', array($this, 'user_menu_items'));
 		add_action('afdm_loop_artwork_actions', array($this, 'add_artwork_button'));
 		add_action('afdm_loop_artwork_actions', array($this, 'hook_remove_artwork_button'));
-		wp_enqueue_script('artguides', $this->directory_uri . '/js/artguides.js', array('jquery', 'jquery-autosize', 'jquery-jeditable'), '0.1.9');
+		wp_enqueue_script('artguides', $this->directory_uri . '/js/artguides.js', array('jquery', 'afdm-lightbox', 'jquery-autosize', 'jquery-jeditable'), '0.2');
 		wp_localize_script('artguides', 'artguides', array(
 			'ajaxurl' => admin_url('admin-ajax.php'),
-			'confirm_delete' => __('Are you sure?', 'arteforadomuseu')
+			'confirm_delete' => __('Are you sure?', 'arteforadomuseu'),
+			'sending_msg' => __('Sending data...', 'arteforadomuseu')
 		));
 	}
 
@@ -444,7 +452,7 @@ class ArteForaDoMuseu_ArtGuides {
 		if(!$this->can_edit_any())
 			return false;
 		?>
-		<a class="add_artwork" data-artwork="<?php echo $artwork_id; ?>" data-artwork-title="<?php echo get_the_title($artwork_id); ?>" href="#"><span class="lsf">addnew</span> <?php _e('Add to art guide', 'arteforadomuseu'); ?></a>
+		<a class="add_artwork_to_guide" data-artwork="<?php echo $artwork_id; ?>" data-artwork-title="<?php echo get_the_title($artwork_id); ?>" href="#"><span class="lsf">addnew</span> <?php _e('Add to art guide', 'arteforadomuseu'); ?></a>
 		<?php
 	}
 
@@ -493,18 +501,17 @@ class ArteForaDoMuseu_ArtGuides {
 
 	function add_box() {
 		?>
-		<div id="add_guide" class="add_guide_container lightbox_section">
-			<div class="close-area close-box"></div>
+		<div id="add_guide">
+			<h2 class="lightbox_title"><span class="lsf">addnew</span> <?php _e('New art guide', 'arteforadomuseu'); ?></h2>
 			<div class="lightbox_content">
-				<h2><span class="lsf">addnew</span> <?php printf(__('New art guide', 'arteforadomuseu'), '<span class="title"></span>'); ?></h2>
 				<form id="new_guide" class="clearfix">
 					<div class="form-inputs">
-						<input type="text" name="title" class="title" placeholder="Title" />
-						<textarea name="description" placeholder="Description"></textarea>
+						<input type="text" name="title" class="title" placeholder="<?php _e('Title', 'arteforadomuseu'); ?>" />
+						<textarea name="content" placeholder="<?php _e('Description', 'arteforadomuseu'); ?>"></textarea>
 					</div>
 					<div class="form-actions">
 						<input type="submit" value="<?php _e('Create', 'arteforadomuseu'); ?>" />
-						<a class="close-box" href="#"><?php _e('Cancel', 'arteforadomuseu'); ?></a>
+						<a class="close" href="#"><?php _e('Cancel', 'arteforadomuseu'); ?></a>
 					</div>
 				</form>
 			</div>
@@ -515,10 +522,9 @@ class ArteForaDoMuseu_ArtGuides {
 	function add_artwork_box() {
 		$user_guides = $this->get_from_user();
 		?>
-		<div id="add_artwork" class="add_artwork_container lightbox_section">
-			<div class="close-area close-box"></div>
+		<div id="add_artwork_to_guide">
+			<h2 class="lightbox_title"><span class="lsf">addnew</span> <?php printf(__('Add &ldquo;%s&rdquo; to:', 'arteforadomuseu'), '<span class="title"></span>'); ?></h2>
 			<div class="lightbox_content">
-				<h2><span class="lsf">addnew</span> <?php printf(__('Add &ldquo;%s&rdquo; to:', 'arteforadomuseu'), '<span class="title"></span>'); ?></h2>
 				<?php if($user_guides) : ?>
 					<form id="add_to_existing_guide" class="clearfix">
 						<input type="hidden" class="artwork_id" name="artwork_id" />
@@ -532,7 +538,7 @@ class ArteForaDoMuseu_ArtGuides {
 						</div>
 						<div class="form-actions">
 							<input type="submit" value="<?php _e('Add artwork', 'arteforadomuseu'); ?>" />
-							<a class="close-box" href="#"><?php _e('Cancel', 'arteforadomuseu'); ?></a>
+							<a class="close" href="#"><?php _e('Cancel', 'arteforadomuseu'); ?></a>
 						</div>
 					</form>
 				<?php endif; ?>
@@ -546,7 +552,7 @@ class ArteForaDoMuseu_ArtGuides {
 					</div>
 					<div class="form-actions">
 						<input type="submit" value="<?php _e('Create and add artwork', 'arteforadomuseu'); ?>" />
-						<a class="close-box" href="#"><?php _e('Cancel', 'arteforadomuseu'); ?></a>
+						<a class="close" href="#"><?php _e('Cancel', 'arteforadomuseu'); ?></a>
 					</div>
 				</form>
 			</div>
@@ -560,11 +566,11 @@ class ArteForaDoMuseu_ArtGuides {
 
 	function setup_jeditable() {
 
-		wp_enqueue_style('jquery-wysiwyg', $this->directory_uri . '/js/jquery.wysiwyg.css');
-		wp_enqueue_script('jquery-wysiwyg', $this->directory_uri . '/js/jquery.wysiwyg.js', array('jquery'));
-		wp_enqueue_script('jquery-jeditable', $this->directory_uri . '/js/jquery.jeditable.mini.js', array('jquery'));
-		wp_enqueue_script('jquery-jeditable-wysiwyg', $this->directory_uri . '/js/jquery.jeditable.wysiwyg.js', array('jquery', 'jquery-jeditable', 'jquery-wysiwyg'));
-		wp_enqueue_script('jquery-autosize', $this->directory_uri . '/js/jquery.autosize-min.js', array('jquery'), '1.16.7');
+		wp_enqueue_style('jquery-wysiwyg');
+		wp_enqueue_script('jquery-wysiwyg');
+		wp_enqueue_script('jquery-jeditable');
+		wp_enqueue_script('jquery-jeditable-wysiwyg');
+		wp_enqueue_script('jquery-autosize');
 
 		wp_localize_script('artguides', 'jeditable', array(
 			'ajaxurl' => admin_url('admin-ajax.php'),

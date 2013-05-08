@@ -665,14 +665,14 @@ button {
 		}
 		h2 {
 			float: left;
-			font-size: 20px;
+			font-size: 18px;
 			font-weight: 200;
 			color: #999;
 			margin: 10px 0 0 25px;
 		}
 		.button {
 			float: right;
-			margin-top: 5px;
+			margin-top: 9px;
 			padding: 15px;
 		}
 	}
@@ -911,10 +911,26 @@ button {
  * Lightbox section
  */
 
+ // jquery ui fixes
+
+
+ #ui-datepicker-div,
+ .ui-autocomplete {
+ 	z-index: 9999 !important;
+ }
+
+ #ui-datepicker-div {
+ 	.ui-datepicker-title {
+		select {
+			display: inline !important;
+		}
+ 	}
+ }
+
 .lightbox_section {
 	display: none;
 	position: fixed;
-	z-index: 999999;
+	z-index: 9998;
 	top: 0;
 	left: 0;
 	right: 0;
@@ -927,7 +943,7 @@ button {
 		right: 0;
 		bottom: 0;
 	}
-	.lightbox_content {
+	.lightbox_container {
 		margin: 4% auto;
 		width: 60%;
 		max-width: 700px;
@@ -941,11 +957,11 @@ button {
 		.box-shadow(0 0 50px rgba(0,0,0,1));
 		&::-webkit-scrollbar {
 			width: 15px;
-			.border-radius(5px);
+			.border-radius(0);
 		}
 		&::-webkit-scrollbar-thumb {
 			background: #333;
-			.border-radius(15px);
+			.border-radius(0);
 			border: 5px #f0f0f0 solid;
 		}
 		h1,
@@ -966,6 +982,76 @@ button {
 			color: #333;
 			text-transform: uppercase;
 		}
+		h4 {
+			color: #666;
+			font-size: 14px;
+			font-weight: 800;
+		}
+		.message {
+			padding: 10px;
+			background: lighten(gray, 40%);
+			border: 1px solid lighten(gray, 20%);
+			font-weight: 600;
+			margin-bottom: 20px;
+			&.error {
+				background: lighten(red, 40%);
+				border: 1px solid lighten(red, 20%);
+			}
+			&.success {
+				background: lighten(green, 40%);
+				border: 1px solid lighten(green, 20%);
+			}
+		}
+		.half-1 {
+			width: 50%;
+			float: left;
+			.box-sizing(border-box);
+			padding-right: 15px;
+		}
+		.half-2 {
+			width: 50%;
+			float: left;
+			.box-sizing(border-box);
+			padding-left: 15px;
+		}
+		form {
+			width: 100%;
+			input.title {
+				display: block;
+				width: 100%;
+				font-size: 28px;
+				padding: 12px;
+				line-height: 28px;
+				font-weight: 200;
+				font-family: "Open Sans";
+			}
+			textarea {
+				display: block;
+				width: 100%;
+				padding: 15px;
+			}
+			input[type=submit],
+			.close {
+				border: 0;
+				.gradient(#ccc, #ccc, #ddd);
+				padding: 12px;
+				margin: 0;
+				text-decoration: none;
+				font-weight: 200;
+				font-size: 12px;
+				color: #333;
+				font-family: "Open Sans";
+				display: inline;
+			}
+			input[type=submit] {
+				font-weight: 800;
+				cursor: pointer;
+				.gradient(#333, #333, #444);
+				color: #f0f0f0;
+				.box-shadow(inset 0 0 3px rgba(255,255,255,0.15));
+				text-shadow: 1px 1px 1px rgba(0,0,0,0.4);
+			}
+		}
 	}
 }
 
@@ -973,14 +1059,9 @@ button {
  * Add artwork to art guide page
  */
 
-#add_artwork,
-#add_guide {
-	.error-message {
-		padding: 10px;
-		background: lighten(red, 40%);
-		border: 1px solid lighten(red, 20%);
-		font-weight: 600;
-	}
+#add_to_existing_guide {
+	margin-bottom: 20px;
+	border-bottom: 1px dotted #aaa;
 	.form-inputs,
 	.form-actions {
 		float: left;
@@ -999,54 +1080,105 @@ button {
 	.form-actions {
 		margin-top: 28px;
 		float: right;
-		input[type=submit],
-		.close-box {
-			border: 0;
-			.gradient(#ccc, #ccc, #ddd);
-			padding: 12px;
-			margin: 0;
-			text-decoration: none;
-			font-weight: 200;
-			font-size: 12px;
-			color: #333;
-			font-family: "Open Sans";
-			display: inline;
-		}
-		input[type=submit] {
-			font-weight: 800;
-			cursor: pointer;
-			.gradient(#333, #333, #444);
-			color: #f0f0f0;
-			.box-shadow(inset 0 0 3px rgba(255,255,255,0.15));
-			text-shadow: 1px 1px 1px rgba(0,0,0,0.4);
-		}
-	}
-	#add_to_existing_guide {
-		margin-bottom: 20px;
-		border-bottom: 1px dotted #aaa;
-	}
-	#add_to_new_guide,
-	#new_guide {
-		.form-inputs {
-			width: 100%;
-			margin: 0;
-			.title {
-				font-size: 28px;
-				padding: 12px;
-				line-height: 28px;
-				font-weight: 200;
-				font-family: "Open Sans";
-			}
-			textarea {
-				padding: 15px;
-			}
-		}
-		.form-actions {
-			margin: 0;
-		}
 	}
 }
 
+#new_artwork {
+	#artwork_dimensions_box {
+		margin-bottom: 20px;
+		.input-container {
+			input,
+			label {
+				margin: 0;
+				display: inline;
+			}
+			label {
+				margin-left: 10px;
+				color: #999;
+			}
+		}
+	}
+	#artwork_dates_box {
+		margin-bottom: 20px;
+		.box-inputs {
+			display: table;
+			width: 100%;
+			.input-container {
+				display: table-cell;
+				vertical-align: middle;
+				text-align: center;
+				padding-right: 20px;
+				input, 
+				label {
+					margin: 0;
+					display: inline;
+				}
+				input[type=text] {
+					width: 100%;
+				}
+				label {
+					margin-left: 10px;
+					color: #333;
+				}
+			}
+		}
+	}
+	#geocode_box {
+		margin: 0 0 20px;
+		#geocode_address {
+			width: 90%;
+			float: left;
+			padding: 11px;
+			margin: 0;
+		}
+		.button.geocode_address {
+			width: 10%;
+			.box-sizing(border-box);
+			margin: 0;
+		}
+		.results {
+			margin: 0 0 20px;
+			p {
+				margin: 0 0 5px;
+			}
+			li {
+				margin: 0;
+				padding: 10px;
+				cursor: pointer;
+				.gradient(#333, #333, #3e3e3e);
+				color: #f0f0f0;
+				font-weight: bold;
+				text-shadow: 1px 1px 1px rgba(0,0,0,0.8);
+				&:hover,
+				&.active {
+					.gradient(#222, #333, #222);
+					text-shadow: -1px -1px 0px rgba(0,0,0,0.5);
+				}
+			}
+		}
+		.draggable-tip {
+			color: #777;
+			font-style: italic;
+			margin: 0 0 5px;
+		}
+		.latlng-container {
+			display: none;
+		}
+		.streetview-toggler {
+			margin: 20px 0;
+			label {
+				display: inline;
+				font-size: 14px;
+			}
+		}
+		#map_canvas,
+		#streetview_canvas {
+			width: 100% !important;
+			height: 300px !important;
+			float: none;
+		}
+	}
+}
 
 /*
  * jeditable
