@@ -49,10 +49,3 @@
 			</div>
 		</div>
 	</header>
-	<script type="text/javascript">
-		var l = afdmLightbox({
-			containerID: 'teste',
-			title: 'Oi',
-			content: 'testando'
-		});
-	</script>

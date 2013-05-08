@@ -566,8 +566,20 @@ class ArteForaDoMuseu_ArtGuides {
 
 	function setup_jeditable() {
 
+		if(!is_admin() && !is_feed() && is_user_logged_in()) {
+			add_action('wp_enqueue_scripts', array($this, 'jeditable_scripts'));
+			add_filter('the_title', array($this, 'jeditable_post_title'), 10, 2);
+			add_filter('the_content', array($this, 'jeditable_post_content'), 100);
+			//add_filter('the_excerpt', array($this, 'jeditable_post_excerpt'), 100); nope!
+		}
+
+		add_action('wp_ajax_nopriv_jeditable_artguides', array($this, 'jeditable_ajax'));
+		add_action('wp_ajax_jeditable_artguides', array($this, 'jeditable_ajax'));
+	}
+
+	function jeditable_scripts() {
+
 		wp_enqueue_style('jquery-wysiwyg');
-		wp_enqueue_script('jquery-wysiwyg');
 		wp_enqueue_script('jquery-jeditable');
 		wp_enqueue_script('jquery-jeditable-wysiwyg');
 		wp_enqueue_script('jquery-autosize');
@@ -580,15 +592,6 @@ class ArteForaDoMuseu_ArtGuides {
 			'saving' => __('Saving...', 'arteforadomuseu'),
 			'css' => get_stylesheet_directory_uri() . '/css/main.css' /* todo */
 		));
-
-		if(!is_admin() && !is_feed()) {
-			add_filter('the_title', array($this, 'jeditable_post_title'), 10, 2);
-			add_filter('the_content', array($this, 'jeditable_post_content'), 100);
-			//add_filter('the_excerpt', array($this, 'jeditable_post_excerpt'), 100); nope!
-		}
-
-		add_action('wp_ajax_nopriv_jeditable_artguides', array($this, 'jeditable_ajax'));
-		add_action('wp_ajax_jeditable_artguides', array($this, 'jeditable_ajax'));
 	}
 
 	function jeditable($content, $type = 'text', $post_id = false) {
