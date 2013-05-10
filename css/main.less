@@ -1520,8 +1520,14 @@ body.wysiwyg p {
 	#masthead {
 		height: 150px !important;
 		&.scrolled {
-			height: 0;
+			height: 90px !important;
 			overflow: hidden;
+			#searchform {
+				top: 120px;
+			}
+			#main-nav {
+				top: 90px !important;
+			}
 		}
 		.city-selector {
 			position: absolute;
@@ -1529,6 +1535,45 @@ body.wysiwyg p {
 			margin: 0;
 		}
 		#masthead-nav {
+			#main-nav {
+				//clip: rect(0 0 0 0);
+				max-height: 0;
+				position: fixed !important;
+				display: block;
+				overflow: hidden;
+				zoom: 1;
+				top: 150px;
+				right: 0px;
+				left: 0px;
+				z-index: 99999;
+				background: #333;
+				ul {
+					margin: 0;
+					padding: 0;
+					li {
+						float: none !important;
+						display: block;
+						margin: 0 !important;
+						a {
+							float:none !important;
+							display: block;
+							padding: 15px 30px !important;
+							background: #222;
+							.gradient(#303030, #222, #303030);
+							color: #f0f0f0 !important;
+							border-bottom: 1px solid #000 !important;
+							&:hover {
+								background: #000 !important;
+								color: #fff;
+							}
+						}
+					}
+				}
+				&.opened {
+					z-index: 99999;
+					max-height: 9999px;
+				}
+			}
 			#searchform {
 				width: 50%;
 				height: auto;
@@ -1566,41 +1611,6 @@ body.wysiwyg p {
 			}
 		}
 	}
-	.js #main-nav {
-		//clip: rect(0 0 0 0);
-		max-height: 0;
-		position: fixed !important;
-		display: block;
-		overflow: hidden;
-		zoom: 1;
-		top: 150px;
-		right: 0px;
-		left: 0px;
-		z-index: 99999;
-		background: #333;
-		ul {
-			margin: 0;
-			padding: 0;
-			li {
-				float: none !important;
-				display: block;
-				margin: 0 !important;
-				a {
-					float:none !important;
-					display: block;
-					padding: 15px 30px !important;
-					background: #222;
-					.gradient(#303030, #222, #303030);
-					color: #f0f0f0 !important;
-					border-bottom: 1px solid #000 !important;
-					&:hover {
-						background: #000 !important;
-						color: #fff;
-					}
-				}
-			}
-		}
-	}
 	.js #main-nav.opened {
 		z-index: 99999;
 		max-height: 9999px;
@@ -1614,5 +1624,10 @@ body.wysiwyg p {
 		font-size: 40px !important;
 		right: 0;
 		.lsf
+	}
+	.scrolled {
+		#nav-toggle {
+			top: 40px;
+		}
 	}
 }
