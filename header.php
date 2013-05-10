@@ -49,17 +49,18 @@
 							<span class="city-title"><span class="lsf">down</span> <?php _e('Select a city', 'arteforadomuseu'); ?></span>
 						<?php endif; ?>
 						<ul class="city-list">
+							<?php if($user_city) : ?>
+								<li class="tip"><?php _e('Choose another city:', 'arteforadomuseu'); ?></li>
+								<li>
+									<a href="?select_city=all"><?php _e('All cities', 'arteforadomuseu'); ?></a>
+								</li>
+							<?php endif; ?>
 							<?php foreach($cities as $city) : ?>
 								<?php if($user_city == $city->name) continue; ?>
 								<li>
 									<a href="?select_city=<?php echo $city->term_id; ?>"><?php echo $city->name; ?></a>
 								</li>
 							<?php endforeach; ?>
-							<?php if($user_city) : ?>
-								<li>
-									<a href="?select_city=all"><?php _e('All cities', 'arteforadomuseu'); ?></a>
-								</li>
-							<?php endif; ?>
 						</ul>
 					</div>
 				<?php endif; ?>
@@ -71,9 +72,34 @@
 							<ul>
 								<li><a href="<?php echo afdm_artguides_get_archive_link(); ?>"><?php _e('Art guides', 'arteforadomuseu'); ?></a></li>
 								<li><a href="#"><?php _e('Artists', 'arteforadomuseu'); ?></a></li>
-								<li>
-									<a href="#"><?php _e('Categories', 'arteforadomuseu'); ?></a>
-								</li>
+								<?php
+								$categories = get_categories();
+								if($categories) :
+									?>
+									<li class="categories">
+										<?php
+										if(is_category()) :
+											$current_category = array_shift(get_the_category());
+											$category_id = $current_category->term_id;
+											?>
+											<a href="<?php echo get_category_link($category_id); ?>" class="current-menu-item <?php echo $current_category->slug; ?>"><?php echo $current_category->name; ?> <span class="lsf">down</span></a>
+										<?php else : ?>
+											<a href="#"><?php _e('Categories', 'arteforadomuseu'); ?> <span class="lsf">down</span></a>
+										<?php endif; ?>
+										<ul class="category-list">
+											<?php if($current_category) : ?>
+												<li class="tip"><?php _e('Choose another category:', 'arteforadomuseu'); ?></li>
+											<?php endif; ?>
+											<?php foreach($categories as $category) : ?>
+												<?php if($current_category && $category->term_id == $category_id) continue; ?>
+												<li>
+													<a href="<?php echo get_category_link($category->term_id); ?>" class="<?php echo $category->slug; ?>"><?php echo $category->name; ?></a>
+												</li>
+											<?php endforeach; ?>
+										</ul>
+									</li>
+								<?php endif; ?>
+							</ul>
 						</nav>
 						<?php get_search_form(); ?>
 						<?php afdm_get_user_menu(); ?>

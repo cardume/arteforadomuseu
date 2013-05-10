@@ -286,6 +286,12 @@ button {
 				&:last-child {
 					border-bottom: 0;
 				}
+				&.tip {
+					padding: 0 10px 10px;
+					color: #999;
+					font-style: italic;
+					font-size: 11px;
+				}
 			}
 		}
 		&:hover {
@@ -329,65 +335,91 @@ button {
 							.border-radius(0 0 0);
 						}
 					}
-					&.current-menu-item a,
-					&.current-post-ancestor a,
-					&.current-menu-parent a,
-					&.current-post-parent a {
-						.box-shadow(0 0 15px rgba(0,0,0,0.8));
-						color: #fff;
-						font-weight: 600;
-						text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
-						background-color: darken(@gray, 25%);
-						.gradient(darken(@gray, 25%), darken(@gray, 25%), darken(@gray, 15%));
-					}
-					&.grafite {
-						a:hover {
-							border-color: darken(@grafite, 10%);
+					&.categories {
+						> a {
+							padding: 10px !important;
+							color: #fff;
+							font-weight: 600;
+							.transition(all 0);
 						}
-						&.current-menu-item a,
-						&.current-post-ancestor a,
-						&.current-menu-parent a,
-						&.current-post-parent a {
-							background-color: darken(@grafite, 25%);
-							.gradient(darken(@grafite, 25%), darken(@grafite, 25%), darken(@grafite, 15%));
+						.grafite {
+							&:hover,
+							&.current-menu-item {
+								.gradient(darken(@grafite, 25%), darken(@grafite, 25%), darken(@grafite, 15%));
+							}
 						}
-					}
-					&.mural {
-						a:hover {
-							border-color: darken(@mural, 10%);
+						.mural {
+							&:hover,
+							&.current-menu-item {
+								.gradient(darken(@mural, 25%), darken(@mural, 25%), darken(@mural, 15%));
+							}
 						}
-						&.current-menu-item a,
-						&.current-post-ancestor a,
-						&.current-menu-parent a,
-						&.current-post-parent a {
-							background-color: darken(@mural, 25%);
-							.gradient(darken(@mural, 25%), darken(@mural, 25%), darken(@mural, 15%));
+						.arquitetura {
+							&:hover,
+							&.current-menu-item  {
+								.gradient(darken(@arquitetura, 25%), darken(@arquitetura, 25%), darken(@arquitetura, 15%));
+							}
 						}
-					}
-					&.arquitetura {
-						a:hover {
-							border-color: darken(@arquitetura, 10%);
-							background: transparent;
+						.escultura {
+							&:hover,
+							&.current-menu-item  {
+								.gradient(darken(@escultura, 25%), darken(@escultura, 25%), darken(@escultura, 15%));
+							}
 						}
-						&.current-menu-item a,
-						&.current-post-ancestor a,
-						&.current-menu-parent a,
-						&.current-post-parent a {
-							background-color: darken(@arquitetura, 25%);
-							.gradient(darken(@arquitetura, 25%), darken(@arquitetura, 25%), darken(@arquitetura, 15%));
+						.lsf {
+							font-size: 12px;
+							margin-left: 5px;
 						}
-					}
-					&.escultura {
-						a:hover {
-							border-color: darken(@escultura, 10%);
-							background: transparent;
+						&:hover {
+							> a {
+								color: #333;
+								.gradient(#f0f0f0, #f0f0f0, #ccc);
+								.box-shadow(0 0 0);
+								text-shadow: 0 0 0;
+								border-color: #f0f0f0;
+								position: relative;
+								z-index: 2;
+								&.current-menu-item {
+									color: #fff;
+								}
+							}
 						}
-						&.current-menu-item a,
-						&.current-post-ancestor a,
-						&.current-menu-parent a,
-						&.current-post-parent a {
-							background-color: darken(@escultura, 25%);
-							.gradient(darken(@escultura, 25%), darken(@escultura, 25%), darken(@escultura, 15%));
+						ul {
+							position: absolute;
+							margin: 0;
+							padding: 0;
+							top: 40px;
+							right: 0;
+							left: auto;
+							.border-radius(0 0 0 0);
+							.gradient(#f0f0f0, #ddd, #f0f0f0);
+							.box-shadow(0 0 15px rgba(0,0,0,0.6));
+							border: 0;
+							li {
+								margin: 0;
+								padding: 0;
+								border-bottom: 1px solid #ccc;
+								a {
+									font-size: 12px;
+									padding: 15px !important;
+									margin: 0;
+									border: 0;
+									font-weight: 800;
+									color: #666;
+									&:hover {
+										color: #f0f0f0;
+									}
+								}
+								&:last-child {
+									border-bottom: 0;
+								}
+								&.tip {
+									padding: 10px 15px;
+									color: #999;
+									font-style: italic;
+									font-size: 11px;
+								}
+							}
 						}
 					}
 				}
@@ -718,6 +750,8 @@ button {
 }
 
 .displaying-map #content {
+	width: 35%;
+	min-width: 350px;
 	color: #f0f0f0;
 	background: #333;
 	position: absolute;
@@ -725,12 +759,9 @@ button {
 	bottom: @bottom;
 	right: 0;
 	padding: 0;
-	width: 35%;
-	min-width: 350px;
 	overflow: auto;
 	.box-sizing(border-box);
 	margin: 0;
-	.box-shadow(0 0 15px rgba(0,0,0,0.9));
 	.section-title {
 		background: transparent;
 		padding: 0;

@@ -24,7 +24,7 @@ class ArteForaDoMuseu_Geolocator {
 
 		// find on map
 
-		//add_action('wp_enqueue_scripts', array($this, 'scripts'));
+		// add_action('wp_enqueue_scripts', array($this, 'scripts'));
 
 		// find on markers
 
@@ -56,7 +56,6 @@ class ArteForaDoMuseu_Geolocator {
 		$wp->add_query_var('city_not_found');
 		$wp->add_query_var('not_geo_query');
 
-		//add_action('mappress_marker_query', array($this, 'get_geo_query'));
 		add_action('pre_get_posts', array($this, 'geo_wp_query'));
 
 	}
@@ -101,28 +100,6 @@ class ArteForaDoMuseu_Geolocator {
 
 	function is_geo_query($query) {
 		return apply_filters('afdm_is_geo_query', (!is_admin() && !$query->get('not_geo_query')), $query);
-	}
-
-	function get_geo_query($query = false) {
-
-		if(!$query)
-			$query = array();
-
-		$city = $this->get_user_city();
-
-		if($city) {
-
-			if(!$query['meta_query'])
-				$query['meta_query'] = array();
-
-			$query['meta_query'][] = array(
-				'key' => '_geocode_city',
-				'value' => $city
-			);
-
-		}
-
-		return $query;
 	}
 
 	/*
@@ -256,9 +233,4 @@ function afdm_is_from_user_city() {
 function afdm_get_user_city() {
 	global $geolocator;
 	return $geolocator->get_user_city();
-}
-
-function afdm_get_geo_query($query = false) {
-	global $geolocator;
-	return $geolocator->get_geo_query($query);
 }
