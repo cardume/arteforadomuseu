@@ -2,7 +2,9 @@
 
 	$(document).ready(function() {
 
-		var navigation = responsiveNav('#main-nav');
+		var navigation = responsiveNav('#main-nav', {
+			label: 'menu'
+		});
 
 		$(window).scroll(function() {
 			if($(window).scrollTop() >= 10) {

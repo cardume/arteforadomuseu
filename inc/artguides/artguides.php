@@ -21,6 +21,7 @@ class ArteForaDoMuseu_ArtGuides {
 		$this->set_directories();
 		$this->set_slug();
 		$this->setup_post_type();
+		$this->setup_query();
 		$this->setup_views();
 		$this->setup_marker_query();
 		$this->setup_post();
@@ -90,6 +91,21 @@ class ArteForaDoMuseu_ArtGuides {
 	function setup_featured($post_types) {
 		$post_types[] = $this->post_type;
 		return $post_types;
+	}
+
+	/*
+	 * Custom query stuff
+	 */
+
+	function setup_query() {
+		add_action('pre_get_posts', array($this, 'author_guides_query'), 5);
+	}
+
+	// remove author guides from geo query
+	function author_guides_query($query) {
+		if(is_post_type_archive($this->post_type) && $query->get('author')) {
+			$query->set('not_geo_query', true);
+		}
 	}
 
 	/*

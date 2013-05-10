@@ -54,9 +54,11 @@ class ArteForaDoMuseu_Geolocator {
 
 		global $wp;
 		$wp->add_query_var('city_not_found');
+		$wp->add_query_var('not_geo_query');
 
 		//add_action('mappress_marker_query', array($this, 'get_geo_query'));
 		add_action('pre_get_posts', array($this, 'geo_wp_query'));
+
 	}
 
 	function geo_wp_query($query) {
@@ -98,8 +100,7 @@ class ArteForaDoMuseu_Geolocator {
 	}
 
 	function is_geo_query($query) {
-		return apply_filters('afdm_is_geo_query', !is_admin(), $query);
-		//return ($query->is_main_query() && (is_front_page() || is_category()));
+		return apply_filters('afdm_is_geo_query', (!is_admin() && !$query->get('not_geo_query')), $query);
 	}
 
 	function get_geo_query($query = false) {

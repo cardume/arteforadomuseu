@@ -16,7 +16,7 @@ add_action('after_setup_theme', 'afdm_setup');
 function afdm_scripts() {
 	wp_enqueue_style('afdm-main', get_stylesheet_directory_uri() . '/css/main.css', array(), '1.0');
 	wp_enqueue_script('responsive-nav', get_stylesheet_directory_uri(). '/lib/responsive-nav.min.js', '', '1.0');
-	wp_enqueue_script('afdm', get_stylesheet_directory_uri(). '/js/arteforadomuseu.js', array('responsive-nav'), '0.1');
+	wp_enqueue_script('afdm', get_stylesheet_directory_uri(). '/js/arteforadomuseu.js', array('responsive-nav'), '0.1.1');
 }
 
 function afdm_register_lib() {

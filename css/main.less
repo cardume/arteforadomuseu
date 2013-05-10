@@ -1516,17 +1516,24 @@ body.wysiwyg p {
 	.hide-if-mobile {
 		display: none !important;
 	}
+	.displaying-map #masthead,
 	#masthead {
+		height: 150px !important;
 		&.scrolled {
 			height: 0;
 			overflow: hidden;
 		}
+		.city-selector {
+			position: absolute;
+			top: 100px;
+			margin: 0;
+		}
 		#masthead-nav {
 			#searchform {
-				width: 40%;
+				width: 50%;
 				height: auto;
 				position: absolute;
-				top: 35px;
+				top: 100px;
 				right: 0;
 				margin: 0;
 				> div {
@@ -1535,20 +1542,25 @@ body.wysiwyg p {
 					input#s {
 						width: 100%;
 						height: auto;
-						box-sizing: border-box;
-						padding: 13px 13px 13px 40px !important;
+						.box-sizing(border-box);
+						padding: 8px 8px 8px 35px !important;
 						background: #111;
 						z-index: 1;
 						&:hover,
 						&:focus {
 							width: 100%;
-							padding: 13px 13px 13px 40px !important;
+							padding: 8px 8px 8px 35px !important;
 						}
 					}
 					&:hover {
 						input#s {
-							padding: 13px 13px 13px 40px !important;
+							width: 100%;
+							padding: 8px 8px 8px 35px !important;
 						}
+					}
+					&:before {
+						top: 5px;
+						left: 8px;
 					}
 				}
 			}
@@ -1557,14 +1569,15 @@ body.wysiwyg p {
 	.js #main-nav {
 		//clip: rect(0 0 0 0);
 		max-height: 0;
-		position: absolute !important;
+		position: fixed !important;
 		display: block;
 		overflow: hidden;
 		zoom: 1;
-		top: @top;
+		top: 150px;
 		right: 0px;
 		left: 0px;
 		z-index: 99999;
+		background: #333;
 		ul {
 			margin: 0;
 			padding: 0;
@@ -1575,7 +1588,7 @@ body.wysiwyg p {
 				a {
 					float:none !important;
 					display: block;
-					padding: 10px;
+					padding: 15px 30px !important;
 					background: #222;
 					.gradient(#303030, #222, #303030);
 					color: #f0f0f0 !important;
@@ -1595,7 +1608,11 @@ body.wysiwyg p {
 	#nav-toggle {
 		display: block;
 		position: absolute;
-		top: 0;
+		top: 50px;
+		color: #fff;
+		text-decoration: none;
+		font-size: 40px !important;
 		right: 0;
+		.lsf
 	}
 }
