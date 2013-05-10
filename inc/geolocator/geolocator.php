@@ -98,7 +98,7 @@ class ArteForaDoMuseu_Geolocator {
 	}
 
 	function is_geo_query($query) {
-		return true;
+		return apply_filters('afdm_is_geo_query', !is_admin(), $query);
 		//return ($query->is_main_query() && (is_front_page() || is_category()));
 	}
 
