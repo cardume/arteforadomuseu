@@ -6,6 +6,7 @@
 
 	<article id="content" class="single-post">
 		<header class="single-post-header clearfix">
+			<?php the_post_thumbnail('page-featured'); ?>
 			<h1><?php the_title(); ?></h1>
 		</header>
 		<section class="post-content">

@@ -10,7 +10,8 @@ class ArteForaDoMuseu_Artworks {
 	var $post_type = 'post';
 
 	var $taxonomy_slugs = array(
-		'style' => 'estilo'
+		'style' => 'estilos',
+		'city' => 'cidades'
 	);
 
 	var $directory_uri = '';
@@ -19,11 +20,12 @@ class ArteForaDoMuseu_Artworks {
 
 	function __construct() {
 		$this->set_directories();
-		$this->setup_ajax();
+		$this->setup_views();
 		$this->setup_scripts();
 		$this->register_taxonomies();
 		$this->setup_meta_boxes();
 		$this->hook_ui_elements();
+		$this->setup_ajax();
 	}
 
 	function set_directories() {
@@ -32,21 +34,57 @@ class ArteForaDoMuseu_Artworks {
 	}
 
 	/*
-	 * Ajax stuff
+	 * Artwork views
 	 */
-	function setup_ajax() {
-		add_action('wp_ajax_nopriv_submit_artwork', array($this, 'ajax_add'));
-		add_action('wp_ajax_submit_artwork', array($this, 'ajax_add'));
+
+	function setup_views() {
+		add_action('wp_head', array($this, 'hook_views'));
+		add_action('save_post', array($this, 'first_view'));
 	}
 
-	function ajax_response($data) {
-		header('Content Type: application/json');
-		echo json_encode($data);
-		exit;
+	function hook_views() {
+		if(is_singular($this->post_type)) {
+			global $post;
+			$this->add_view($post->ID);
+		}
 	}
 
-	function ajax_add() {
-		$this->ajax_response(array('error_msg' => 'Em desenvolvimento'));
+	function first_view($post_id) {
+		if(get_post_type($post_id) == $this->post_type) {
+			if(!$this->get_views($post_id) || !$this->get_views($post_id) === 0)
+				update_post_meta($post_id, '_views', 0);
+		}
+	}
+
+	function add_view($post_id) {
+		if(!$post_id)
+			return false;
+
+		$views = get_post_meta($post_id, '_views', true);
+		$views = $views ? $views + 1 : 1;
+
+		update_post_meta($post_id, '_views', $views);
+	}
+
+	function get_views($post_id = false) {
+		global $post;
+		$post_id = $post_id ? $post_id : $post->ID;
+		$views = get_post_meta($post_id, '_views', true);
+		return $views ? $views : 0;
+	}
+
+	function get_popular($amount = 5) {
+		return get_posts(get_popular_query(array('posts_per_page' => $amount)));
+	}
+
+	function get_popular_query($query = array()) {
+		$popular = array(
+			'post_type' => $this->post_type,
+			'orderby' => 'meta_value_num',
+			'order' => 'DESC',
+			'meta_key' => '_views'
+		);
+		return array_merge($query, $popular);
 	}
 
 	/*
@@ -80,6 +118,8 @@ class ArteForaDoMuseu_Artworks {
 
 	function register_taxonomies() {
 		add_action('init', array($this, 'taxonomy_style'));
+		add_action('init', array($this, 'taxonomy_city'));
+		add_action('mappress_geocode_box_save', array($this, 'populate_city'));
 	}
 
 	function taxonomy_style() {
@@ -110,10 +150,56 @@ class ArteForaDoMuseu_Artworks {
 			'show_tagcloud' => true,
 			'hierarchical' => false,
 			'rewrite' => array('slug' => $this->taxonomy_slugs['style'], 'with_front' => false),
-			'query_var' => true
+			'query_var' => true,
+			'show_admin_column' => true
 		);
 
 		register_taxonomy('style', array($this->post_type), $args);
+	}
+
+	function taxonomy_city() {
+
+		$labels = array( 
+			'name' => __('Cities', 'arteforadomuseu'),
+			'singular_name' => __('City', 'arteforadomuseu'),
+			'search_items' => __('Search cities', 'arteforadomuseu'),
+			'popular_items' => __('Popular cities', 'arteforadomuseu'),
+			'all_items' => __('All cities', 'arteforadomuseu'),
+			'parent_item' => __('Parent city', 'arteforadomuseu'),
+			'parent_item_colon' => __('Parent city:', 'arteforadomuseu'),
+			'edit_item' => __('Edit city', 'arteforadomuseu'),
+			'update_item' => __('Update city', 'arteforadomuseu'),
+			'add_new_item' => __('Add new city', 'arteforadomuseu'),
+			'new_item_name' => __('New city name', 'arteforadomuseu'),
+			'separate_items_with_commas' => __('Separate cities with commas', 'arteforadomuseu'),
+			'add_or_remove_items' => __('Add or remove cities', 'arteforadomuseu'),
+			'choose_from_most_used' => __('Choose from most used cities', 'arteforadomuseu'),
+			'menu_name' => __('Cities', 'arteforadomuseu')
+		);
+
+		$args = array( 
+			'labels' => $labels,
+			'public' => true,
+			'show_in_nav_menus' => true,
+			'show_ui' => false,
+			'show_tagcloud' => true,
+			'hierarchical' => false,
+			'rewrite' => array('slug' => $this->taxonomy_slugs['city'], 'with_front' => false),
+			'query_var' => true,
+			'show_admin_column' => true
+		);
+
+		register_taxonomy('city', array($this->post_type), $args);
+
+		do_action('afdm_city_taxonomy_registered');
+	}
+
+	// save mappress city data to taxonomy
+
+	function populate_city($post_id) {
+		if(isset($_POST['geocode_city'])) {
+			wp_set_object_terms($post_id, $_POST['geocode_city'], 'city');
+		}
 	}
 
 	/*
@@ -201,8 +287,24 @@ class ArteForaDoMuseu_Artworks {
 		<?php
 	}
 
+	function box_artworks_videos($post = false) {
+
+		if($post) {
+			$videos = get_artwork_videos();
+		}
+
+		?>
+		<div id="artwork_videos_box">
+			<h4><?php _e('Videos', 'arteforadomuseu'); ?></h4>
+			<div class="box-inputs">
+				<p class="input-container"></p>
+			</div>
+		</div>
+		<?php
+	}
+
 	/*
-	 * Taxonomy boxes, for non-admin usage only
+	 * Taxonomy boxes, for non-admin dashboard usage only
 	 */
 
 	function box_artwork_styles($post = false) {
@@ -240,7 +342,9 @@ class ArteForaDoMuseu_Artworks {
 							fieldName: 'styles',
 							tagLimit: 5,
 							availableTags: <?php echo json_encode($style_names); ?>,
-							autocomplete: { delay: 0, minLength: 2 }
+							autocomplete: { delay: 0, minLength: 2 },
+							allowSpaces: true,
+							caseSensitive: false
 						});
 					});
 				</script>
@@ -303,11 +407,13 @@ class ArteForaDoMuseu_Artworks {
 						<input type="text" name="title" class="title" placeholder="<?php _e('Title', 'arteforadomuseu'); ?>" />
 						<textarea name="content" placeholder="<?php _e('Description', 'arteforadomuseu'); ?>"></textarea>
 						<div class="clearfix">
-							<div class="half-1">
-								<?php $this->box_artwork_styles(); ?>
-								<?php $this->box_artwork_categories(); ?>
+							<div class="two-thirds-1">
+								<div class="categories">
+									<?php $this->box_artwork_styles(); ?>
+									<?php $this->box_artwork_categories(); ?>
+								</div>
 							</div>
-							<div class="half-2">
+							<div class="one-third-2">
 								<?php $this->box_artwork_dimensions(); ?>
 							</div>
 						</div>
@@ -326,6 +432,24 @@ class ArteForaDoMuseu_Artworks {
 			</div>
 		</div>
 		<?php
+	}
+
+	/*
+	 * Ajax stuff
+	 */
+	function setup_ajax() {
+		add_action('wp_ajax_nopriv_submit_artwork', array($this, 'ajax_add'));
+		add_action('wp_ajax_submit_artwork', array($this, 'ajax_add'));
+	}
+
+	function ajax_response($data) {
+		header('Content Type: application/json');
+		echo json_encode($data);
+		exit;
+	}
+
+	function ajax_add() {
+		$this->ajax_response(array('error_msg' => 'Em desenvolvimento'));
 	}
 
 	/*
@@ -362,4 +486,14 @@ class ArteForaDoMuseu_Artworks {
 
 }
 
-new ArteForaDoMuseu_Artworks;
+$artworks = new ArteForaDoMuseu_Artworks();
+
+function afdm_artworks_get_popular_query($query = array()) {
+	global $artworks;
+	return $artworks->get_popular_query($query);
+}
+
+function afdm_get_artwork_views($post_id = false) {
+	global $artworks;
+	return $artworks->get_views($post_id);
+}

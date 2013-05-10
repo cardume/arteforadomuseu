@@ -26,8 +26,10 @@
 
 	box.closed(function() {
 		box.clearFormInputs();
-		box.streetview.geocoder.clearMarkers();
-		box.streetview.geocoder.clearResults();
+		if(box.streetview) {
+			box.streetview.geocoder.clearMarkers();
+			box.streetview.geocoder.clearResults();
+		}
 	});
 
 	function add(serializedData) {

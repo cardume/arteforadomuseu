@@ -75,6 +75,11 @@ class ArteForaDoMuseu_ArtGuides {
 
 		register_post_type($this->post_type, $args);
 
+		add_action('afdm_city_taxonomy_registered', array($this, 'register_city_taxonomy'));
+	}
+
+	function register_city_taxonomy() {
+		register_taxonomy_for_object_type('city', $this->post_type);
 	}
 
 	function remove_from_mappress_mapped($post_types) {
@@ -235,7 +240,7 @@ class ArteForaDoMuseu_ArtGuides {
 		if(!$this->can_edit($_REQUEST['guide_id']))
 			$this->ajax_response(array('error_msg' => __('You are not allowed to do that', 'arteforadomuseu')));
 
-		delete_post_meta($_REQUEST['guide_id'], '_artworks', $_REQUEST['artwork_id']);
+		$this->remove_artwork($_REQUEST['guide_id'], $_REQUEST['artwork_id']);
 		$this->ajax_response(array('success_msg' => __('Artwork has been removed from this art guide', 'arteforadomuseu')));
 	}
 
@@ -261,7 +266,44 @@ class ArteForaDoMuseu_ArtGuides {
 		if($this->has_artwork($guide_id, $artwork_id))
 			return false;
 
-		return add_post_meta($guide_id, '_artworks', $artwork_id);
+		add_post_meta($guide_id, '_artworks', $artwork_id);
+
+		$this->update_guide_cities($guide_id);
+	}
+
+	function remove_artwork($guide_id, $artwork_id) {
+
+		if(!$artwork_id || !$guide_id)
+			return false;
+
+		if(!$this->can_edit($guide_id))
+			return false;
+
+		delete_post_meta($guide_id, '_artworks', $artwork_id);
+
+		$this->update_guide_cities($guide_id);
+	}
+
+	function update_guide_cities($guide_id) {
+
+		$artworks = get_post_meta($guide_id, '_artworks');
+
+		$city_ids = null;
+
+		if($artworks) {
+
+			$city_ids = array();
+
+			foreach($artworks as $artwork_id) {
+
+				$city = array_shift(get_the_terms($artwork_id, 'city'));
+				$city_names[] = $city->name;
+
+			}
+
+		}
+
+		wp_set_object_terms($guide_id, $city_names, 'city');
 	}
 
 	function get_query($guide_id = false, $query = false) {

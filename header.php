@@ -26,21 +26,54 @@
 <body <?php body_class(get_bloginfo('language')); ?>>
 	<header id="masthead">
 		<div class="container">
-			<div class="three columns">
+			<div class="two columns">
 				<div class="site-meta">
 					<h1>
 						<a href="<?php echo home_url('/'); ?>" title="<?php bloginfo('name'); ?>">
 							<?php bloginfo('name'); ?>
-							<img src="<?php echo get_stylesheet_directory_uri(); ?>/img/logo.png" alt="<?php bloginfo('name'); ?>" />
+							<img src="<?php echo get_stylesheet_directory_uri(); ?>/img/logo.png" alt="<?php bloginfo('name'); ?>" class="scale-with-grid" />
 						</a>
 					</h1>
 				</div>
 			</div>
-			<div class="nine columns">
+			<div class="three columns">
+				<?php
+				$user_city = afdm_get_user_city();
+				$cities = get_terms('city');
+				if($cities) :
+					?>
+					<div class="city-selector">
+						<?php if($user_city) : ?>
+							<h2 class="city-title"><span class="lsf">down</span> <?php echo $user_city; ?></h2>
+						<?php else : ?>
+							<span class="city-title"><span class="lsf">down</span> <?php _e('Select a city', 'arteforadomuseu'); ?></span>
+						<?php endif; ?>
+						<ul class="city-list">
+							<?php foreach($cities as $city) : ?>
+								<?php if($user_city == $city->name) continue; ?>
+								<li>
+									<a href="?select_city=<?php echo $city->term_id; ?>"><?php echo $city->name; ?></a>
+								</li>
+							<?php endforeach; ?>
+							<?php if($user_city) : ?>
+								<li>
+									<a href="?select_city=all"><?php _e('All cities', 'arteforadomuseu'); ?></a>
+								</li>
+							<?php endif; ?>
+						</ul>
+					</div>
+				<?php endif; ?>
+			</div>
+			<div class="seven columns">
 				<div id="masthead-nav">
 					<div class="clearfix">
 						<nav id="main-nav">
-							<?php wp_nav_menu(array('theme_location' => 'header_menu')); ?>
+							<ul>
+								<li><a href="<?php echo afdm_artguides_get_archive_link(); ?>"><?php _e('Art guides', 'arteforadomuseu'); ?></a></li>
+								<li><a href="#"><?php _e('Artists', 'arteforadomuseu'); ?></a></li>
+								<li>
+									<a href="#"><?php _e('Categories', 'arteforadomuseu'); ?></a>
+								</li>
 						</nav>
 						<?php get_search_form(); ?>
 						<?php afdm_get_user_menu(); ?>

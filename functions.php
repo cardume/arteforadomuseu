@@ -5,6 +5,7 @@ require_once(STYLESHEETPATH . '/inc/lightbox/lightbox.php');
 require_once(STYLESHEETPATH . '/inc/artguides/artguides.php');
 require_once(STYLESHEETPATH . '/inc/artworks/artworks.php');
 require_once(STYLESHEETPATH . '/inc/featured-content/featured.php');
+require_once(STYLESHEETPATH . '/inc/geolocator/geolocator.php');
 
 function afdm_setup() {
 	add_theme_support('post-thumbnails');
@@ -59,6 +60,16 @@ function afdm_prevent_admin_access() {
 	}
 }
 add_action('admin_init', 'afdm_prevent_admin_access', 0);
+
+function afdm_use_map_query() {
+	return false;
+}
+add_action('mappress_use_map_query', 'afdm_use_map_query');
+
+function afdm_use_hash() {
+	return false;
+}
+add_action('mappress_use_hash', 'afdm_use_hash');
 
 function afdm_get_user_menu() {
 	?>

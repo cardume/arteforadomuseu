@@ -204,6 +204,7 @@ button {
 				height: 40px;
 			}
 		}
+		.city-selector,
 		#masthead-nav {
 			margin-top: 15px;
 		}
@@ -213,15 +214,93 @@ button {
 		.transition(margin .2s ease-in-out);
 		h1 {
 			margin: 0;
-			line-height: 0px;
-			text-indent: -9999px;
-			height: 50px;
-			.transition(all .2s ease-in-out);
-			img {
-				display: block;
-				height: 100%;
-				width: auto;
+			padding: 0;
+			a {
 				.transition(all .2s ease-in-out);
+				line-height: 0px;
+				text-indent: -9999px;
+				width: 100%;
+				height: 50px;
+				display: table;
+				text-align: center;
+				img {
+					display: table-cell;
+					vertical-align: middle;
+					.transition(all .2s ease-in-out);
+				}
+			}
+		}
+	}
+	.city-selector {
+		margin: 40px 0 0 20px;
+		position: relative;
+		.transition(margin .2s ease-in-out);
+		.city-title {
+			margin: 0;
+			padding: 12px 15px 12px 10px;
+			display: block;
+			text-transform: uppercase;
+			color: #f9f9f9;
+			font-weight: 800;
+			text-shadow: 1px 1px 1px rgba(0,0,0,.5);
+			cursor: default;
+			font-size: 12px;
+			line-height: 12px;
+			z-index: 2;
+			position: relative;
+			//.gradient(#2f2f2f, #292929, #2f2f2f);
+			//border: 1px solid #151515;
+		}
+		.lsf {
+			color: #555;
+			font-size: 10px;
+			line-height: 10px;
+			margin-right: 8px;
+			text-shadow: 1px 1px 1px rgba(0,0,0,.3);
+		}
+		.city-list {
+			display: none;
+			.gradient(#f0f0f0, #ddd, #f0f0f0);
+			.box-shadow(0 0 15px rgba(0,0,0,0.6));
+			position: relative;
+			z-index: 1;
+			padding: 0;
+			li {
+				margin: 0;
+				padding: 0;
+				border-bottom: 1px solid #ccc;
+				a {
+					padding: 15px 10px;
+					display: block;
+					font-weight: 800;
+					text-transform: uppercase;
+					font-size: 10px;
+					line-height: 10px;
+					color: #555;
+					text-decoration: none;
+					&:hover {
+						.gradient(#333, #222, #333);
+						color: #f0f0f0;
+					}
+				}
+				&:last-child {
+					border-bottom: 0;
+				}
+			}
+		}
+		&:hover {
+			.city-title {
+				color: #333;
+				.gradient(#f0f0f0, #f0f0f0, #ccc);
+				text-shadow: 0 0 0;
+				border-color: #f0f0f0;
+			}
+			.lsf {
+				color: #333;
+				text-shadow: 0 0 0;
+			}
+			.city-list {
+				display: block;
 			}
 		}
 	}
@@ -246,6 +325,7 @@ button {
 						&:hover {
 							color: #f0f0f0;
 							background: transparent;
+							border-color: darken(@gray, 10%);
 							.border-radius(0 0 0);
 						}
 					}
@@ -476,24 +556,56 @@ button {
 		article {
 			min-height: 0;
 			.border-radius(0);
+			position: relative;
+			.thumbnail-container {
+				width: 100%;
+				height: 20%;
+				overflow: hidden;
+				margin: 0;
+				.wp-post-image {
+					width: 100%;
+					margin-top: -40%;
+					height: auto;
+					display: block;
+				}
+			}
 			.post-header {
-				#remove_artwork {
+				.category {
+					text-transform: uppercase;
+					font-weight: 200;
+					margin: 0;
 					float: right;
-					button {
-						.gradient(#fff, #eee, #fff);
-						border: 0;
+					a {
+						text-decoration: none;
+						color: #666;
+					}
+				}
+				h3 {
+					font-weight: 800;
+					font-size: 20px;
+				}
+				p.meta {
+					span {
+						margin: 0 0 5px;
+						span {
+							display: inline;
+							&.lsf {
+								margin-right: 5px;
+							}
+						}
+					}
+				}
+				.header-actions {
+					border-top: 1px dotted #ccc;
+					padding-top: 10px;
+					padding-bottom: 10px;
+					a {
+						font-size: 11px;
+						font-weight: bold;
+						text-decoration: none;
 						display: block;
-						color: lighten(red, 20%);
-						border: 1px solid lighten(red, 30%);
-						font-size: 14px;
-						line-height: 10px;
-						text-shadow: 0 0 0;
-						&:hover {
-							background: #fff !important;
-						}
-						&:active {
-							.gradient(#ccc, #fff, #ccc);
-						}
+						color: #666;
+						margin: 0 0 5px;
 					}
 				}
 			}
@@ -521,6 +633,63 @@ button {
 				button,
 				.button,
 				input[type=submit] {
+				}
+			}
+		}
+	}
+	&.carousel {
+		.posts-list {
+			position: relative;
+			height: 30%;
+			border: 1px solid #303030;
+			overflow: hidden;
+			margin: 0;
+			padding: 0;
+			li {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				margin: 0;
+				padding: 0;
+				article {
+					.thumbnail-container {
+						width: 100%;
+						height: 100%;
+						overflow: hidden;
+						float: left;
+						margin: 0;
+						.wp-post-image {
+							min-width: 100%;
+							min-height: 100%;
+							width: auto;
+							height: auto;
+							display: block;
+						}
+					}
+					.post-header {
+						position: absolute;
+						bottom: 0;
+						.category {
+							float: none;
+							font-weight: 200;
+							a {
+								color: #fff;
+								text-shadow: 1px 1px 0px rgba(0,0,0,0.8);
+							}
+						}
+						h3 {
+							font-weight: 800;
+							font-size: 22px;
+							line-height: 30px;
+							margin-bottom: 20px;
+							a {
+								color: #fff;
+								text-shadow: 2px 2px 0px rgba(0,0,0,0.5);
+							}
+						}
+					}
 				}
 			}
 		}
@@ -914,18 +1083,39 @@ button {
  // jquery ui fixes
 
 
- #ui-datepicker-div,
- .ui-autocomplete {
- 	z-index: 9999 !important;
- }
+#ui-datepicker-div,
+.ui-autocomplete {
+	z-index: 9999 !important;
+}
 
- #ui-datepicker-div {
- 	.ui-datepicker-title {
-		select {
-			display: inline !important;
-		}
- 	}
- }
+#ui-datepicker-div {
+	.ui-datepicker-title {
+	select {
+		display: inline !important;
+	}
+	}
+}
+
+body {
+	.ui-corner-all {
+		.border-radius(0 0 0 0);
+	}
+	.ui-widget-content {
+		border-color: #ccc;
+	}
+	.ui-state-default,
+	.ui-widget-content .ui-state-default,
+	.ui-widget-header .ui-state-default,
+	.ui-state-hover,
+	.ui-widget-content .ui-state-hover,
+	.ui-widget-header .ui-state-hover,
+	.ui-state-focus,
+	.ui-widget-content .ui-state-focus,
+	.ui-widget-header .ui-state-focus {
+		.gradient(#eee, #e0e0e0, #eee);
+		color: #333;
+	}
+}
 
 .lightbox_section {
 	display: none;
@@ -1014,6 +1204,18 @@ button {
 			.box-sizing(border-box);
 			padding-left: 15px;
 		}
+		.two-thirds-1 {
+			width: 66%;
+			float: left;
+			.box-sizing(border-box);
+			padding-right: 15px;
+		}
+		.one-third-2 {
+			width: 33%;
+			float: left;
+			.box-sizing(border-box);
+			padding-left: 15px;
+		}
 		form {
 			width: 100%;
 			input.title {
@@ -1029,6 +1231,10 @@ button {
 				display: block;
 				width: 100%;
 				padding: 15px;
+			}
+			select {
+				padding: 5px;
+				width: 100%;
 			}
 			input[type=submit],
 			.close {
@@ -1091,6 +1297,11 @@ button {
 			label {
 				margin: 0;
 				display: inline;
+			}
+			input {
+				width: 80%;
+				font-size: 16px;
+				padding: 14px;
 			}
 			label {
 				margin-left: 10px;
@@ -1251,8 +1462,9 @@ body.wysiwyg p {
 		.site-meta {
 			margin: 28px 0;
 		}
+		.city-selector,
 		#masthead-nav {
-			margin: 33px 0;
+			margin-top: 33px;
 		}
 	}
 	#content {
@@ -1269,7 +1481,19 @@ body.wysiwyg p {
 }
 
 @media only screen and (min-width: 768px) and (max-width: 959px) {
+	.displaying-map #masthead,
 	#masthead {
+		#masthead-nav {
+			nav {
+				ul {
+					> li {
+						a {
+							padding: 10px 5px;
+						}
+					}
+				}
+			}
+		}
 		.user-meta {
 			.user-name {
 				display:none;
