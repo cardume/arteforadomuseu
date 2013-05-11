@@ -382,7 +382,7 @@ class ArteForaDoMuseu_ArtGuides {
 
 	function get_from_user($user_id = false) {
 		$user_id = $user_id ? $user_id : wp_get_current_user()->ID;
-		return get_posts(array('post_type' => $this->post_type, 'author' => $user_id, 'posts_per_page' => -1));
+		return get_posts(array('post_type' => $this->post_type, 'author' => $user_id, 'posts_per_page' => -1, 'not_geo_query' => true));
 	}
 
 	function get_artworks_id($guide_id) {
@@ -579,7 +579,7 @@ class ArteForaDoMuseu_ArtGuides {
 						</div>
 						<div class="form-actions">
 							<input type="submit" value="<?php _e('Add artwork', 'arteforadomuseu'); ?>" />
-							<a class="close" href="#"><?php _e('Cancel', 'arteforadomuseu'); ?></a>
+							<a class="close button secondary" href="#"><?php _e('Cancel', 'arteforadomuseu'); ?></a>
 						</div>
 					</form>
 				<?php endif; ?>

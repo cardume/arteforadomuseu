@@ -167,6 +167,7 @@ body {
 a.button,
 button,
 input[type=submit] {
+	font-family: "Open Sans", sans-serif;
 	padding: 10px;
 	font-size: 10px;
 	line-height: 10px;
@@ -193,6 +194,7 @@ input[type=submit] {
 		text-shadow: 0 0 0;
 		.gradient(#bbb, #bbb, #ccc);
 		border-color: #bbb;
+		font-weight: 600;
 		&:hover {
 			.gradient(#bfbfbf, #bfbfbf, #cfcfcf);
 		}
@@ -365,7 +367,7 @@ input[type=submit] {
 						> a {
 							padding: 10px !important;
 							color: #fff;
-							font-weight: 600;
+							font-weight: 800;
 							.transition(all 0);
 						}
 						.grafite {
@@ -1333,7 +1335,7 @@ body {
 		}
 	}
 	.form-actions {
-		margin-top: 28px;
+		margin-top: 24px;
 		float: right;
 	}
 }
@@ -1567,6 +1569,20 @@ body.wysiwyg p {
  * Responsive
  */
 
+@media only screen and (min-width: 1280px) {
+	.displaying-map #masthead,
+	#masthead {
+		#masthead-nav {
+			nav {
+				margin-right: 30px;
+				.categories {
+					margin-left: 10px !important;
+				}
+			}
+		}
+	}
+}
+
 @media only screen and (min-height: 0) and (max-height: 650px) {
 	#masthead,
 	.displaying-map #masthead {
@@ -1651,8 +1667,8 @@ body.wysiwyg p {
 				//clip: rect(0 0 0 0);
 				max-height: 0;
 				position: fixed !important;
-				display: block;
 				overflow: hidden;
+				display: block;
 				zoom: 1;
 				top: 150px;
 				right: 0px;
@@ -1679,11 +1695,25 @@ body.wysiwyg p {
 								color: #fff;
 							}
 						}
+						ul {
+							display: block !important;
+							opacity: 1 !important;
+							width: 100%;
+							background: #333;
+							top: 50px !important;
+							li {
+								border: 0 !important;
+								a {
+									padding-left: 50px !important;
+								}
+							}
+						}
 					}
 				}
 				&.opened {
 					z-index: 99999;
 					max-height: 9999px;
+					overflow:visible;
 				}
 			}
 			#searchform {
