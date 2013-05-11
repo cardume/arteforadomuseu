@@ -42,7 +42,7 @@ class ArteForaDoMuseu_ArtGuides {
 
 	function setup_post_type() {
 		add_action('init', array($this, 'register_post_type'));
-		add_filter('mappress_mapped_post_types', array($this, 'remove_from_mappress_mapped'));
+		add_filter('mappress_mapped_post_types', array($this, 'unset_from_mappress_mapped'));
 		add_filter('afdm_featured_post_types', array($this, 'setup_featured'));
 	}
 
@@ -76,14 +76,15 @@ class ArteForaDoMuseu_ArtGuides {
 
 		register_post_type($this->post_type, $args);
 
-		add_action('afdm_city_taxonomy_registered', array($this, 'register_city_taxonomy'));
+		add_action('afdm_geo_post_types', array($this, 'geocode_post_type'));
 	}
 
-	function register_city_taxonomy() {
-		register_taxonomy_for_object_type('city', $this->post_type);
+	function geocode_post_type($post_types) {
+		$post_types[] = $this->post_type;
+		return $post_types;
 	}
 
-	function remove_from_mappress_mapped($post_types) {
+	function unset_from_mappress_mapped($post_types) {
 		unset($post_types[$this->post_type]);
 		return $post_types;
 	}
@@ -98,46 +99,31 @@ class ArteForaDoMuseu_ArtGuides {
 	 */
 
 	function setup_query() {
-		add_action('pre_get_posts', array($this, 'author_guides_query'), 5);
+		add_action('pre_get_posts', array($this, 'guides_query'), 5);
 	}
 
-	// remove author guides from geo query
-	function author_guides_query($query) {
+	// remove author guides and singular from geo query
+	function guides_query($query) {
 		if(is_post_type_archive($this->post_type) && $query->get('author')) {
+			$query->set('not_geo_query', true);
+		}
+		if($this->is_singular || is_singular($this->post_type)) {
 			$query->set('not_geo_query', true);
 		}
 	}
 
 	/*
-	 * Art guide views
+	 * Add to view system
 	 */
-
 	function setup_views() {
-		add_action('wp_head', array($this, 'hook_views'));
+		add_action('afdm_views_post_types', array($this, 'register_views'));
 	}
 
-	function hook_views() {
-		if(is_singular($this->post_type)) {
-			global $post;
-			$this->add_view($post->ID);
-		}
-	}
+	function register_views($post_types) {
+		if(!in_array($this->post_type, $post_types))
+			$post_types[] = $this->post_type;
 
-	function add_view($post_id) {
-		if(!$post_id)
-			return false;
-
-		$views = get_post_meta($post_id, '_views', true);
-		$views = $views ? $views + 1 : 1;
-
-		update_post_meta($post_id, '_views', $views);
-	}
-
-	function get_views($post_id = false) {
-		global $post;
-		$post_id = $post_id ? $post_id : $post->ID;
-		$views = get_post_meta($post_id, '_views', true);
-		return $views ? $views : 0;
+		return $post_types;
 	}
 
 	/*
@@ -341,11 +327,8 @@ class ArteForaDoMuseu_ArtGuides {
 		$query = array(
 			'post_type' => $this->post_type,
 			'posts_per_page' => $amount,
-			'orderby' => 'meta_value_num',
-			'order' => 'DESC',
-			'meta_key' => '_views'
 		);
-		return get_posts($query);
+		return get_posts(afdm_get_popular_query($query));
 	}
 
 	function get_featured($amount = 5) {
@@ -569,7 +552,7 @@ class ArteForaDoMuseu_ArtGuides {
 					</div>
 					<div class="form-actions">
 						<input type="submit" value="<?php _e('Create', 'arteforadomuseu'); ?>" />
-						<a class="close" href="#"><?php _e('Cancel', 'arteforadomuseu'); ?></a>
+						<a class="close button secondary" href="#"><?php _e('Cancel', 'arteforadomuseu'); ?></a>
 					</div>
 				</form>
 			</div>
@@ -610,7 +593,7 @@ class ArteForaDoMuseu_ArtGuides {
 					</div>
 					<div class="form-actions">
 						<input type="submit" value="<?php _e('Create and add artwork', 'arteforadomuseu'); ?>" />
-						<a class="close" href="#"><?php _e('Cancel', 'arteforadomuseu'); ?></a>
+						<a class="close button secondary" href="#"><?php _e('Cancel', 'arteforadomuseu'); ?></a>
 					</div>
 				</form>
 			</div>

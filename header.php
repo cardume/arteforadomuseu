@@ -37,33 +37,7 @@
 				</div>
 			</div>
 			<div class="three columns">
-				<?php
-				$user_city = afdm_get_user_city();
-				$cities = get_terms('city');
-				if($cities) :
-					?>
-					<div class="city-selector">
-						<?php if($user_city) : ?>
-							<h2 class="city-title"><span class="lsf">down</span> <?php echo $user_city; ?></h2>
-						<?php else : ?>
-							<span class="city-title"><span class="lsf">down</span> <?php _e('Select a city', 'arteforadomuseu'); ?></span>
-						<?php endif; ?>
-						<ul class="city-list">
-							<?php if($user_city) : ?>
-								<li class="tip"><?php _e('Choose another city:', 'arteforadomuseu'); ?></li>
-								<li>
-									<a href="?select_city=all"><?php _e('All cities', 'arteforadomuseu'); ?></a>
-								</li>
-							<?php endif; ?>
-							<?php foreach($cities as $city) : ?>
-								<?php if($user_city == $city->name) continue; ?>
-								<li>
-									<a href="?select_city=<?php echo $city->term_id; ?>"><?php echo $city->name; ?></a>
-								</li>
-							<?php endforeach; ?>
-						</ul>
-					</div>
-				<?php endif; ?>
+				<?php afdm_city_selector(); ?>
 			</div>
 			<div class="seven columns">
 				<div id="masthead-nav">

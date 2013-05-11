@@ -1,0 +1,24 @@
+#artwork_videos_box .box-inputs,
+#artwork_links_box .box-inputs {
+	margin: 20px 0 10px;
+	clear: both;
+	display: block;
+}
+
+#artwork_videos_box ul li,
+#artwork_links_box ul li {
+	width: 100%;
+	display: block;
+	margin: 0 0 10px;
+	clear: both;
+}
+
+#artwork_videos_box ul li p,
+#artwork_links_box ul li p {
+	float: left;
+	margin: 0 20px 0 0;
+}
+
+#artwork_videos_box ul li .button,
+#artwork_links_box ul li .button {
+}

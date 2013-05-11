@@ -6,7 +6,7 @@
 
 	$city = afdm_get_user_city();
 
-	$popular_query = afdm_artworks_get_popular_query();
+	$popular_query = afdm_get_popular_query();
 
 	$query = array_merge($wp_query->query, $popular_query);
 

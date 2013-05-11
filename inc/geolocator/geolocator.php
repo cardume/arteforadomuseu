@@ -3,18 +3,17 @@
 /*
  * Arte Fora do Museu
  * Geolocator
- * Find user's city using HTML5 and Google API
  */
 
 class ArteForaDoMuseu_Geolocator {
 
-	var $cookie_name = 'afdm_user_city';
-
 	var $user_city = null;
 
-	function __construct() {
+	var $city_slug = 'cidades';
 
-		$this->setup_cookies();
+	var $cookie_name = 'afdm_user_city';
+
+	function __construct() {
 
 		add_action('init', array($this, 'setup'));
 
@@ -28,13 +27,17 @@ class ArteForaDoMuseu_Geolocator {
 
 		// find on markers
 
+		$this->register_taxonomy();
+
 		$this->queries();
+
+		$this->setup_cookies();
 
 	}
 
 	/*
 	 * Script to find on map
-	 */
+	 * NOT USED
 
 	function scripts() {
 		if(mappress_get_geocode_service() == 'gmaps' && mappress_get_gmaps_api_key()) {
@@ -45,9 +48,71 @@ class ArteForaDoMuseu_Geolocator {
 			));
 		}
 	}
+	 */
+
 
 	/*
-	 * Change markers to location using GeoIP
+	 * City taxonomy connected to MapPress geocode box
+	 */
+
+	function register_taxonomy() {
+		$this->taxonomy_city();
+		add_action('mappress_geocode_box_save', array($this, 'populate_city'));
+	}
+
+	function geo_post_types() {
+		return apply_filters('afdm_geo_post_types', mappress_get_mapped_post_types());
+	}
+
+	function taxonomy_city() {
+
+		$labels = array(
+			'name' => __('Cities', 'arteforadomuseu'),
+			'singular_name' => __('City', 'arteforadomuseu'),
+			'search_items' => __('Search cities', 'arteforadomuseu'),
+			'popular_items' => __('Popular cities', 'arteforadomuseu'),
+			'all_items' => __('All cities', 'arteforadomuseu'),
+			'parent_item' => __('Parent city', 'arteforadomuseu'),
+			'parent_item_colon' => __('Parent city:', 'arteforadomuseu'),
+			'edit_item' => __('Edit city', 'arteforadomuseu'),
+			'update_item' => __('Update city', 'arteforadomuseu'),
+			'add_new_item' => __('Add new city', 'arteforadomuseu'),
+			'new_item_name' => __('New city name', 'arteforadomuseu'),
+			'separate_items_with_commas' => __('Separate cities with commas', 'arteforadomuseu'),
+			'add_or_remove_items' => __('Add or remove cities', 'arteforadomuseu'),
+			'choose_from_most_used' => __('Choose from most used cities', 'arteforadomuseu'),
+			'menu_name' => __('Cities', 'arteforadomuseu')
+		);
+
+		$args = array(
+			'labels' => $labels,
+			'public' => true,
+			'show_in_nav_menus' => true,
+			'show_ui' => false,
+			'show_tagcloud' => true,
+			'hierarchical' => false,
+			'rewrite' => array('slug' => $this->city_slug, 'with_front' => false),
+			'query_var' => true,
+			'show_admin_column' => true
+		);
+
+		register_taxonomy('city', $this->geo_post_types(), $args);
+
+		do_action('afdm_city_taxonomy_registered');
+
+	}
+
+	// save mappress city data to taxonomy
+
+	function populate_city($post_id) {
+		if(isset($_POST['geocode_city'])) {
+			wp_set_object_terms($post_id, $_POST['geocode_city'], 'city');
+		}
+	}
+
+	/*
+	 * Setup queries
+	 * If no city was found, set a query var and return all cities results
 	 */
 
 	function queries() {
@@ -90,7 +155,9 @@ class ArteForaDoMuseu_Geolocator {
 
 	}
 
-	// check the query if the city was not found
+	/*
+	 * Verify if the query is returning city results
+	 */
 	function is_from_user_city() {
 		global $wp_query;
 		if(get_query_var('city_not_found'))
@@ -98,16 +165,49 @@ class ArteForaDoMuseu_Geolocator {
 		return true;
 	}
 
+	/*
+	 * Verify which query to inject city term
+	 */
 	function is_geo_query($query) {
 		return apply_filters('afdm_is_geo_query', (!is_admin() && !$query->get('not_geo_query')), $query);
 	}
 
 	/*
-	 * Cookie by city term (storing with select_city query)
+	 * Cookie by city term
 	 */
 
+	function city_selector() {
+		$user_city = $this->get_user_city();
+		$cities = get_terms('city');
+		if($cities) {
+			?>
+			<div class="city-selector">
+				<?php if($user_city) : ?>
+					<h2 class="city-title"><span class="lsf">down</span> <?php echo $user_city; ?></h2>
+				<?php else : ?>
+					<span class="city-title"><span class="lsf">down</span> <?php _e('Select a city', 'arteforadomuseu'); ?></span>
+				<?php endif; ?>
+				<ul class="city-list">
+					<?php if($user_city) : ?>
+						<li class="tip"><?php _e('Choose another city:', 'arteforadomuseu'); ?></li>
+						<li>
+							<a href="?select_city=all"><?php _e('All cities', 'arteforadomuseu'); ?></a>
+						</li>
+					<?php endif; ?>
+					<?php foreach($cities as $city) : ?>
+						<?php if($user_city == $city->name) continue; ?>
+						<li>
+							<a href="?select_city=<?php echo $city->term_id; ?>"><?php echo $city->name; ?></a>
+						</li>
+					<?php endforeach; ?>
+				</ul>
+			</div>
+			<?php
+		}
+	}
+
 	function setup_cookies() {
-		add_action('init', array($this, 'verify_cookie'));
+		$this->verify_cookie();
 	}
 
 	function verify_cookie() {
@@ -224,6 +324,11 @@ class ArteForaDoMuseu_Geolocator {
 }
 
 $geolocator = new ArteForaDoMuseu_Geolocator();
+
+function afdm_city_selector() {
+	global $geolocator;
+	return $geolocator->city_selector();
+}
 
 function afdm_is_from_user_city() {
 	global $geolocator;

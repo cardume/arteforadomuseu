@@ -10,7 +10,7 @@
 							<h3><a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php the_title(); ?></a></h3>
 							<p class="meta">
 								<span class="date"><span class="lsf">time</span> <?php echo get_the_date(); ?></span>
-								<span class="views"><span class="lsf">view</span> <?php echo afdm_get_artwork_views(); ?></span>
+								<span class="views"><span class="lsf">view</span> <?php echo afdm_get_views(); ?></span>
 							</p>
 							<?php do_action('afdm_after_artwork_header'); ?>
 						</header>

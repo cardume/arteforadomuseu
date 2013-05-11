@@ -1,10 +1,10 @@
 <?php
 
-
+require_once(STYLESHEETPATH . '/inc/views.php');
+require_once(STYLESHEETPATH . '/inc/featured.php');
 require_once(STYLESHEETPATH . '/inc/lightbox/lightbox.php');
 require_once(STYLESHEETPATH . '/inc/artguides/artguides.php');
 require_once(STYLESHEETPATH . '/inc/artworks/artworks.php');
-require_once(STYLESHEETPATH . '/inc/featured-content/featured.php');
 require_once(STYLESHEETPATH . '/inc/geolocator/geolocator.php');
 
 function afdm_setup() {

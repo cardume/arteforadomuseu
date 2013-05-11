@@ -10,8 +10,7 @@ class ArteForaDoMuseu_Artworks {
 	var $post_type = 'post';
 
 	var $taxonomy_slugs = array(
-		'style' => 'estilos',
-		'city' => 'cidades'
+		'style' => 'estilos'
 	);
 
 	var $directory_uri = '';
@@ -34,57 +33,17 @@ class ArteForaDoMuseu_Artworks {
 	}
 
 	/*
-	 * Artwork views
+	 * Add to view system
 	 */
-
 	function setup_views() {
-		add_action('wp_head', array($this, 'hook_views'));
-		add_action('save_post', array($this, 'first_view'));
+		add_action('afdm_views_post_types', array($this, 'register_views'));
 	}
 
-	function hook_views() {
-		if(is_singular($this->post_type)) {
-			global $post;
-			$this->add_view($post->ID);
-		}
-	}
+	function register_views($post_types) {
+		if(!in_array($this->post_type, $post_types))
+			$post_types[] = $this->post_type;
 
-	function first_view($post_id) {
-		if(get_post_type($post_id) == $this->post_type) {
-			if(!$this->get_views($post_id) || !$this->get_views($post_id) === 0)
-				update_post_meta($post_id, '_views', 0);
-		}
-	}
-
-	function add_view($post_id) {
-		if(!$post_id)
-			return false;
-
-		$views = get_post_meta($post_id, '_views', true);
-		$views = $views ? $views + 1 : 1;
-
-		update_post_meta($post_id, '_views', $views);
-	}
-
-	function get_views($post_id = false) {
-		global $post;
-		$post_id = $post_id ? $post_id : $post->ID;
-		$views = get_post_meta($post_id, '_views', true);
-		return $views ? $views : 0;
-	}
-
-	function get_popular($amount = 5) {
-		return get_posts(get_popular_query(array('posts_per_page' => $amount)));
-	}
-
-	function get_popular_query($query = array()) {
-		$popular = array(
-			'post_type' => $this->post_type,
-			'orderby' => 'meta_value_num',
-			'order' => 'DESC',
-			'meta_key' => '_views'
-		);
-		return array_merge($query, $popular);
+		return $post_types;
 	}
 
 	/*
@@ -118,8 +77,6 @@ class ArteForaDoMuseu_Artworks {
 
 	function register_taxonomies() {
 		add_action('init', array($this, 'taxonomy_style'));
-		add_action('init', array($this, 'taxonomy_city'));
-		add_action('mappress_geocode_box_save', array($this, 'populate_city'));
 	}
 
 	function taxonomy_style() {
@@ -157,57 +114,18 @@ class ArteForaDoMuseu_Artworks {
 		register_taxonomy('style', array($this->post_type), $args);
 	}
 
-	function taxonomy_city() {
-
-		$labels = array( 
-			'name' => __('Cities', 'arteforadomuseu'),
-			'singular_name' => __('City', 'arteforadomuseu'),
-			'search_items' => __('Search cities', 'arteforadomuseu'),
-			'popular_items' => __('Popular cities', 'arteforadomuseu'),
-			'all_items' => __('All cities', 'arteforadomuseu'),
-			'parent_item' => __('Parent city', 'arteforadomuseu'),
-			'parent_item_colon' => __('Parent city:', 'arteforadomuseu'),
-			'edit_item' => __('Edit city', 'arteforadomuseu'),
-			'update_item' => __('Update city', 'arteforadomuseu'),
-			'add_new_item' => __('Add new city', 'arteforadomuseu'),
-			'new_item_name' => __('New city name', 'arteforadomuseu'),
-			'separate_items_with_commas' => __('Separate cities with commas', 'arteforadomuseu'),
-			'add_or_remove_items' => __('Add or remove cities', 'arteforadomuseu'),
-			'choose_from_most_used' => __('Choose from most used cities', 'arteforadomuseu'),
-			'menu_name' => __('Cities', 'arteforadomuseu')
-		);
-
-		$args = array( 
-			'labels' => $labels,
-			'public' => true,
-			'show_in_nav_menus' => true,
-			'show_ui' => false,
-			'show_tagcloud' => true,
-			'hierarchical' => false,
-			'rewrite' => array('slug' => $this->taxonomy_slugs['city'], 'with_front' => false),
-			'query_var' => true,
-			'show_admin_column' => true
-		);
-
-		register_taxonomy('city', array($this->post_type), $args);
-
-		do_action('afdm_city_taxonomy_registered');
-	}
-
-	// save mappress city data to taxonomy
-
-	function populate_city($post_id) {
-		if(isset($_POST['geocode_city'])) {
-			wp_set_object_terms($post_id, $_POST['geocode_city'], 'city');
-		}
-	}
-
 	/*
 	 * Meta boxes
 	 */
 
 	function setup_meta_boxes() {
 		add_action('add_meta_boxes', array($this, 'add_meta_boxes'));
+		add_action('save_post', array($this, 'save_artwork'));
+		add_action('admin_footer', array($this, 'admin_css'));
+	}
+
+	function admin_css() {
+		wp_enqueue_style('artwork-admin', $this->directory_uri . '/css/admin.css');
 	}
 
 	// Add meta boxes
@@ -231,6 +149,46 @@ class ArteForaDoMuseu_Artworks {
 			'advanced',
 			'high'
 		);
+
+		// Videos
+		add_meta_box(
+			'artwork_videos',
+			__('Videos', 'arteforadomuseu'),
+			array($this, 'box_artwork_videos'),
+			$this->post_type,
+			'advanced',
+			'high'
+		);
+
+		// Links
+		add_meta_box(
+			'artwork_links',
+			__('Links', 'arteforadomuseu'),
+			array($this, 'box_artwork_links'),
+			$this->post_type,
+			'advanced',
+			'high'
+		);
+	}
+
+	function save_artwork($post_id) {
+
+		if(get_post_type($post_id) != $this->post_type)
+			return;
+
+		if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
+			return;
+
+		if (defined('DOING_AJAX') && DOING_AJAX && !(defined('ALLOWED_AJAX') && ALLOWED_AJAX))
+			return;
+
+		if (false !== wp_is_post_revision($post_id))
+			return;
+
+		$this->save_artwork_dimensions($post_id);
+		$this->save_artwork_dates($post_id);
+		$this->save_artwork_videos($post_id);
+		$this->save_artwork_links($post_id);
 	}
 
 	function box_artwork_dimensions($post = false) {
@@ -253,6 +211,16 @@ class ArteForaDoMuseu_Artworks {
 			</div>
 		</div>
 		<?php
+	}
+
+	function save_artwork_dimensions($post_id) {
+
+		if(isset($_POST['artwork_dimensions_width'])) {
+			update_post_meta($post_id, 'artwork_width', $_POST['artwork_dimensions_width']);
+		}
+		if(isset($_POST['artwork_dimensions_height'])) {
+			update_post_meta($post_id, 'artwork_height', $_POST['artwork_dimensions_height']);
+		}
 	}
 
 	function box_artwork_dates($post = false) {
@@ -287,20 +255,144 @@ class ArteForaDoMuseu_Artworks {
 		<?php
 	}
 
-	function box_artworks_videos($post = false) {
+	function save_artwork_dates($post_id) {
+
+		if(isset($_POST['artwork_date_creation'])) {
+			update_post_meta($post_id, 'artwork_date_creation', $_POST['artwork_date_creation']);
+		}
+		if(isset($_POST['artwork_date_termination'])) {
+			update_post_meta($post_id, 'artwork_date_termination', $_POST['artwork_date_termination']);
+		}
+		if(isset($_POST['artwork_currently_active'])) {
+			update_post_meta($post_id, 'artwork_currently_active', 1);
+		} else {
+			delete_post_meta($post_id, 'artwork_currently_active');
+		}
+	}
+
+	function box_artwork_videos($post = false) {
+
+		wp_enqueue_script('artworks-box-videos', $this->directory_uri . '/js/artworks.box.videos.js', array('jquery'), '0.0.2');
 
 		if($post) {
-			$videos = get_artwork_videos();
+			$videos = $this->get_artwork_videos();
+			$featured_video = $this->get_artwork_featured_video();
 		}
 
 		?>
-		<div id="artwork_videos_box">
+		<div id="artwork_videos_box" class="loop-box">
 			<h4><?php _e('Videos', 'arteforadomuseu'); ?></h4>
+			<p class="tip"><?php _e('Video URLs from YouTube, Vimeo, Blip.tv, Dailymotion, Qik or Flickr', 'arteforadomuseu'); ?></p>
+			<a class="new-video button new-button secondary" href="#"><?php _e('Add video', 'arteforadomuseu'); ?></a>
 			<div class="box-inputs">
-				<p class="input-container"></p>
+				<ul class="video-template" style="display:none;">
+					<li class="template">
+						<?php $this->video_input_template(); ?>
+					</li>
+				</ul>
+				<ul class="video-list">
+					<?php if($videos) : foreach($videos as $video) : ?>
+						<li>
+							<?php
+							$featured = ($featured_video == $video['id']);
+							$this->video_input_template($video['id'], $video['url'], $featured);
+							?>
+						</li>
+					<?php endforeach; endif; ?>
+				</ul>
 			</div>
 		</div>
 		<?php
+	}
+
+	function video_input_template($id = false, $url = false, $featured = false) {
+		?>
+			<p class="input-container video-url main-input">
+				<input type="text" class="video-input" size="60" <?php if($id) echo 'name="videos[' . $id . '][url]"'; ?> <?php if($url) echo 'value="' . $url . '"'; ?> placeholder="<?php _e('Video url', 'arteforadomuseu'); ?>" />
+			</p>
+			<p class="input-container featured">
+				<input type="radio" <?php if($id) echo 'value="' . $id . '" id="featured_video_' . $id . '"'; ?> name="featured_video" class="featured-input" <?php if($featured) echo 'checked'; ?> /> <label <?php if($id) echo 'for="featured_video_' . $id . '"'; ?> class="featured-label"><?php _e('Featured', 'arteforadomuseu'); ?></label>
+			</p>
+			<input type="hidden" class="video-id" <?php if($id) echo 'name="videos[' . $id . '][id]" value="' . $id . '"'; ?> />
+			<a class="remove-video button remove" href="#"><?php _e('Remove', 'arteforadomuseu'); ?></a>
+		<?php
+	}
+
+	function save_artwork_videos($post_id) {
+
+		if(isset($_POST['videos'])) {
+			update_post_meta($post_id, 'artwork_videos', $_POST['videos']);
+		}
+
+		if(isset($_POST['featured_video'])) {
+			update_post_meta($post_id, 'artwork_featured_video', $_POST['featured_video']);
+		}
+
+	}
+
+	function box_artwork_links($post = false) {
+
+		wp_enqueue_script('artworks-box-links', $this->directory_uri . '/js/artworks.box.links.js', array('jquery'), '0.0.2');
+
+		if($post) {
+			$links = $this->get_artwork_links();
+			$featured_link = $this->get_artwork_featured_link();
+		}
+
+		?>
+		<div id="artwork_links_box" class="loop-box">
+			<h4><?php _e('Links', 'arteforadomuseu'); ?></h4>
+			<p class="tip"><?php _e('Links related to this artwork', 'arteforadomuseu'); ?></p>
+			<a class="new-link new-button button secondary" href="#"><?php _e('Add link', 'arteforadomuseu'); ?></a>
+			<div class="box-inputs">
+				<ul class="link-template" style="display:none;">
+					<li class="template">
+						<?php $this->link_input_template(); ?>
+					</li>
+				</ul>
+				<ul class="link-list">
+					<?php if($links) : foreach($links as $link) : ?>
+						<li>
+							<?php
+							$featured = ($featured_link == $link['id']);
+							$this->link_input_template($link['id'], $link['title'], $link['url'], $featured);
+							?>
+						</li>
+					<?php endforeach; endif; ?>
+				</ul>
+			</div>
+		</div>
+		<?php
+	}
+
+	function link_input_template($id = false, $title = false, $url = false, $featured = false) {
+		?>
+			<p class="input-container link main-input">
+				<input type="text" class="link-title" size="30" <?php if($id) echo 'name="artwork_links[' . $id . '][title]"'; ?> <?php if($title) echo 'value="' . $title . '"'; ?> placeholder="<?php _e('Link title', 'arteforadomuseu'); ?>" />
+				<input type="text" class="link-url" size="40" <?php if($id) echo 'name="artwork_links[' . $id . '][url]"'; ?> <?php if($url) echo 'value="' . $url . '"'; ?> placeholder="<?php _e('Link url', 'arteforadomuseu'); ?>" />
+			</p>
+			<p class="input-container featured">
+				<input type="radio" <?php if($id) echo 'value="' . $id . '" id="featured_link_' . $id . '"'; ?> name="featured_link" class="featured-input" <?php if($featured) echo 'checked'; ?> /> <label <?php if($id) echo 'for="featured_link_' . $id . '"'; ?> class="featured-label"><?php _e('Featured', 'arteforadomuseu'); ?></label>
+			</p>
+			<input type="hidden" class="link-id" <?php if($id) echo 'name="artwork_links[' . $id . '][id]" value="' . $id . '"'; ?> />
+			<a class="remove-link button remove" href="#"><?php _e('Remove', 'arteforadomuseu'); ?></a>
+		<?php
+	}
+
+	function save_artwork_links($post_id) {
+
+		if(isset($_POST['artwork_links'])) {
+			update_post_meta($post_id, 'artwork_links', $_POST['artwork_links']);
+		} else {
+			delete_post_meta($post_id, 'artwork_links');
+		}
+
+		if(isset($_POST['featured_link'])) {
+			update_post_meta($post_id, 'artwork_featured_link', $_POST['featured_link']);
+		} else {
+			delete_post_meta($post_id, 'artwork_featured_link');
+		}
+
 	}
 
 	/*
@@ -353,6 +445,14 @@ class ArteForaDoMuseu_Artworks {
 		<?php
 	}
 
+	function save_artwork_styles($post_id) {
+
+		/*
+		 * TO DO
+		 */
+
+	}
+
 	function box_artwork_categories($post = false) {
 
 		if($post) {
@@ -380,6 +480,71 @@ class ArteForaDoMuseu_Artworks {
 		<?php
 	}
 
+	function save_artwork_categories($post_id) {
+
+		/*
+		 * TO DO
+		 */
+
+	}
+
+	function box_artwork_images($post = false) {
+
+		wp_enqueue_script('artworks-box-images', $this->directory_uri . '/js/artworks.box.images.js', array('jquery'), '0.0.2');
+
+		if($post) {
+			$images = $this->get_artwork_images();
+			$featured_link = $this->get_artwork_featured_image();
+		}
+
+		?>
+		<div id="artwork_images_box" class="loop-box">
+			<h4><?php _e('Images', 'arteforadomuseu'); ?></h4>
+			<p class="tip"><?php _e('Pictures for this artwork', 'arteforadomuseu'); ?></p>
+			<a class="new-image new-button button secondary" href="#"><?php _e('Add image', 'arteforadomuseu'); ?></a>
+			<div class="box-inputs">
+				<ul class="image-template" style="display:none;">
+					<li class="template">
+						<?php $this->image_input_template(); ?>
+					</li>
+				</ul>
+				<ul class="image-list">
+					<?php if($images) : foreach($images as $image) : ?>
+						<li>
+							<?php
+							$featured = ($featured_link == $image['id']);
+							$this->image_input_template($image['id'], $image['title'], $image['thumb_url'], $featured);
+							?>
+						</li>
+					<?php endforeach; endif; ?>
+				</ul>
+			</div>
+		</div>
+		<?php
+	}
+
+	function image_input_template($id = false, $title = false, $thumb_url = false, $featured = false) {
+		?>
+			<p class="input-container image main-input">
+				<input type="text" class="image-title" size="30" <?php if($id) echo 'name="artwork_images[' . $id . '][title]"'; ?> <?php if($title) echo 'value="' . $title . '"'; ?> placeholder="<?php _e('Image title', 'arteforadomuseu'); ?>" />
+				<input type="file" class="image-file" size="40" <?php if($id) echo 'name="artwork_images[' . $id . '][url]"'; ?> <?php if($thumb_url) echo 'value="' . $thumb_url . '"'; ?> placeholder="<?php _e('Image file', 'arteforadomuseu'); ?>" />
+			</p>
+			<p class="input-container featured">
+				<input type="radio" <?php if($id) echo 'value="' . $id . '" id="featured_image_' . $id . '"'; ?> name="featured_image" class="featured-input" <?php if($featured) echo 'checked'; ?> /> <label <?php if($id) echo 'for="featured_image_' . $id . '"'; ?> class="featured-label"><?php _e('Featured', 'arteforadomuseu'); ?></label>
+			</p>
+			<input type="hidden" class="image-id" <?php if($id) echo 'name="artwork_images[' . $id . '][id]" value="' . $id . '"'; ?> />
+			<a class="remove-image button remove" href="#"><?php _e('Remove', 'arteforadomuseu'); ?></a>
+		<?php
+	}
+
+	function save_artwork_images($post_id) {
+
+		/*
+		 * TO DO
+		 */
+
+	}
+
 	/*
 	 * UI
 	 */
@@ -387,7 +552,7 @@ class ArteForaDoMuseu_Artworks {
 	function hook_ui_elements() {
 		if(current_user_can('edit_posts')) { 
 			add_action('afdm_logged_in_user_menu_items', array($this, 'user_menu_items'));
-			add_action('wp_footer', array($this, 'add_box'));
+			add_action('wp_footer', array($this, 'add_artwork_box'));
 		}
 	}
 
@@ -397,39 +562,57 @@ class ArteForaDoMuseu_Artworks {
 		<?php
 	}
 
-	function add_box() {
+	function add_artwork_box() {
 		?>
 		<div id="add_artwork">
 			<h2 class="lightbox_title"><span class="lsf">addnew</span> <?php _e('Submit new artwork', 'arteforadomuseu'); ?></h2>
 			<div class="lightbox_content">
 				<form id="new_artwork">
 					<div class="form-inputs">
-						<input type="text" name="title" class="title" placeholder="<?php _e('Title', 'arteforadomuseu'); ?>" />
-						<textarea name="content" placeholder="<?php _e('Description', 'arteforadomuseu'); ?>"></textarea>
-						<div class="clearfix">
-							<div class="two-thirds-1">
-								<div class="categories">
-									<?php $this->box_artwork_styles(); ?>
-									<?php $this->box_artwork_categories(); ?>
-								</div>
-							</div>
-							<div class="one-third-2">
-								<?php $this->box_artwork_dimensions(); ?>
-							</div>
-						</div>
-						<div class="clearfix">
-							<?php $this->box_artwork_dates(); ?>
-						</div>
-						<div class="clearfix">
-							<?php mappress_geocode_box(); ?>
-						</div>
+						<?php $this->artwork_form_inputs(); ?>
 					</div>
 					<div class="form-actions">
 						<input type="submit" value="<?php _e('Submit', 'arteforadomuseu'); ?>" />
-						<a class="close" href="#"><?php _e('Cancel', 'arteforadomuseu'); ?></a>
+						<a class="close button secondary" href="#"><?php _e('Cancel', 'arteforadomuseu'); ?></a>
 					</div>
 				</form>
 			</div>
+		</div>
+		<?php
+	}
+
+	function artwork_form_inputs($post = false) {
+		?>
+		<input type="text" name="title" class="title" placeholder="<?php _e('Title', 'arteforadomuseu'); ?>" />
+		<textarea name="content" placeholder="<?php _e('Description', 'arteforadomuseu'); ?>"></textarea>
+		<div class="clearfix">
+			<div class="two-thirds-1">
+				<div class="categories">
+					<?php $this->box_artwork_styles($post); ?>
+					<?php $this->box_artwork_categories($post); ?>
+				</div>
+			</div>
+			<div class="one-third-2">
+				<?php $this->box_artwork_dimensions($post); ?>
+			</div>
+		</div>
+		<h3><?php _e('Multimedia', 'arteforadomuseu'); ?></h3>
+		<div class="multimedia form-section">
+			<div class="clearfix">
+				<?php $this->box_artwork_videos($post); ?>
+			</div>
+			<div class="clearfix">
+				<?php $this->box_artwork_links($post); ?>
+			</div>
+			<div class="clearfix">
+				<?php $this->box_artwork_images($post); ?>
+			</div>
+		</div>
+		<div class="clearfix">
+			<?php $this->box_artwork_dates($post); ?>
+		</div>
+		<div class="clearfix">
+			<?php mappress_geocode_box($post); ?>
 		</div>
 		<?php
 	}
@@ -438,8 +621,8 @@ class ArteForaDoMuseu_Artworks {
 	 * Ajax stuff
 	 */
 	function setup_ajax() {
-		add_action('wp_ajax_nopriv_submit_artwork', array($this, 'ajax_add'));
-		add_action('wp_ajax_submit_artwork', array($this, 'ajax_add'));
+		add_action('wp_ajax_nopriv_submit_artwork', array($this, 'ajax_add_artwork'));
+		add_action('wp_ajax_submit_artwork', array($this, 'ajax_add_artwork'));
 	}
 
 	function ajax_response($data) {
@@ -448,7 +631,7 @@ class ArteForaDoMuseu_Artworks {
 		exit;
 	}
 
-	function ajax_add() {
+	function ajax_add_artwork() {
 		$this->ajax_response(array('error_msg' => 'Em desenvolvimento'));
 	}
 
@@ -456,24 +639,66 @@ class ArteForaDoMuseu_Artworks {
 	 * Functions
 	 */
 
-	function get_artwork_width() {
-		return false;
+	function get_popular($amount = 5) {
+		$query = array(
+			'post_type' => $this->post_type,
+			'posts_per_page' => $amount,
+		);
+		return get_posts(afdm_get_popular_query($query));
 	}
 
-	function get_artwork_height() {
-		return false;
+	function get_artwork_width($post_id = false) {
+		global $post;
+		$post_id = $post_id ? $post_id : $post->ID;
+		return get_post_meta($post_id, 'artwork_width', true);
 	}
 
-	function get_artwork_creation_date() {
-		return false;
+	function get_artwork_height($post_id = false) {
+		global $post;
+		$post_id = $post_id ? $post_id : $post->ID;
+		return get_post_meta($post_id, 'artwork_height', true);
 	}
 
-	function get_artwork_termination_date() {
-		return false;
+	function get_artwork_creation_date($post_id = false) {
+		global $post;
+		$post_id = $post_id ? $post_id : $post->ID;
+		return get_post_meta($post_id, 'artwork_date_creation', true);
 	}
 
-	function is_artwork_currently_active() {
-		return false;
+	function get_artwork_termination_date($post_id = false) {
+		global $post;
+		$post_id = $post_id ? $post_id : $post->ID;
+		return get_post_meta($post_id, 'artwork_date_termination', true);
+	}
+
+	function is_artwork_currently_active($post_id = false) {
+		global $post;
+		$post_id = $post_id ? $post_id : $post->ID;
+		return get_post_meta($post_id, 'artwork_currently_active', true);
+	}
+
+	function get_artwork_videos($post_id = false) {
+		global $post;
+		$post_id = $post_id ? $post_id : $post->ID;
+		return get_post_meta($post_id, 'artwork_videos', true);
+	}
+
+	function get_artwork_featured_video($post_id = false) {
+		global $post;
+		$post_id = $post_id ? $post_id : $post->ID;
+		return get_post_meta($post_id, 'artwork_featured_video', true);
+	}
+
+	function get_artwork_links($post_id = false) {
+		global $post;
+		$post_id = $post_id ? $post_id : $post->ID;
+		return get_post_meta($post_id, 'artwork_links', true);
+	}
+
+	function get_artwork_featured_link($post_id = false) {
+		global $post;
+		$post_id = $post_id ? $post_id : $post->ID;
+		return get_post_meta($post_id, 'artwork_featured_link', true);
 	}
 
 	function get_artwork_styles() {
@@ -487,13 +712,3 @@ class ArteForaDoMuseu_Artworks {
 }
 
 $artworks = new ArteForaDoMuseu_Artworks();
-
-function afdm_artworks_get_popular_query($query = array()) {
-	global $artworks;
-	return $artworks->get_popular_query($query);
-}
-
-function afdm_get_artwork_views($post_id = false) {
-	global $artworks;
-	return $artworks->get_views($post_id);
-}
