@@ -742,6 +742,28 @@ input[type=submit] {
 	}
 }
 
+.middle-content {
+	top: @top;
+	bottom: @bottom;
+	position: absolute;
+	background: #333;
+	&::-webkit-scrollbar {
+		width: 10px;
+		background: #444;
+	}
+	&::-webkit-scrollbar-thumb {
+		background: #111;
+	}
+	&:hover {
+		&::-webkit-scrollbar-thumb {
+			background: #000;
+		}
+	}
+	a {
+		color: #fff;
+	}
+}
+
 .home .map-container,
 .map-container {
 	position: absolute;
@@ -753,6 +775,7 @@ input[type=submit] {
 	.map {
 		width: 100%;
 		height: 100%;
+		background: #000;
 		&.streetview {
 			top: 0;
 			left: 0;
@@ -760,6 +783,10 @@ input[type=submit] {
 			bottom: 0;
 			position: absolute;
 		}
+	}
+	.map.open {
+		position: relative;
+		z-index: 4;
 	}
 }
 
@@ -774,8 +801,11 @@ input[type=submit] {
 	right: 0;
 	padding: 0;
 	overflow: auto;
+	overflow-x: hidden;
 	.box-sizing(border-box);
 	margin: 0;
+	z-index: 100;
+	.transition(right .2s ease-in-out);
 	.section-title {
 		background: transparent;
 		padding: 0;
@@ -792,9 +822,9 @@ input[type=submit] {
 	.single-post-header {
 		background: transparent;
 		padding: 0;
-		margin: 0 0 10px 0;
+		margin: 0;
 		z-index: 200;
-		border-bottom: 1px solid #444;
+		background: #444;
 		img {
 			margin: 0;
 			width: 100%;
@@ -831,6 +861,35 @@ input[type=submit] {
 			}
 		}
 	}
+	.menu {
+		display: table;
+		width: 100%;
+		border-top: 1px solid #000;
+		border-bottom: 1px solid #000;
+		a {
+			width: 1%;
+			display: table-cell;
+			padding: 10px;
+			background: #111;
+			color: #f0f0f0;
+			text-decoration: none;
+			text-transform: uppercase;
+			font-weight: 600;
+			text-align: center;
+			font-size: 11px;
+			border-left: 1px solid #000;
+			&:hover {
+				background: #202020;
+			}
+			&:active {
+				.box-shadow(inset 0 5px 10px #111);
+			}
+			.lsf {
+				margin-right: 10px;
+				color: #444;
+			}
+		}
+	}
 	.post-content {
 		margin: 20px 20px 40px;
 	}
@@ -838,6 +897,43 @@ input[type=submit] {
 		margin: 0 40px;
 		.post-content {
 			margin: 0;
+		}
+	}
+	a {
+		color: #fff;
+	}
+}
+.sub-content {
+	width: 35%;
+	min-width: 350px;
+	position: absolute;
+	overflow: auto;
+	overflow-x: hidden;
+	position: absolute;
+	z-index: 99;
+	top: @top;
+	bottom: @bottom;
+	.transition(right .2s ease-in-out);
+	.content {
+		padding: 20px;
+		.sub-content-header {
+			h3 {
+				color: #fff;
+				font-weight: 200;
+				text-transform: uppercase;
+			}
+			.close {
+				float: right;
+				text-decoration: none;
+				text-transform: uppercase;
+				font-size: 11px;
+				margin-top: 5px;
+			}
+		}
+		iframe,
+		object,
+		img {
+			max-width: 100%;
 		}
 	}
 }
@@ -1583,7 +1679,8 @@ body.wysiwyg p {
 	#content {
 		padding-top: @top/1.2;
 	}
-	.displaying-map #content {
+	.displaying-map #content,
+	.middle-content {
 		top: @top/1.2;
 		padding-top: 0;
 	}
