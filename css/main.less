@@ -74,22 +74,6 @@
 	}
 }
 
-/*
- * LigatureSymbols font
- */
-
-@font-face {
-    font-family: 'LigatureSymbols';
-    src: url('../fonts/LigatureSymbols-2.11.eot');
-    src: url('../fonts/LigatureSymbols-2.11.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/LigatureSymbols-2.11.woff') format('woff'),
-         url('../fonts/LigatureSymbols-2.11.ttf') format('truetype'),
-         url('../fonts/LigatureSymbols-2.11.svg#LigatureSymbols') format('svg');
-    src: url('../fonts/LigatureSymbols-2.11.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-
 .lsf, .lsf-icon:before {
   font-family: 'LigatureSymbols';
   -webkit-text-rendering: optimizeLegibility;
@@ -1111,6 +1095,7 @@ input[type=submit] {
 	bottom: 0;
 	height: @bottom;
 	width: 100%;
+	padding: 0;
 	background: #1f1f1f;
 	#footer-nav {
 		ul {

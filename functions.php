@@ -35,17 +35,6 @@ add_action('wp_enqueue_scripts', 'afdm_scripts', 5);
 add_action('wp_enqueue_scripts', 'afdm_register_lib', 5);
 add_action('admin_footer', 'afdm_register_lib', 5);
 
-// Set google geocode service
-function afdm_geocode_service() {
-	return 'gmaps';
-}
-add_action('mappress_geocode_service', 'afdm_geocode_service');
-
-function afdm_gmaps_api_key() {
-	return 'AIzaSyABrs0DJWrYC_Imx7VbGw1Hsfr6KEZBdpg';
-}
-add_action('mappress_gmaps_api_key', 'afdm_gmaps_api_key');
-
 function afdm_marker_extent() {
 	return true;
 }
@@ -60,16 +49,6 @@ function afdm_prevent_admin_access() {
 	}
 }
 add_action('admin_init', 'afdm_prevent_admin_access', 0);
-
-function afdm_use_map_query() {
-	return false;
-}
-add_action('mappress_use_map_query', 'afdm_use_map_query');
-
-function afdm_use_hash() {
-	return false;
-}
-add_action('mappress_use_hash', 'afdm_use_hash');
 
 function afdm_get_user_menu() {
 	?>
