@@ -38,7 +38,8 @@
 
 		function updateAttrs() {
 			list.find('li').each(function(i) {
-				var id = i - 1;
+				console.log(i);
+				var id = 'video-' + i;
 				$(this).find('.video-input').attr('name', 'videos[' + id + '][url]');
 				$(this).find('.video-id').attr('name', 'videos[' + id + '][id]');
 				$(this).find('.video-id').val(id);

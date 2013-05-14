@@ -272,7 +272,7 @@ class ArteForaDoMuseu_Artworks {
 
 	function box_artwork_videos($post = false) {
 
-		wp_enqueue_script('artworks-box-videos', $this->directory_uri . '/js/artworks.box.videos.js', array('jquery'), '0.0.2');
+		wp_enqueue_script('artworks-box-videos', $this->directory_uri . '/js/artworks.box.videos.js', array('jquery'), '0.0.3');
 
 		if($post) {
 			$videos = $this->get_artwork_videos();
@@ -322,6 +322,8 @@ class ArteForaDoMuseu_Artworks {
 
 		if(isset($_POST['videos'])) {
 			update_post_meta($post_id, 'artwork_videos', $_POST['videos']);
+		} else {
+			delete_post_meta($post_id, 'artwork_videos');
 		}
 
 		if(isset($_POST['featured_video'])) {
@@ -332,7 +334,7 @@ class ArteForaDoMuseu_Artworks {
 
 	function box_artwork_links($post = false) {
 
-		wp_enqueue_script('artworks-box-links', $this->directory_uri . '/js/artworks.box.links.js', array('jquery'), '0.0.2');
+		wp_enqueue_script('artworks-box-links', $this->directory_uri . '/js/artworks.box.links.js', array('jquery'), '0.0.3');
 
 		if($post) {
 			$links = $this->get_artwork_links();
@@ -490,7 +492,7 @@ class ArteForaDoMuseu_Artworks {
 
 	function box_artwork_images($post = false) {
 
-		wp_enqueue_script('artworks-box-images', $this->directory_uri . '/js/artworks.box.images.js', array('jquery'), '0.0.2');
+		wp_enqueue_script('artworks-box-images', $this->directory_uri . '/js/artworks.box.images.js', array('jquery'), '0.0.3');
 
 		if($post) {
 			$images = $this->get_artwork_images();
@@ -712,3 +714,28 @@ class ArteForaDoMuseu_Artworks {
 }
 
 $artworks = new ArteForaDoMuseu_Artworks();
+
+function afdm_get_videos($post_id = false) {
+	global $artworks;
+	return $artworks->get_artwork_videos($post_id);
+}
+
+function afdm_get_featured_video_id($post_id = false) {
+	global $artworks;
+	return $artworks->get_artwork_featured_video($post_id);
+}
+
+function afdm_get_links($post_id = false) {
+	global $artworks;
+	return $artworks->get_artwork_links($post_id);
+}
+
+function afdm_get_creation_date($post_id = false) {
+	global $artworks;
+	return $artworks->get_artwork_creation_date($post_id);
+}
+
+function afdm_get_termination_date($post_id = false) {
+	global $artworks;
+	return $artworks->get_artwork_termination_date($post_id);
+}

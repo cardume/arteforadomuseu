@@ -16,4 +16,13 @@
 
 	});
 
+
+	/*
+	 * Subsection
+	 */
+
+	var subsection = {
+		
+	}
+
 })(jQuery);

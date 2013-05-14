@@ -12,6 +12,21 @@
 		<section class="post-content">
 			<?php the_content(); ?>
 		</section>
+		<?php
+		$videos = afdm_get_videos();
+		$featured_video_id = afdm_get_featured_video_id();
+		if($videos) :
+			?>
+			<section id="videos" class="sub-content">
+				<ul class="video-list">
+					<?php foreach($videos as $video) : ?>
+						<li><?php echo apply_filters('the_content', $video['url']); ?></li>
+					<?php endforeach; ?>
+				</ul>
+			</section>
+			<?php
+		endif;
+		?>
 	</article>
 
 <?php endif; ?>

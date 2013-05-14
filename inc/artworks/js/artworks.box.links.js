@@ -38,13 +38,14 @@
 
 		function updateAttrs() {
 			list.find('li').each(function(i) {
-				$(this).find('.link-title').attr('name', 'artwork_links[' + i + '][title]');
-				$(this).find('.link-url').attr('name', 'artwork_links[' + i + '][url]');
-				$(this).find('.link-id').attr('name', 'artwork_links[' + i + '][id]');
-				$(this).find('.link-id').val(i);
-				$(this).find('.featured-input').val(i);
-				$(this).find('.featured-input').attr('id', 'featured_link_' + i);
-				$(this).find('.featured-label').attr('for', 'featured_link_' + i);
+				var id = 'link-' + i;
+				$(this).find('.link-title').attr('name', 'artwork_links[' + id + '][title]');
+				$(this).find('.link-url').attr('name', 'artwork_links[' + id + '][url]');
+				$(this).find('.link-id').attr('name', 'artwork_links[' + id + '][id]');
+				$(this).find('.link-id').val(id);
+				$(this).find('.featured-input').val(id);
+				$(this).find('.featured-input').attr('id', 'featured_link_' + id);
+				$(this).find('.featured-label').attr('for', 'featured_link_' + id);
 			});
 		}
 
