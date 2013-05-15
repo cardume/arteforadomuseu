@@ -50,6 +50,13 @@
 
 	 	});
 
+	 	var hash = window.location.hash;
+
+	 	if(hash.indexOf('section') !== -1) {
+	 		var section = hash.split('section=')[1];
+	 		subsection.open(section);
+	 	}
+
 	 });
 
 	var subsection = {
@@ -105,6 +112,8 @@
 
 			}
 
+			window.location.hash = 'section=' + id;
+
 			return this;
 		},
 		close: function() {
@@ -118,6 +127,8 @@
 			subcontents.removeClass('active').css({
 				right: -subcontents.width()
 			});
+
+			window.location.hash = '';
 
 			return this;
 		}

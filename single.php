@@ -20,7 +20,9 @@
 					<a href="#" data-subsection="videos"><span class="lsf">video</span> <?php _e('Videos', 'arteforadomuseu'); ?></a>
 				<?php endif; ?>
 				<a href="#" data-subsection="images"><span class="lsf">images</span> <?php _e('Image gallery', 'arteforadomuseu'); ?></a>
-				<a href="#" class="toggle-map"><span class="lsf">map</span> <?php _e('Toggle map', 'arteforadomuseu'); ?></a>
+				<?php if(mappress_is_streetview()) : ?>
+					<a href="#" class="toggle-map"><span class="lsf">map</span> <?php _e('Toggle map', 'arteforadomuseu'); ?></a>
+				<?php endif; ?>
 			</div>
 			<section class="post-content">
 				<?php the_content(); ?>
