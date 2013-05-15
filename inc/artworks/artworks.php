@@ -733,7 +733,9 @@ class ArteForaDoMuseu_Artworks {
 
 		$formatted_images = array();
 		foreach($images as $image) {
-			$formatted_images[] = $this->_get_artwork_image($image->ID);
+			$formatted = $this->_get_artwork_image($image->ID);
+			if($formatted)
+				$formatted_images[] = $formatted;
 		}
 
 		return $formatted_images;
@@ -752,7 +754,7 @@ class ArteForaDoMuseu_Artworks {
 
 		if(!$image['thumb'])
 			return false;
-		
+
 		return $image;
 	}
 
