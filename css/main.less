@@ -902,13 +902,38 @@ input[type=submit] {
 		}
 	}
 	.post-data {
+		padding: 20px 20px 0;
+		h4 {
+			color: #999;
+			text-transform: uppercase;
+			font-weight: 800;
+			font-size: 16px;
+			line-height: 16px;
+			margin: 0 0 10px;
+			padding: 0 0 10px;
+			border-bottom: 1px dotted #666;
+		}
+		p {
+			margin: 0 0 5px;
+			padding: 0 0 5px;
+			border-bottom: 1px dotted #444;
+		}
 		.dimensions {
 			float: left;
-			width: 40%;
+			width: 45%;
 		}
 		.dates {
 			float: right;
-			width: 40%;
+			width: 45%;
+		}
+		strong {
+			font-size: 11px;
+			line-height: 16px;
+			width: 50%;
+			display: block;
+			float: left;
+			margin: 0 5px 5px 0;
+			color: #eee;
 		}
 	}
 	.post-content {
@@ -1530,6 +1555,11 @@ body {
 	#artwork_dimensions_box {
 		margin-bottom: 20px;
 		.input-container {
+			textarea {
+				width: 100%;
+				height: 117px;
+				padding: 5px;
+			}
 			input,
 			label {
 				margin: 0;

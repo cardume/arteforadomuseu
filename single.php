@@ -6,6 +6,7 @@
 	$videos = afdm_get_videos();
 	$images = afdm_get_artwork_images();
 	$featured_video_id = afdm_get_featured_video_id();
+	$dimensions = afdm_get_artwork_dimensions();
 	$creation_date = afdm_get_creation_date();
 	$termination_date = afdm_get_termination_date();
 	?>
@@ -30,22 +31,35 @@
 				<?php endif; ?>
 				<a href="#" data-subsection="comments"><span class="lsf">comments</span> <?php _e('Comments', 'arteforadomuseu'); ?></a>
 			</div>
-			<section class="post-data clearfix">
-				<div class="dimensions">
-					<h4><?php _e('Dimensions', 'arteforadomuseu'); ?></h4>
-				</div>
-				<div class="dates">
-					<h4><?php _e('Dates', 'arteforadomuseu'); ?></h4>
-					<p class="creation">
-						<strong><?php _e('Creation', 'arteforadomuseu'); ?></strong>
-						<?php echo $creation_date; ?>
-					</p>
-					<p class="termination">
-						<strong><?php _e('Termination', 'arteforadomuseu'); ?></strong>
-						<?php echo $termination_date; ?>
-					</p>
-				</div>
-			</section>
+			<?php if($dimensions || $creation_date) : ?>
+				<section class="post-data clearfix">
+					<?php if($dimensions) : ?>
+						<div class="dimensions">
+							<h4><?php _e('Dimensions', 'arteforadomuseu'); ?></h4>
+							<p>
+								<?php echo $dimensions; ?>
+							</p>
+						</div>
+					<?php endif; ?>
+					<?php if($creation_date) : ?>
+						<div class="dates">
+							<h4><?php _e('Dates', 'arteforadomuseu'); ?></h4>
+							<p class="creation">
+								<strong><?php _e('Creation', 'arteforadomuseu'); ?></strong>
+								<?php echo $creation_date; ?>
+							</p>
+							<p class="termination">
+								<?php if($termination_date) : ?>
+									<strong><?php _e('Termination', 'arteforadomuseu'); ?></strong>
+									<?php echo $termination_date; ?>
+								<?php elseif(afdm_is_artwork_active()) : ?>
+									<strong><?php _e('Artwork currently active', 'arteforadomuseu'); ?></strong>
+								<?php endif; ?>
+							</p>
+						</div>
+					<?php endif; ?>
+				</section>
+			<?php endif; ?>
 			<section class="post-content">
 				<?php the_content(); ?>
 			</section>

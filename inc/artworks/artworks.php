@@ -193,20 +193,14 @@ class ArteForaDoMuseu_Artworks {
 
 	function box_artwork_dimensions($post = false) {
 		if($post) {
-			$width = $this->get_artwork_width();
-			$height = $this->get_artwork_height();
+			$dimensions = $this->get_artwork_dimensions();
 		}
 		?>
 		<div id="artwork_dimensions_box">
 			<h4><?php _e('Artwork dimensions', 'arteforadomuseu'); ?></h4>
 			<div class="box-inputs">
-				<p class="input-container dimensions-width">
-					<input placeholder="<?php _e('Width', 'arteforadomuseu'); ?>" type="text" name="artwork_dimensions_width" id="artwork_dimensions_width" value="<?php echo $width; ?>" />
-					<label for="artwork_dimensions_width"><?php _e('cm', 'arteforadomuseu'); ?></label>
-				</p>
-				<p class="input-container dimensions-height">
-					<input placeholder="<?php _e('Height', 'arteforadomuseu'); ?>" type="text" name="artwork_dimensions_height" id="artwork_dimensions_height" value="<?php echo $height; ?>" />
-					<label for="artwork_dimensions_height"><?php _e('cm', 'arteforadomuseu'); ?></label>
+				<p class="input-container dimensions">
+					<textarea placeholder="<?php _e('Describe the dimensions', 'arteforadomuseu'); ?>" type="text" name="artwork_dimensions" id="artwork_dimensions"><?php echo $dimensions; ?></textarea>
 				</p>
 			</div>
 		</div>
@@ -215,11 +209,10 @@ class ArteForaDoMuseu_Artworks {
 
 	function save_artwork_dimensions($post_id) {
 
-		if(isset($_POST['artwork_dimensions_width'])) {
-			update_post_meta($post_id, 'artwork_width', $_POST['artwork_dimensions_width']);
-		}
-		if(isset($_POST['artwork_dimensions_height'])) {
-			update_post_meta($post_id, 'artwork_height', $_POST['artwork_dimensions_height']);
+		if(isset($_POST['artwork_dimensions'])) {
+			update_post_meta($post_id, 'artwork_dimensions', $_POST['artwork_dimensions']);
+		} else {
+			delete_post_meta($post_id, 'artwork_dimensions');
 		}
 	}
 
@@ -649,16 +642,10 @@ class ArteForaDoMuseu_Artworks {
 		return get_posts(afdm_get_popular_query($query));
 	}
 
-	function get_artwork_width($post_id = false) {
+	function get_artwork_dimensions($post_id = false) {
 		global $post;
 		$post_id = $post_id ? $post_id : $post->ID;
-		return get_post_meta($post_id, 'artwork_width', true);
-	}
-
-	function get_artwork_height($post_id = false) {
-		global $post;
-		$post_id = $post_id ? $post_id : $post->ID;
-		return get_post_meta($post_id, 'artwork_height', true);
+		return get_post_meta($post_id, 'artwork_dimensions', true);
 	}
 
 	function get_artwork_creation_date($post_id = false) {
@@ -764,6 +751,11 @@ function afdm_get_links($post_id = false) {
 	return $artworks->get_artwork_links($post_id);
 }
 
+function afdm_get_artwork_dimensions($post_id = false) {
+	global $artworks;
+	return $artworks->get_artwork_dimensions($post_id);
+}
+
 function afdm_get_creation_date($post_id = false) {
 	global $artworks;
 	return $artworks->get_artwork_creation_date($post_id);
@@ -772,6 +764,11 @@ function afdm_get_creation_date($post_id = false) {
 function afdm_get_termination_date($post_id = false) {
 	global $artworks;
 	return $artworks->get_artwork_termination_date($post_id);
+}
+
+function afdm_is_artwork_active($post_id = false) {
+	global $artworks;
+	return $artworks->is_artwork_currently_active($post_id);
 }
 
 function afdm_get_artwork_images($post_id = false) {
