@@ -53,7 +53,7 @@
 									<strong><?php _e('Termination', 'arteforadomuseu'); ?></strong>
 									<?php echo $termination_date; ?>
 								<?php elseif(afdm_is_artwork_active()) : ?>
-									<strong><?php _e('Artwork currently active', 'arteforadomuseu'); ?></strong>
+									<?php _e('Artwork currently active', 'arteforadomuseu'); ?>
 								<?php endif; ?>
 							</p>
 						</div>

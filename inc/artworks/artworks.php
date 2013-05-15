@@ -200,7 +200,7 @@ class ArteForaDoMuseu_Artworks {
 			<h4><?php _e('Artwork dimensions', 'arteforadomuseu'); ?></h4>
 			<div class="box-inputs">
 				<p class="input-container dimensions">
-					<textarea placeholder="<?php _e('Describe the dimensions', 'arteforadomuseu'); ?>" type="text" name="artwork_dimensions" id="artwork_dimensions"><?php echo $dimensions; ?></textarea>
+					<textarea placeholder="<?php _e('Describe the dimensions', 'arteforadomuseu'); ?>" rows="5" cols="80" type="text" name="artwork_dimensions" id="artwork_dimensions"><?php echo $dimensions; ?></textarea>
 				</p>
 			</div>
 		</div>
