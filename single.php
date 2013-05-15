@@ -48,12 +48,12 @@
 								<strong><?php _e('Creation', 'arteforadomuseu'); ?></strong>
 								<?php echo $creation_date; ?>
 							</p>
-							<p class="termination">
-								<?php if($termination_date) : ?>
+							<?php if($termination_date) : ?>
+								<p class="termination">
 									<strong><?php _e('Termination', 'arteforadomuseu'); ?></strong>
 									<?php echo $termination_date; ?>
-								<?php endif; ?>
-							</p>
+								</p>
+							<?php endif; ?>
 						</div>
 					<?php endif; ?>
 				</section>

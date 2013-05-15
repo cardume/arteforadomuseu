@@ -151,9 +151,12 @@ body .ui-state-default,body .ui-widget-content .ui-state-default,body .ui-widget
 #new_artwork #artwork_dimensions_box .input-container input,#new_artwork #artwork_dimensions_box .input-container label{margin:0;display:inline;}
 #new_artwork #artwork_dimensions_box .input-container input{width:80%;font-size:16px;padding:14px;}
 #new_artwork #artwork_dimensions_box .input-container label{margin-left:10px;color:#999;}
-#new_artwork #artwork_dates_box{margin-bottom:20px;}#new_artwork #artwork_dates_box .box-inputs{display:table;width:100%;}#new_artwork #artwork_dates_box .box-inputs .input-container{display:table-cell;vertical-align:middle;text-align:center;padding-right:20px;}#new_artwork #artwork_dates_box .box-inputs .input-container input,#new_artwork #artwork_dates_box .box-inputs .input-container label{margin:0;display:inline;}
+#new_artwork #artwork_dates_box{margin-bottom:20px;}#new_artwork #artwork_dates_box .box-inputs{display:table;width:100%;}#new_artwork #artwork_dates_box .box-inputs .input-container{display:table-cell;vertical-align:middle;padding-right:20px;}#new_artwork #artwork_dates_box .box-inputs .input-container select{width:100%;}
+#new_artwork #artwork_dates_box .box-inputs .input-container .chzn-container{width:100% !important;}
+#new_artwork #artwork_dates_box .box-inputs .input-container input,#new_artwork #artwork_dates_box .box-inputs .input-container label{margin:0;display:inline;}
 #new_artwork #artwork_dates_box .box-inputs .input-container input[type=text]{width:100%;}
 #new_artwork #artwork_dates_box .box-inputs .input-container label{margin-left:10px;color:#333;}
+#new_artwork #artwork_dates_box .box-inputs .input-container.currently-active{text-align:center;}
 #new_artwork .loop-box .tip{color:#999;font-style:italic;width:70%;float:left;margin-right:20px;}
 #new_artwork .loop-box .new-button{float:right;margin-top:-20px;width:10%;}
 #new_artwork .loop-box .box-inputs{width:100%;clear:both;margin:20px 0;}#new_artwork .loop-box .box-inputs li{width:100%:	clear: both;display:block;margin:0 0 10px;padding:10px;background:#f0f0f0;height:30px;}#new_artwork .loop-box .box-inputs li .main-input{width:65%;float:left;}#new_artwork .loop-box .box-inputs li .main-input input{width:100%;margin:0;}#new_artwork .loop-box .box-inputs li .main-input input.link-title,#new_artwork .loop-box .box-inputs li .main-input input.image-title{width:30%;margin-right:10px;float:left;}

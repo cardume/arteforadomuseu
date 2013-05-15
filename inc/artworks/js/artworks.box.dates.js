@@ -6,6 +6,8 @@
 
 		container = $('#artwork_dates_box');
 
+		container.find('.chosen').chosen();
+
 		if(!container.length)
 			return false;
 

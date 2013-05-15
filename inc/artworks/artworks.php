@@ -219,7 +219,8 @@ class ArteForaDoMuseu_Artworks {
 	function box_artwork_dates($post = false) {
 
 		wp_enqueue_style('jquery-ui-smoothness', 'http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');
-		wp_enqueue_script('artworks-box-dates', $this->directory_uri . '/js/artworks.box.dates.js', array('jquery', 'jquery-ui-datepicker', 'jquery-ui-datepicker-pt-BR'), '0.0.5');
+		wp_enqueue_style('jquery-chosen');
+		wp_enqueue_script('artworks-box-dates', $this->directory_uri . '/js/artworks.box.dates.js', array('jquery', 'jquery-ui-datepicker', 'jquery-ui-datepicker-pt-BR', 'jquery-chosen'), '0.0.5');
 		wp_localize_script('artworks-box-dates', 'box_dates_settings', array(
 			'dateFormat' => 'dd/mm/yy',
 			'language' => get_bloginfo('language')
@@ -234,11 +235,29 @@ class ArteForaDoMuseu_Artworks {
 		<div id="artwork_dates_box">
 			<h4><?php _e('Creation and termination dates', 'arteforadomuseu'); ?></h4>
 			<div class="box-inputs">
+				<?php /*
 				<p class="input-container creation-date">
 					<input placeholder="<?php _e('Creation date', 'arteforadomuseu'); ?>" class="datepicker" type="text" name="artwork_date_creation" id="artwork_date_creation" value="<?php echo $creation_date; ?>" />
 				</p>
 				<p class="input-container termination-date">
 					<input placeholder="<?php _e('Termination date', 'arteforadomuseu'); ?>" class="datepicker" type="text" name="artwork_date_termination" id="artwork_date_termination" value="<?php echo $termination_date; ?>" />
+				</p>
+				*/ ?>
+				<p class="input-container creation-date">
+					<select name="artwork_date_creation" id="artwork_date_creation" data-placeholder="<?php _e('Select a year', 'arteforadomuseu'); ?>" class="chosen">
+						<option></option>
+						<?php for($i = date('Y'); $i >= 1000; $i--) : ?>
+							<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+						<?php endfor; ?>
+					</select>
+				</p>
+				<p class="input-container termination-date">
+					<select name="artwork_date_termination" id="artwork_date_termination" data-placeholder="<?php _e('Select a year', 'arteforadomuseu'); ?>" class="chosen">
+						<option></option>
+						<?php for($i = date('Y'); $i >= 1000; $i--) : ?>
+							<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+						<?php endfor; ?>
+					</select>
 				</p>
 				<p class="input-container currently-active">
 					<input type="checkbox" name="artwork_currently_active" id="artwork_currently_active" <?php if($currently_active) echo 'checked'; ?> /> <label for="artwork_currently_active"><?php _e('Currently active', 'arteforadomuseu'); ?></label>
