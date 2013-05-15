@@ -6,7 +6,8 @@
 
 		container = $('#artwork_dates_box');
 
-		container.find('.chosen').chosen();
+		if(!box_dates_settings.isAdmin)
+			container.find('.chosen').chosen();
 
 		if(!container.length)
 			return false;

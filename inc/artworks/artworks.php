@@ -220,10 +220,11 @@ class ArteForaDoMuseu_Artworks {
 
 		wp_enqueue_style('jquery-ui-smoothness', 'http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');
 		wp_enqueue_style('jquery-chosen');
-		wp_enqueue_script('artworks-box-dates', $this->directory_uri . '/js/artworks.box.dates.js', array('jquery', 'jquery-ui-datepicker', 'jquery-ui-datepicker-pt-BR', 'jquery-chosen'), '0.0.5');
+		wp_enqueue_script('artworks-box-dates', $this->directory_uri . '/js/artworks.box.dates.js', array('jquery', 'jquery-ui-datepicker', 'jquery-ui-datepicker-pt-BR', 'jquery-chosen'), '0.0.7');
 		wp_localize_script('artworks-box-dates', 'box_dates_settings', array(
 			'dateFormat' => 'dd/mm/yy',
-			'language' => get_bloginfo('language')
+			'language' => get_bloginfo('language'),
+			'isAdmin' => is_admin()
 		));
 
 		if($post) {
@@ -244,18 +245,18 @@ class ArteForaDoMuseu_Artworks {
 				</p>
 				*/ ?>
 				<p class="input-container creation-date">
-					<select name="artwork_date_creation" id="artwork_date_creation" data-placeholder="<?php _e('Select a year', 'arteforadomuseu'); ?>" class="chosen">
-						<option></option>
+					<select name="artwork_date_creation" id="artwork_date_creation" data-placeholder="<?php _e('Creation year', 'arteforadomuseu'); ?>" class="chosen">
+						<option><?php _e('Creation year', 'arteforadomuseu'); ?></option>
 						<?php for($i = date('Y'); $i >= 1000; $i--) : ?>
-							<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+							<option value="<?php echo $i; ?>" <?php if($creation_date == $i) echo 'selected'; ?>><?php echo $i; ?></option>
 						<?php endfor; ?>
 					</select>
 				</p>
 				<p class="input-container termination-date">
-					<select name="artwork_date_termination" id="artwork_date_termination" data-placeholder="<?php _e('Select a year', 'arteforadomuseu'); ?>" class="chosen">
-						<option></option>
+					<select name="artwork_date_termination" id="artwork_date_termination" data-placeholder="<?php _e('Termination year', 'arteforadomuseu'); ?>" class="chosen">
+						<option><?php _e('Termination year', 'arteforadomuseu'); ?></option>
 						<?php for($i = date('Y'); $i >= 1000; $i--) : ?>
-							<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+							<option value="<?php echo $i; ?>" <?php if($termination_date == $i) echo 'selected'; ?>><?php echo $i; ?></option>
 						<?php endfor; ?>
 					</select>
 				</p>
