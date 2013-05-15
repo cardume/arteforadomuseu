@@ -39,75 +39,84 @@
 	 * Subsection
 	 */
 
-	 $(document).ready(function() {
+	$(document).ready(function() {
 
-	 	subsection.init();
+		subsection.init();
 
-	 	$('[data-subsection]').click(function() {
+		$('[data-subsection]').click(function() {
 
-	 		subsection.open($(this).data('subsection'));
-	 		return false;
+			subsection.open($(this).data('subsection'));
+			return false;
 
-	 	});
+		});
 
-	 	var hash = window.location.hash;
+		var hash = window.location.hash;
 
-	 	if(hash.indexOf('section') !== -1) {
-	 		var section = hash.split('section=')[1];
-	 		subsection.open(section);
-	 	}
+		if(hash.indexOf('section') !== -1) {
+			var section = hash.split('section=')[1];
+			subsection.open(section);
+		}
 
-	 });
+		if(hash.indexOf('comment') !== -1) {
+			subsection.open('comments');
+		}
+
+	});
 
 	var subsection = {
 		init: function() {
 
-			var subcontents = $('.sub-content');
+			this.subcontents = $('.sub-content');
+			this.parent = $('#content');
 
-			if(subcontents.length) {
+			var section = this;
 
-				subcontents.hide();
+			if(this.subcontents.length) {
+
+				this.subcontents.hide();
 
 				positioning();
 
-				subcontents.find('.close').click(function() {
-
-					subsection.close();
+				this.subcontents.find('.close').click(function() {
+					section.close(section);
 					return false;
-
 				});
 
 				$(window).resize(positioning);
+			}
 
-				function positioning() {
-					subcontents.each(function() {
-						if(!$(this).hasClass('active')) {
-							subcontents.css({
-								right: -subcontents.width()
-							});
-						} else {
-							$('#content').css({
-								right: subcontents.width()
-							});
-						}
-					});
-				}
+			function positioning() {
+
+				section.subcontents.each(function() {
+					if(!$(this).hasClass('active')) {
+						$(this).css({
+							right: -$(this).width()
+						});
+					} else {
+						section.parent.css({
+							right: $(this).width()
+						});
+					}
+				});
+
 			}
 
 			return this;
 
 		},
 		open: function(id) {
-			var subcontent = $('#' + id + '.sub-content');
-			var parent = $('#content');
 
-			if(subcontent.length) {
+			this.close(this);
 
-				subcontent.show().addClass('active').css({
+			this.subcontent = $('#' + id + '.sub-content');
+
+			if(this.subcontent.length) {
+
+				this.subcontent.show().addClass('active').css({
 					right: 0
 				});
-				parent.css({
-					right: subcontent.width()
+				this.parent.css({
+					right: this.subcontent.width()
 				});
 
 			}
@@ -116,22 +125,21 @@
 
 			return this;
 		},
-		close: function() {
-			var subcontents = $('.sub-content');
-			var parent = $('#content');
+		close: function(section) {
 
-			parent.css({
+			section.parent.css({
 				right: 0
 			});
 
-			subcontents.removeClass('active').css({
-				right: -subcontents.width()
+			section.subcontents.removeClass('active').css({
+				right: -section.subcontents.width()
 			});
 
 			window.location.hash = '';
 
-			return this;
-		}
+			return section;
+
+		},
 	}
 
 })(jQuery);

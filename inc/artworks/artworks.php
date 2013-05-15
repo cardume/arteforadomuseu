@@ -711,6 +711,40 @@ class ArteForaDoMuseu_Artworks {
 		return false;
 	}
 
+	function get_artwork_images($post_id = false) {
+		global $post;
+		$post_id = $post_id ? $post_id : $post->ID;
+
+		$images = get_posts(array(
+			'post_type' => 'attachment',
+			'post_parent' => $post_id,
+			'post_status' => null
+		));
+
+		if(!$images)
+			return false;
+
+		$formatted_images = array();
+		foreach($images as $image) {
+			$formatted_images[] = $this->_get_artwork_image($image->ID);
+		}
+
+		return $formatted_images;
+	}
+
+	function _get_artwork_image($attachment_id) {
+
+		if(!$attachment_id)
+			return false;
+
+		$image = array(
+			'thumb' => wp_get_attachment_image_src($attachment_id, 'thumbnail'),
+			'featured' => wp_get_attachment_image_src($attachment_id, 'page-featured'),
+			'full' => wp_get_attachment_image_src($attachment_id, 'full')
+		);
+		return $image;
+	}
+
 }
 
 $artworks = new ArteForaDoMuseu_Artworks();
@@ -738,4 +772,9 @@ function afdm_get_creation_date($post_id = false) {
 function afdm_get_termination_date($post_id = false) {
 	global $artworks;
 	return $artworks->get_artwork_termination_date($post_id);
+}
+
+function afdm_get_artwork_images($post_id = false) {
+	global $artworks;
+	return $artworks->get_artwork_images($post_id);
 }
