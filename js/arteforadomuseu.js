@@ -16,24 +16,6 @@
 
 	});
 
-	/*
-	 * Toggle map
-	 */
-
-	$(document).ready(function() {
-
-		$('.toggle-map').click(function() {
-
-			if($('.map-container .map').hasClass('open')) {
-				$('.map-container .map').removeClass('open');
-			} else {
-				$('.map-container .map').addClass('open');
-			}
-
-		});
-
-	});
-
 
 	/*
 	 * Subsection
@@ -41,11 +23,25 @@
 
 	$(document).ready(function() {
 
-		subsection.init();
+		var s = subsection.init();
 
 		$('[data-subsection]').click(function() {
 
 			subsection.open($(this).data('subsection'));
+			return false;
+
+		});
+
+		$('.toggle-map').click(function() {
+
+			subsection.close(s);
+
+			if($('.map-container .map').hasClass('open')) {
+				$('.map-container .map').removeClass('open');
+			} else {
+				$('.map-container .map').addClass('open');
+			}
+
 			return false;
 
 		});
