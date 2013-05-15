@@ -749,6 +749,10 @@ class ArteForaDoMuseu_Artworks {
 			'featured' => wp_get_attachment_image_src($attachment_id, 'page-featured'),
 			'full' => wp_get_attachment_image_src($attachment_id, 'full')
 		);
+
+		if(!$image['thumb'])
+			return false;
+		
 		return $image;
 	}
 
