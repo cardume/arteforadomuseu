@@ -246,7 +246,7 @@ class ArteForaDoMuseu_Artworks {
 				*/ ?>
 				<p class="input-container creation-date">
 					<select name="artwork_date_creation" id="artwork_date_creation" data-placeholder="<?php _e('Creation year', 'arteforadomuseu'); ?>" class="chosen">
-						<option><?php _e('Creation year', 'arteforadomuseu'); ?></option>
+						<option value=""><?php _e('Creation year', 'arteforadomuseu'); ?></option>
 						<?php for($i = date('Y'); $i >= 1000; $i--) : ?>
 							<option value="<?php echo $i; ?>" <?php if($creation_date == $i) echo 'selected'; ?>><?php echo $i; ?></option>
 						<?php endfor; ?>
@@ -254,7 +254,7 @@ class ArteForaDoMuseu_Artworks {
 				</p>
 				<p class="input-container termination-date">
 					<select name="artwork_date_termination" id="artwork_date_termination" data-placeholder="<?php _e('Termination year', 'arteforadomuseu'); ?>" class="chosen">
-						<option><?php _e('Termination year', 'arteforadomuseu'); ?></option>
+						<option value=""><?php _e('Termination year', 'arteforadomuseu'); ?></option>
 						<?php for($i = date('Y'); $i >= 1000; $i--) : ?>
 							<option value="<?php echo $i; ?>" <?php if($termination_date == $i) echo 'selected'; ?>><?php echo $i; ?></option>
 						<?php endfor; ?>

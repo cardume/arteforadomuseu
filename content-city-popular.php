@@ -12,7 +12,7 @@
 
 	query_posts($query);
 
-	if(have_posts() && afdm_is_from_user_city()) :
+	if(have_posts()) :
 		?>
 		<div class="section-title">
 			<?php if($city) : ?>
