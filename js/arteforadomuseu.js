@@ -152,11 +152,13 @@
 		updateStageDimensions();
 		updateImageListDimensions();
 
-		$(window).resize(function() {
+		$('[data-subsection="images"]').click(function() {
 			updateStageDimensions();
+			updateImageListDimensions();
 		});
 
 		$(window).resize(function() {
+			updateStageDimensions();
 			updateImageListDimensions();
 		});
 

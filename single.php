@@ -17,6 +17,7 @@
 		<section id="content" class="single-post">
 			<header class="single-post-header clearfix">
 				<?php the_post_thumbnail('page-featured'); ?>
+				<?php the_category(); ?>
 				<h1><?php the_title(); ?></h1>
 			</header>
 			<div class="menu">
@@ -31,6 +32,9 @@
 				<?php endif; ?>
 				<a href="#" data-subsection="comments"><span class="lsf">comments</span> <?php _e('Comments', 'arteforadomuseu'); ?></a>
 			</div>
+			<aside class="actions clearfix">
+				<?php do_action('afdm_loop_artwork_actions'); ?>
+			</aside>
 			<?php if($dimensions || $creation_date) : ?>
 				<section class="post-data clearfix">
 					<?php if($dimensions) : ?>

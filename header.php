@@ -52,8 +52,8 @@
 									?>
 									<li class="categories">
 										<?php
-										if(is_category()) :
-											$current_category = array_shift(get_the_category());
+										$current_category = array_shift(get_the_category());
+										if(is_category() && $current_category) :
 											$category_id = $current_category->term_id;
 											?>
 											<a href="<?php echo get_category_link($category_id); ?>" class="current-menu-item <?php echo $current_category->slug; ?>"><?php echo $current_category->name; ?> <span class="lsf">down</span></a>
