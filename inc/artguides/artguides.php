@@ -288,7 +288,9 @@ class ArteForaDoMuseu_ArtGuides {
 
 	function update_guide($guide_id) {
 
-		$artworks = get_post_meta($post_id, '_artworks');
+		$artworks = get_post_meta($guide_id, '_artworks');
+
+		$city_names = null;
 
 		if($artworks) {
 
