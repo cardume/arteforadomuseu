@@ -19,7 +19,7 @@ class ArteForaDoMuseu_Lightbox {
 	}
 
 	function scripts() {
-		wp_enqueue_script('afdm-lightbox', $this->directory_uri . '/js/lightbox.js', array('jquery'), '1.6.2');
+		wp_enqueue_script('afdm-lightbox', $this->directory_uri . '/js/lightbox.js', array('jquery'), '1.6.3');
 	}
 
 }

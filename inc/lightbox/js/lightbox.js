@@ -82,7 +82,7 @@ var afdmLightbox;
 
 		lightbox.open = function() {
 
-			$('body').css('overflow', 'hidden');
+			$('body').addClass('lightbox-opened');
 
 			lightbox.clearMessage();
 
@@ -98,7 +98,7 @@ var afdmLightbox;
 
 			var _close = function() {
 				lightbox.fadeOut('fast', function() {
-					$('body').css('overflow', 'auto');
+					$('body').removeClass('lightbox-opened');
 					lightbox.find('.lightbox_container').scrollTop(0);
 					runCallbacks('closed', [lightbox]);
 				});
