@@ -270,7 +270,7 @@ class ArteForaDoMuseu_ArtGuides {
 
 		add_post_meta($guide_id, '_artworks', $artwork_id);
 
-		$this->update_guide_cities($guide_id);
+		$this->update_guide($guide_id);
 	}
 
 	function remove_artwork($guide_id, $artwork_id) {
@@ -283,29 +283,32 @@ class ArteForaDoMuseu_ArtGuides {
 
 		delete_post_meta($guide_id, '_artworks', $artwork_id);
 
-		$this->update_guide_cities($guide_id);
+		$this->update_guide($guide_id);
 	}
 
-	function update_guide_cities($guide_id) {
+	function update_guide($guide_id) {
 
-		$artworks = get_post_meta($guide_id, '_artworks');
-
-		$city_ids = null;
+		$artworks = get_post_meta($post_id, '_artworks');
 
 		if($artworks) {
 
-			$city_ids = array();
+			$city_names = array();
 
 			foreach($artworks as $artwork_id) {
-
-				$city = array_shift(get_the_terms($artwork_id, 'city'));
-				$city_names[] = $city->name;
-
+				if(!get_post($artwork_id)) {
+					// artwork not found (deleted)
+					delete_post_meta($post_id, '_artworks', $artwork_id);
+				} else {
+					// update city
+					$city = array_shift(get_the_terms($artwork_id, 'city'));
+					$city_names[] = $city->name;
+				}
 			}
 
 		}
 
 		wp_set_object_terms($guide_id, $city_names, 'city');
+
 	}
 
 	function get_query($guide_id = false, $query = false) {
