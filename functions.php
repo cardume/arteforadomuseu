@@ -19,7 +19,7 @@ function afdm_scripts() {
 
 	wp_enqueue_style('afdm-main', get_stylesheet_directory_uri() . '/css/main.css', array(), '1.0');
 	wp_enqueue_script('responsive-nav', get_stylesheet_directory_uri(). '/lib/responsive-nav.min.js', '', '1.0');
-	wp_enqueue_script('afdm', get_stylesheet_directory_uri(). '/js/arteforadomuseu.js', array('responsive-nav'), '0.1.4');
+	wp_enqueue_script('afdm', get_stylesheet_directory_uri(). '/js/arteforadomuseu.js', array('responsive-nav', 'shadowbox'), '0.1.5');
 }
 
 function afdm_register_lib() {
@@ -32,12 +32,15 @@ function afdm_register_lib() {
 	wp_register_script('jquery-chosen', get_stylesheet_directory_uri() . '/lib/jquery.chosen.min.js', array('jquery'), '0.9.14');
 	wp_register_style('jquery-chosen', get_stylesheet_directory_uri() . '/lib/chosen.css');
 
+	wp_register_script('shadowbox', get_stylesheet_directory_uri() . '/lib/shadowbox/shadowbox.js', array('jquery'), '3.0.3');
+	wp_enqueue_style('shadowbox', get_stylesheet_directory_uri() . '/lib/shadowbox/shadowbox.css');
+
 	wp_register_style('jquery-tag-it', get_stylesheet_directory_uri() . '/lib/jquery.tagit.css');
 	wp_register_script('jquery-tag-it', get_stylesheet_directory_uri() . '/lib/tag-it.min.js', array('jquery', 'jquery-ui-core', 'jquery-ui-widget', 'jquery-ui-position', 'jquery-ui-autocomplete'), '2.0');
 }
 
+add_action('wp_enqueue_scripts', 'afdm_register_lib', 4);
 add_action('wp_enqueue_scripts', 'afdm_scripts', 5);
-add_action('wp_enqueue_scripts', 'afdm_register_lib', 5);
 add_action('admin_footer', 'afdm_register_lib', 5);
 
 function afdm_marker_extent() {

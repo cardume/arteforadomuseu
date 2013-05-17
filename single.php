@@ -87,7 +87,7 @@
 					<div class="image-stage-container">
 						<div class="image-stage">
 							<?php $image = $images[0]; ?>
-							<a href="<?php echo $image['full'][0]; ?>"><img src="<?php echo $image['large'][0]; ?>" /></a>
+							<a href="<?php echo $image['full'][0]; ?>" rel="shadowbox"><img src="<?php echo $image['large'][0]; ?>" /></a>
 						</div>
 					</div>
 					<div class="image-list-container clearfix">

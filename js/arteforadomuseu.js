@@ -144,6 +144,8 @@
 
 	$(document).ready(function() {
 
+		Shadowbox.init();
+
 		var list = $(this).find('.image-list');
 		var stage = $(this).find('.image-stage');
 
@@ -162,9 +164,22 @@
 
 			list.find('a').click(function() {
 
-				var stageImage = $('<a href="' + $(this).data('full') + '"><img src="' + $(this).attr('href') + '" /></a>');
+				var full_url = $(this).data('full');
+
+				var stageImage = $('<a href="' + full_url + '" rel="shadowbox"><img src="' + $(this).attr('href') + '" /></a>');
 
 				stage.empty().append(stageImage);
+
+				stageImage.click(function() {
+
+					Shadowbox.open({
+						content: full_url,
+						player: 'img'
+					});
+
+					return false;
+
+				});
 
 				updateStageDimensions();
 
