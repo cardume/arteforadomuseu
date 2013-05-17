@@ -79,18 +79,26 @@
 		<?php endif; ?>
 		<?php if($images) : ?>
 			<section id="images" class="sub-content middle-content">
-				<div class="content">
+				<div class="content image-gallery">
 					<div class="sub-content-header">
 						<a class="close" href="#"><?php _e('Close', 'arteforadomuseu'); ?> <span class="lsf">close</span></a>
-						<h3><?php _e('Images', 'arteforadomuseu'); ?></h3>
+						<h3><?php _e('Image gallery', 'arteforadomuseu'); ?></h3>
 					</div>
-					<ul class="image-list clearfix">
-						<?php foreach($images as $image) : ?>
-							<li>
-								<a href="<?php echo $image['full'][0]; ?>"><img src="<?php echo $image['thumb'][0]; ?>" /></a>
-							</li>
-						<?php endforeach; ?>
-					</ul>
+					<div class="image-stage-container">
+						<div class="image-stage">
+							<?php $image = $images[0]; ?>
+							<a href="<?php echo $image['full'][0]; ?>"><img src="<?php echo $image['large'][0]; ?>" /></a>
+						</div>
+					</div>
+					<div class="image-list-container clearfix">
+						<ul class="image-list">
+							<?php foreach($images as $image) : ?>
+								<li>
+									<a href="<?php echo $image['large'][0]; ?>" data-full="<?php echo $image['full'][0]; ?>"><img src="<?php echo $image['thumb'][0]; ?>" /></a>
+								</li>
+							<?php endforeach; ?>
+						</ul>
+					</div>
 				</div>
 			</section>
 		<?php endif; ?>

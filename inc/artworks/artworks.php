@@ -725,7 +725,8 @@ class ArteForaDoMuseu_Artworks {
 		$images = get_posts(array(
 			'post_type' => 'attachment',
 			'post_parent' => $post_id,
-			'post_status' => null
+			'post_status' => null,
+			'posts_per_page' => -1
 		));
 
 		if(!$images)
@@ -748,7 +749,7 @@ class ArteForaDoMuseu_Artworks {
 
 		$image = array(
 			'thumb' => wp_get_attachment_image_src($attachment_id, 'thumbnail'),
-			'featured' => wp_get_attachment_image_src($attachment_id, 'page-featured'),
+			'large' => wp_get_attachment_image_src($attachment_id, 'large'),
 			'full' => wp_get_attachment_image_src($attachment_id, 'full')
 		);
 

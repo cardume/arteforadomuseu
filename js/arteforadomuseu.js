@@ -138,4 +138,68 @@
 		},
 	}
 
+	/*
+	 * Image gallery
+	 */
+
+	$(document).ready(function() {
+
+		var list = $(this).find('.image-list');
+		var stage = $(this).find('.image-stage');
+
+		updateStageDimensions();
+		updateImageListDimensions();
+
+		$(window).resize(function() {
+			updateStageDimensions();
+		});
+
+		$(window).resize(function() {
+			updateImageListDimensions();
+		});
+
+		$('.image-gallery').each(function() {
+
+			list.find('a').click(function() {
+
+				var stageImage = $('<a href="' + $(this).data('full') + '"><img src="' + $(this).attr('href') + '" /></a>');
+
+				stage.empty().append(stageImage);
+
+				updateStageDimensions();
+
+				return false;
+
+			});
+
+		});
+
+		function updateStageDimensions() {
+
+			stage.find('a').css({
+				height: stage.parent().height()
+			});
+		}
+
+		function updateImageListDimensions() {
+
+			var size = 0;
+
+			list.find('li').each(function() {
+				size = size + $(this).height() + 10;
+			});
+
+			list.css({
+				width: size
+			});
+
+			list.find('li').each(function() {
+				$(this).css({
+					width: $(this).height()
+				});
+			})
+
+		}
+	})
+
 })(jQuery);

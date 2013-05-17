@@ -815,6 +815,24 @@ input[type=submit] {
 	margin: 0;
 	z-index: 100;
 	.transition(right .2s ease-in-out);
+	.content-message {
+		margin: 20px 40px;
+		background: #f0f0f0;
+		color: #333;
+		padding: 10px;
+		border: 1px solid #111;
+		font-weight: 200;
+		font-size: 16px;
+		line-height: 26px;
+		p {
+			margin: 0;
+		}
+		.button {
+			margin-top: 10px;
+			display: block;
+			float: none;
+		}
+	}
 	.section-title {
 		background: transparent;
 		padding: 0;
@@ -964,6 +982,7 @@ input[type=submit] {
 				color: #fff;
 				font-weight: 200;
 				text-transform: uppercase;
+				margin-bottom: 20px;
 			}
 			.close {
 				float: right;
@@ -977,23 +996,6 @@ input[type=submit] {
 		object,
 		img {
 			max-width: 100%;
-		}
-		.image-list {
-			display: block;
-			width: 100%;
-			margin: 0;
-			padding: 0;
-			li {
-				width: 25%;
-				float: left;
-				display: block;
-				margin: 0 0 10px;
-				padding: 0;
-				img {
-					width: 90%;
-					height: auto;
-				}
-			}
 		}
 		/*
 		 * Comments
@@ -1062,6 +1064,63 @@ input[type=submit] {
 			}
 			label {
 				color: #666;
+			}
+		}
+		&.image-gallery {
+			.image-stage-container {
+				border: 5px solid #101010;
+				background: #101010;
+				height: 65%;
+				overflow: hidden;
+				.image-stage {
+					width: 100%;
+					display: table;
+					a {
+						width: 100%;
+						display: table-cell;
+						vertical-align: middle;
+						img {
+							margin: 0 auto;
+							max-width: 100%;
+							max-height: 100%;
+							width: auto;
+							height: auto;
+							display: block;
+						}
+					}
+				}
+			}
+			.image-list-container {
+				display: block;
+				width: 100%;
+				margin: 10px 0 0;
+				padding: 0 0 10px;
+				height: 15%;
+				overflow-y: hidden;
+				overflow-x: auto;
+				&::-webkit-scrollbar {
+					height: 5px;
+					background: #444;
+				}
+				&::-webkit-scrollbar-thumb {
+					background: #111;
+					&:hover {
+						background: #222;
+					}
+				}
+				.image-list {
+					li {
+						margin: 0 10px 10px 0;
+						height: 100%;
+						float: left;
+						display: block;
+						padding: 0;
+						img {
+							height: 100%;
+							width: auto;
+						}
+					}
+				}
 			}
 		}
 	}
