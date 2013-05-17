@@ -299,7 +299,7 @@ class ArteForaDoMuseu_ArtGuides {
 			foreach($artworks as $artwork_id) {
 				if(!get_post($artwork_id)) {
 					// artwork not found (deleted)
-					delete_post_meta($post_id, '_artworks', $artwork_id);
+					delete_post_meta($guide_id, '_artworks', $artwork_id);
 				} else {
 					// update city
 					$city = array_shift(get_the_terms($artwork_id, 'city'));
