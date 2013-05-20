@@ -496,7 +496,7 @@ class ArteForaDoMuseu_Artists {
 	function add_artwork_button($artwork_id = false) {
 		global $post;
 		$artwork_id = $artwork_id ? $artwork_id : $post->ID;
-		if(!$this->can_edit_any() || $this->has_artist($artwork_id))
+		if(!$this->can_edit_any())
 			return;
 		?>
 		<a class="add_artwork_to_artist" data-artwork="<?php echo $artwork_id; ?>" data-artwork-title="<?php echo get_the_title($artwork_id); ?>" href="#"><span class="lsf">addnew</span> <?php _e('Register artist', 'arteforadomuseu'); ?></a>
