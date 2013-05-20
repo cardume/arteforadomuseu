@@ -20,7 +20,7 @@
 	 * Carousels
 	 */
 
-	$(document).ready(function() {
+	mappress.mapReady(function() {
 
 		$('.carousel').each(function() {
 
