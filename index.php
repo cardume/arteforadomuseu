@@ -12,7 +12,7 @@
 		'posts_per_page' => 4,
 		'mappress_featured' => 1
 	));
-	if(have_posts()) :
+	if(have_posts() && !get_query_var('city_not_found')) :
 		?>
 		<div class="featured-section">
 			<div class="section-title">
