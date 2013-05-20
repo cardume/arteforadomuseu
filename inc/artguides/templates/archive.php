@@ -56,8 +56,8 @@
 								if($featured) : ?>
 									<h2><?php _e('Featured', 'arteforadomuseu'); ?></h2>
 									<?php
+									global $post;
 									foreach($featured as $post) :
-										global $post;
 										setup_postdata($post);
 										?>
 										<div class="row">

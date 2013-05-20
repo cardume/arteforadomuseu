@@ -33,7 +33,7 @@ class ArteForaDoMuseu_Views {
 
 	function first_view($post_id) {
 		if(in_array(get_post_type($post_id), $this->post_types)) {
-			if(!$this->get_views($post_id) || !$this->get_views($post_id) === 0)
+			if(!$this->get_views($post_id) || $this->get_views($post_id) === 0)
 				update_post_meta($post_id, '_views', 0);
 		}
 	}

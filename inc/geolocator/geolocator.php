@@ -133,19 +133,20 @@ class ArteForaDoMuseu_Geolocator {
 
 			if($city) {
 
-				remove_action('pre_get_posts', array($this, 'geo_wp_query'));
-
 				$city_term = get_term_by('name', $city, 'city');
 
 				if($city_term)
 					$query->set('city', $city_term->slug);
 
-				if(!get_posts($query->query_vars)) {
+				remove_action('pre_get_posts', array($this, 'geo_wp_query'));
+				$have_posts = get_posts($query->query_vars);
+				add_action('pre_get_posts', array($this, 'geo_wp_query'));
+
+				if(!$have_posts) {
 					$query->set('city', null);
 					$query->set('city_not_found', 1);
 				}
 
-				add_action('pre_get_posts', array($this, 'geo_wp_query'));
 
 			}
 

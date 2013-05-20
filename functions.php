@@ -1,12 +1,11 @@
 <?php
 
-require_once(STYLESHEETPATH . '/inc/views.php');
-//require_once(STYLESHEETPATH . '/inc/featured.php');
 require_once(STYLESHEETPATH . '/inc/lightbox/lightbox.php');
 require_once(STYLESHEETPATH . '/inc/artguides/artguides.php');
 require_once(STYLESHEETPATH . '/inc/artists/artists.php');
 require_once(STYLESHEETPATH . '/inc/artworks/artworks.php');
 require_once(STYLESHEETPATH . '/inc/geolocator/geolocator.php');
+require_once(STYLESHEETPATH . '/inc/views.php');
 
 function afdm_setup() {
 	add_theme_support('post-thumbnails');
