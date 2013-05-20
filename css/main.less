@@ -757,7 +757,7 @@ input[type=submit] {
 							line-height: 30px;
 							margin-bottom: 20px;
 							margin-left: 50px;
-							.transition(all .8s ease-in-out);
+							.transition(all 1.5s ease-in-out);
 							a {
 								color: #fff;
 								text-shadow: 2px 2px 0px rgba(0,0,0,0.5);
@@ -1070,7 +1070,6 @@ input[type=submit] {
 						.thumbnail-container {
 							img {
 								margin-top: 0;
-								.transition(margin-top 20s);
 							}
 						}
 						.post-header {
@@ -1081,6 +1080,7 @@ input[type=submit] {
 						article {
 							.thumbnail-container {
 								img {
+									.transition(margin-top 20s);
 									margin-top: -50%;
 								}
 							}

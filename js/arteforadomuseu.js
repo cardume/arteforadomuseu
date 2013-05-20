@@ -30,12 +30,12 @@
 				current = items.first(),
 				controllers = carousel.find('.carousel-controllers');
 
-			hide(items);
-
-			show(current);
+			setTimeout(function() {
+				show(current);
+			}, 200);
 
 			if(autorun)
-				var t = setInterval(next, 5000);
+				var t = setInterval(next, 8000);
 
 			controllers.on('click', 'a', function() {
 
