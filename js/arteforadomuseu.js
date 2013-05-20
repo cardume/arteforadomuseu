@@ -37,6 +37,9 @@
 			if(autorun)
 				var t = setInterval(next, 8000);
 
+			if(items.length === 1)
+				controllers.hide();
+
 			controllers.on('click', 'a', function() {
 
 				if($(this).is('.next'))
