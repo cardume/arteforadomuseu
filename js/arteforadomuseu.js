@@ -16,6 +16,81 @@
 
 	});
 
+	/*
+	 * Carousels
+	 */
+
+	$(document).ready(function() {
+
+		$('.carousel').each(function() {
+
+			var carousel = $(this),
+				autorun = !carousel.parents('.disable-autorun').length,
+				items = carousel.find('li'),
+				current = items.first(),
+				controllers = carousel.find('.carousel-controllers');
+
+			hide(items);
+
+			show(current);
+
+			if(autorun)
+				var t = setInterval(next, 5000);
+
+			controllers.on('click', 'a', function() {
+
+				if($(this).is('.next'))
+					next();
+				else
+					previous();
+
+				if(autorun && t) {
+					clearInterval(t);
+					t = setInterval(next, 8000);
+				}
+
+				return false;
+
+			});
+
+			function next() {
+
+				hide(current);
+
+				if(current.is('li:last'))
+					current = items.first()
+				else
+					current = current.next('li');
+
+				show(current);
+
+			}
+
+			function previous() {
+
+				hide(current);
+
+				if(current.is('li:first'))
+					current = items.last()
+				else
+					current = current.prev('li');
+
+				show(current);
+
+			}
+
+			function show(el) {
+				el.addClass('active');
+			}
+
+			function hide(el) {
+				el.removeClass('active');
+			}
+
+		});
+
+	});
+
 
 	/*
 	 * Subsection
@@ -34,12 +109,16 @@
 
 		$('.toggle-map').click(function() {
 
+			var toggler = $(this);
+
 			subsection.close(s);
 
 			if($('.map-container .map').hasClass('open')) {
 				$('.map-container .map').removeClass('open');
+				toggler.find('.label').text(toggler.data('default-text'));
 			} else {
 				$('.map-container .map').addClass('open');
+				toggler.find('.label').text(toggler.data('toggled-text'));
 			}
 
 			return false;

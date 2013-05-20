@@ -22,7 +22,9 @@
 			<?php endif; ?>
 		</div>
 
-		<?php get_template_part('loop', 'popular'); ?>
+		<div class="disable-autorun">
+			<?php get_template_part('loop', 'carousel'); ?>
+		</div>
 
 	<?php else : ?>
 

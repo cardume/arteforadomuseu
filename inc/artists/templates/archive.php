@@ -91,7 +91,6 @@
 										<article id="artist-<?php echo the_ID(); ?>">
 											<header class="post-header">
 												<h3><a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php the_title(); ?></a></h3>
-												<p><span class="lsf">user</span> <?php _e('by', 'arteforadomuseu'); ?> <a href="<?php echo afdm_get_user_artists_link(get_the_author_meta('ID')); ?>"><?php the_author(); ?></a></p>
 												<p><span class="lsf">view</span> <?php echo sprintf(_n('1 view', '%s views', afdm_get_views(), 'arteforadomuseu'), afdm_get_views()); ?></p>
 											</header>
 										</article>

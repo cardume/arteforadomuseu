@@ -6,11 +6,24 @@
 
 	<?php do_action('afdm_before_content'); ?>
 
-	<div class="child-section">
-		<div class="section-title">
-			<h2><?php _e('Featured artists', 'arteforadomuseu'); ?></h2>
+	<?php
+	query_posts(array(
+		'post_type' => 'artist',
+		'posts_per_page' => 4,
+		'mappress_featured' => 1
+	));
+	if(have_posts()) :
+		?>
+		<div class="featured-section">
+			<div class="section-title">
+				<h2><?php _e('Featured artists', 'arteforadomuseu'); ?></h2>
+			</div>
+			<?php get_template_part('loop', 'carousel'); ?>
 		</div>
-	</div>
+	<?php
+	endif; 
+	wp_reset_query();
+	?>
 
 	<?php get_template_part('content', 'popular'); ?>
 

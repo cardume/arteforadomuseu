@@ -2,13 +2,12 @@
 	<section class="posts-section carousel">
 		<ul class="posts-list popular">
 			<?php while(have_posts()) : the_post(); ?>
+				<?php if(!has_post_thumbnail()) continue; ?>
 				<li id="post-<?php the_ID(); ?>" class="clearfix">
 					<article id="post-<?php the_ID(); ?>" <?php post_class('clearfix'); ?>>
-						<?php if(has_post_thumbnail()) : ?>
-							<div class="thumbnail-container">
-								<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php the_post_thumbnail('thumbnail'); ?></a>
-							</div>
-						<?php endif; ?>
+						<div class="thumbnail-container">
+							<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php the_post_thumbnail('thumbnail'); ?></a>
+						</div>
 						<header class="post-header">
 							<?php do_action('afdm_loop_before_artwork_header'); ?>
 							<p class="category"><?php echo get_the_category_list(', '); ?></p>
@@ -24,5 +23,9 @@
 				</li>
 			<?php endwhile; ?>
 		</ul>
+		<div class="carousel-controllers">
+			<a class="next" href="#" title="<?php _e('Next', 'arteforadomuseu'); ?>"><span class="lsf">right</span></a>
+			<a class="prev" href="#" title="<?php _e('Previous', 'arteforadomuseu'); ?>"><span class="lsf">left</span></a>
+		</div>
 	</section>
 <?php endif; ?>
