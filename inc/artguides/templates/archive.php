@@ -52,7 +52,7 @@
 						<div class="seven columns">
 							<section class="featured">
 								<?php
-								$featured = afdm_artguides_get_featured(1);
+								$featured = get_posts(array('posts_per_page' => 1, 'post_type' => 'art-guide', 'mappress_featured' => 1));
 								if($featured) : ?>
 									<h2><?php _e('Featured', 'arteforadomuseu'); ?></h2>
 									<?php

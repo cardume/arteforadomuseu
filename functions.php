@@ -1,7 +1,7 @@
 <?php
 
 require_once(STYLESHEETPATH . '/inc/views.php');
-require_once(STYLESHEETPATH . '/inc/featured.php');
+//require_once(STYLESHEETPATH . '/inc/featured.php');
 require_once(STYLESHEETPATH . '/inc/lightbox/lightbox.php');
 require_once(STYLESHEETPATH . '/inc/artguides/artguides.php');
 require_once(STYLESHEETPATH . '/inc/artists/artists.php');

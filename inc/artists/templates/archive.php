@@ -5,9 +5,7 @@
 			<div class="container">
 				<div class="twelve columns">
 					<h1><a href="<?php echo afdm_artists_get_archive_link(); ?>" title="<?php _e('Artists', 'arteforadomuseu'); ?>"><img src="<?php echo get_stylesheet_directory_uri(); ?>/img/artist-logo.png" /><?php _e('Artists', 'arteforadomuseu'); ?></a></h1>
-					<?php if(isset($_GET['author']) && get_userdata($_GET['author'])) : ?>
-						<h2><?php _e('by', 'arteforadomuseu'); ?> <?php echo get_userdata($_GET['author'])->display_name; ?></h2>
-					<?php elseif(isset($_GET['s'])) : ?>
+					<?php if(isset($_GET['s'])) : ?>
 						<h2><?php echo __('Search results for:', 'arteforadomuseu') . ' <i>' . $_GET['s'] . '</i>'; ?></h2>
 					<?php else : ?>
 						<h2><?php // _e('Collaborative guides through the public art', 'arteforadomuseu'); ?></h2>
@@ -49,7 +47,7 @@
 						<div class="seven columns">
 							<section class="featured">
 								<?php
-								$featured = afdm_artists_get_featured(1);
+								$featured = get_posts(array('posts_per_page' => 1, 'post_type' => 'artist', 'mappress_featured' => 1));
 								if($featured) : ?>
 									<h2><?php _e('Featured', 'arteforadomuseu'); ?></h2>
 									<?php

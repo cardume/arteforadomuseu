@@ -7,6 +7,7 @@
 	<section id="content">
 		<header class="single-post-header clearfix">
 			<?php the_post_thumbnail('page-featured'); ?>
+			<h2><a href="<?php echo afdm_artists_get_archive_link(); ?>" title="<?php _e('Artists', 'arteforadomuseu'); ?>"><?php _e('Artists', 'arteforadomuseu'); ?></a></h2>
 			<h1><?php the_title(); ?></h1>
 		</header>
 		<section class="post-content">

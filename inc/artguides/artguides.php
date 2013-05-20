@@ -43,7 +43,7 @@ class ArteForaDoMuseu_ArtGuides {
 	function setup_post_type() {
 		add_action('init', array($this, 'register_post_type'));
 		add_filter('mappress_mapped_post_types', array($this, 'unset_from_mappress_mapped'));
-		add_filter('afdm_featured_post_types', array($this, 'setup_featured'));
+		add_filter('mappress_featured_post_types', array($this, 'setup_featured'));
 	}
 
 	function register_post_type() {

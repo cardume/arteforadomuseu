@@ -43,7 +43,7 @@ class ArteForaDoMuseu_Artists {
 	function setup_post_type() {
 		add_action('init', array($this, 'register_post_type'));
 		add_filter('mappress_mapped_post_types', array($this, 'unset_from_mappress_mapped'));
-		add_filter('afdm_featured_post_types', array($this, 'setup_featured'));
+		add_filter('mappress_featured_post_types', array($this, 'setup_featured'));
 	}
 
 	function register_post_type() {
@@ -319,14 +319,6 @@ class ArteForaDoMuseu_Artists {
 		return get_posts(afdm_get_popular_query($query));
 	}
 
-	function get_featured($amount = 5) {
-		$query = array(
-			'post_type' => $this->post_type,
-			'posts_per_page' => $amount
-		);
-		return get_posts($query);
-	}
-
 	function get_image_mosaic($post_id = false) {
 		global $post;
 		$post_id = $post_id ? $post_id : $post->ID;
@@ -466,7 +458,12 @@ class ArteForaDoMuseu_Artists {
 	}
 
 	function add_artwork_box() {
-		$artists = get_posts(array('post_type' => $this->post_type, 'post_status' => array('publish', 'private', 'pending', 'draft', 'future'), 'posts_per_page' => -1));
+		$artists = get_posts(array(
+			'post_type' => $this->post_type,
+			'post_status' => array('publish', 'private', 'pending', 'draft', 'future'),
+			'posts_per_page' => -1,
+			'not_geo_query' => 1
+		));
 		?>
 		<div id="add_artwork_to_artist">
 			<h2 class="lightbox_title"><span class="lsf">addnew</span> <?php printf(__('Add &ldquo;%s&rdquo; to:', 'arteforadomuseu'), '<span class="title"></span>'); ?></h2>
@@ -706,11 +703,6 @@ function afdm_get_artist_visit_edit_button($post_id = false) {
 function afdm_artists_can_edit($post_id = false, $user_id = false) {
 	global $artists;
 	return $artists->can_edit($post_id, $user_id);
-}
-
-function afdm_artists_get_featured($amount = 5) {
-	global $artists;
-	return $artists->get_featured($amount);
 }
 
 function afdm_artists_get_popular($amount = 5) {
