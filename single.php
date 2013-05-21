@@ -19,6 +19,9 @@
 				<?php the_post_thumbnail('page-featured'); ?>
 				<?php the_category(); ?>
 				<h1><?php the_title(); ?></h1>
+				<?php if(afdm_has_artist()) : ?>
+					<p class="artists"><span class="lsf">user</span> <?php _e('Artists', 'arteforadomuseu'); ?>: <?php afdm_the_artist(); ?></p>
+				<?php endif; ?>
 			</header>
 			<div class="menu">
 				<?php if($videos) : ?>
@@ -32,9 +35,6 @@
 				<?php endif; ?>
 				<a href="#" data-subsection="comments"><span class="lsf">comments</span> <?php _e('Comments', 'arteforadomuseu'); ?></a>
 			</div>
-			<aside class="actions clearfix">
-				<?php do_action('afdm_loop_artwork_actions'); ?>
-			</aside>
 			<?php if($dimensions || $creation_date) : ?>
 				<section class="post-data clearfix">
 					<?php if($dimensions) : ?>
@@ -64,7 +64,11 @@
 			<?php endif; ?>
 			<section class="post-content">
 				<?php the_content(); ?>
+				<?php the_terms($post->ID, 'style', '<p class="styles"><span class="lsf">tag</span> ' . __('Styles', 'arteforadomuseu') . ': ', ' ', '</p>'); ?>
 			</section>
+			<aside class="actions clearfix">
+				<?php do_action('afdm_loop_artwork_actions'); ?>
+			</aside>
 		</section>
 		<?php if($videos) : ?>
 			<section id="videos" class="sub-content middle-content">

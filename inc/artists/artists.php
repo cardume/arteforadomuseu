@@ -281,19 +281,48 @@ class ArteForaDoMuseu_Artists {
 
 	}
 
-	function has_artist($artwork_id) {
+	function has_artist($post_id = false) {
+		global $post;
+		$post_id = $post_id ? $post_id : $post->ID;
 
-		if(get_posts(array(
+		if($this->get_the_artist($post_id)) return true;
+
+		return false;
+	}
+
+	function get_the_artist($post_id = false) {
+		global $post;
+		$post_id = $post_id ? $post_id : $post->ID;
+
+		$artists = get_posts(array(
 			'post_type' => $this->post_type,
 			'meta_query' => array(
 				array(
 					'key' => '_artworks',
-					'value' => $artwork_id
+					'value' => $post_id
 				)
-			)
-		))) return true;
+			),
+			'posts_per_page' => -1
+		));
 
-		return false;
+		return $artists;
+	}
+
+	function the_artist($post_id = false) {
+		global $post;
+		$post_id = $post_id ? $post_id : $post->ID;
+
+		$artists = $this->get_the_artist($post_id);
+
+		if(!$artists)
+			return false;
+
+		$list = array();
+		foreach($artists as $artist) {
+			$list[] = '<a href="' . get_permalink($artist->ID) . '">' . get_the_title($artist->ID) . '</a>';
+		}
+
+		echo implode(', ', $list);
 	}
 
 	function get_query($post_id = false, $query = false) {
@@ -713,4 +742,14 @@ function afdm_artists_get_popular($amount = 5) {
 function afdm_get_artist_views($post_id = false) {
 	global $artists;
 	return $artists->get_views($post_id);
+}
+
+function afdm_has_artist($post_id = false) {
+	global $artists;
+	return $artists->has_artist($post_id);
+}
+
+function afdm_the_artist($post_id = false) {
+	global $artists;
+	return $artists->the_artist($post_id);
 }

@@ -981,6 +981,7 @@ input[type=submit] {
 			}
 		}
 		h1 {
+			float: none;
 			color: #f0f0f0;
 			font-size: 32px;
 			line-height: 32px;
@@ -1006,6 +1007,24 @@ input[type=submit] {
 					outline: none;
 					.box-shadow(0 0 0);
 				}
+			}
+		}
+		.artists {
+			margin: 0;
+			padding: 0 0 20px 40px;
+			font-weight: 200;
+			font-size: 11px;
+			text-transform: uppercase;
+			a {
+				font-size: 12px;
+				text-transform: none;
+				text-decoration: none;
+				font-weight: 600;
+				color: #fff;
+			}
+			.lsf {
+				color: #999;
+				margin-right: 5px;
 			}
 		}
 	}
@@ -1135,8 +1154,28 @@ input[type=submit] {
 		}
 	}
 	&.single-post {
+		a {
+			color: #fff;
+		}
+		.styles {
+			font-weight: 200;
+			text-transform: uppercase;
+			font-size: 11px;
+			line-height: 12px;
+			.lsf {
+				margin-right: 5px;
+				color: #999;
+			}
+			a {
+				text-decoration: none;
+				font-weight: 600;
+				padding: 3px;
+				.box-shadow(0 0 2px rgba(0,0,0,0.6));
+				background: #2f2f2f;
+			}
+		}
 		.actions {
-			padding: 20px 20px 0;
+			margin: 0 20px 20px;
 			a {
 				color: #999;
 				text-decoration: none;
