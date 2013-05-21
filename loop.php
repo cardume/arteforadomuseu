@@ -30,5 +30,6 @@
 				</li>
 			<?php endwhile; ?>
 		</ul>
+		<div class="navigation"><p><?php posts_nav_link(); ?></p></div>
 	</section>
 <?php endif; ?>

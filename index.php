@@ -6,26 +6,30 @@
 
 	<?php do_action('afdm_before_content'); ?>
 
-	<?php
-	query_posts(array(
-		'post_type' => 'artist',
-		'posts_per_page' => 4,
-		'mappress_featured' => 1
-	));
-	if(have_posts() && !get_query_var('city_not_found')) :
-		?>
-		<div class="featured-section">
-			<div class="section-title">
-				<h2><?php _e('Featured artists', 'arteforadomuseu'); ?></h2>
-			</div>
-			<?php get_template_part('loop', 'carousel'); ?>
-		</div>
-	<?php
-	endif; 
-	wp_reset_query();
-	?>
+	<?php if(!is_paged()) : ?>
 
-	<?php get_template_part('content', 'popular'); ?>
+		<?php
+		query_posts(array(
+			'post_type' => 'artist',
+			'posts_per_page' => 4,
+			'mappress_featured' => 1
+		));
+		if(have_posts() && !get_query_var('city_not_found')) :
+			?>
+			<div class="featured-section">
+				<div class="section-title">
+					<h2><?php _e('Featured artists', 'arteforadomuseu'); ?></h2>
+				</div>
+				<?php get_template_part('loop', 'carousel'); ?>
+			</div>
+		<?php
+		endif; 
+		wp_reset_query();
+		?>
+
+		<?php get_template_part('content', 'popular'); ?>
+		
+	<?php endif; ?>
 
 	<div class="child-section">
 		<div class="section-title">

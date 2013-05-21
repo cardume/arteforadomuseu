@@ -325,6 +325,8 @@ class ArteForaDoMuseu_ArtGuides {
 		$query['post_type'] = 'any';
 		$query['post__in'] = $this->get_artworks_id($guide_id);
 
+		$query['paged'] = (get_query_var('paged')) ? get_query_var('paged') : 1;
+
 		return $query;
 	}
 

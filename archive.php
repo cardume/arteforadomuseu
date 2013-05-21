@@ -18,7 +18,7 @@
 					elseif(is_tax()) :
 						single_term_title(__('Currently browsing', 'arteforadomuseu') . ': ');
 					else :
-						_e( 'Archives', 'mappress' );
+						_e( 'Archives', 'arteforadomuseu' );
 					endif;
 				?></h1>
 		</div>

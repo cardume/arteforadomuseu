@@ -6,7 +6,7 @@
 
 	<?php do_action('afdm_before_content'); ?>
 
-	<?php get_template_part('content', 'popular'); ?>
+	<?php if(!is_paged()) get_template_part('content', 'popular'); ?>
 
 	<div class="child-section">
 		<div class="section-title">
