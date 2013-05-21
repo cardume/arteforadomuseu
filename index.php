@@ -4,9 +4,9 @@
 
 <section id="content">
 
-	<?php do_action('afdm_before_content'); ?>
-
 	<?php if(!is_paged()) : ?>
+
+		<?php do_action('afdm_before_content'); ?>
 
 		<?php
 		query_posts(array(
@@ -28,7 +28,7 @@
 		?>
 
 		<?php get_template_part('content', 'popular'); ?>
-		
+
 	<?php endif; ?>
 
 	<div class="child-section">

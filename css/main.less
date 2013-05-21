@@ -628,13 +628,12 @@ input[type=submit] {
 			.border-radius(0);
 			position: relative;
 			.thumbnail-container {
-				width: 100%;
-				height: 20%;
-				overflow: hidden;
-				margin: 0;
+				min-width: 150px;
+				width: 30%;
+				float: right;
+				margin: 0 0 0 20px;
 				.wp-post-image {
 					width: 100%;
-					margin-top: -40%;
 					height: auto;
 					display: block;
 				}
@@ -644,7 +643,6 @@ input[type=submit] {
 					text-transform: uppercase;
 					font-weight: 200;
 					margin: 0;
-					float: right;
 					a {
 						text-decoration: none;
 						color: #666;
@@ -692,6 +690,7 @@ input[type=submit] {
 				.gradient(#222, #222, #303030);
 				.border-radius(0);
 				border-bottom: 1px solid #303030;
+				display:block;
 				a,
 				button,
 				.button,
