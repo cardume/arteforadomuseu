@@ -41,67 +41,70 @@
 								</div>
 							</article>
 						<?php endwhile; ?>
+						<div class="navigation"><p><?php posts_nav_link(); ?></p></div>
 					</div>
 				<?php else : ?>
-					<div class="row">
-						<div class="seven columns">
-							<section class="featured">
-								<?php
-								$featured = get_posts(array('posts_per_page' => 1, 'post_type' => 'artist', 'mappress_featured' => 1));
-								if($featured) : ?>
-									<h2><?php _e('Featured', 'arteforadomuseu'); ?></h2>
+					<?php if(!is_paged()) : ?>
+						<div class="row">
+							<div class="seven columns">
+								<section class="featured">
 									<?php
-									global $post;
-									foreach($featured as $post) :
-										setup_postdata($post);
+									$featured = get_posts(array('posts_per_page' => 1, 'post_type' => 'artist', 'mappress_featured' => 1));
+									if($featured) : ?>
+										<h2><?php _e('Featured', 'arteforadomuseu'); ?></h2>
+										<?php
+										global $post;
+										foreach($featured as $post) :
+											setup_postdata($post);
+											?>
+											<div class="row">
+												<article id="artist-<?php echo the_ID(); ?>">
+													<header class="post-header">
+														<?php if(has_post_thumbnail()) : ?>
+															<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
+																<?php the_post_thumbnail('page-featured', array('class' => 'scale-with-grid')); ?>
+															</a>
+														<?php endif; ?>
+														<h3><a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php the_title(); ?></a></h3>
+													</header>
+													<section class="post-content">
+														<?php the_excerpt(); ?>
+													</section>
+												</article>
+											</div>
+											<?php
+											wp_reset_postdata();
+										endforeach;
 										?>
-										<div class="row">
+									<?php endif; ?>
+								</section>
+							</div>
+							<div class="four columns offset-by-one">
+								<section class="popular">
+									<?php
+									$popular = afdm_artists_get_popular(4);
+									if($popular) : ?>
+										<h2><?php _e('Popular', 'arteforadomuseu'); ?></h2>
+										<?php
+										foreach($popular as $post) :
+											global $post;
+											setup_postdata($post);
+											?>
 											<article id="artist-<?php echo the_ID(); ?>">
 												<header class="post-header">
-													<?php if(has_post_thumbnail()) : ?>
-														<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
-															<?php the_post_thumbnail('page-featured', array('class' => 'scale-with-grid')); ?>
-														</a>
-													<?php endif; ?>
 													<h3><a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php the_title(); ?></a></h3>
+													<p><span class="lsf">view</span> <?php echo sprintf(_n('1 view', '%s views', afdm_get_views(), 'arteforadomuseu'), afdm_get_views()); ?></p>
 												</header>
-												<section class="post-content">
-													<?php the_excerpt(); ?>
-												</section>
 											</article>
-										</div>
-										<?php
-										wp_reset_postdata();
-									endforeach;
-									?>
-								<?php endif; ?>
-							</section>
-						</div>
-						<div class="four columns offset-by-one">
-							<section class="popular">
-								<?php
-								$popular = afdm_artists_get_popular(4);
-								if($popular) : ?>
-									<h2><?php _e('Popular', 'arteforadomuseu'); ?></h2>
-									<?php
-									foreach($popular as $post) :
-										global $post;
-										setup_postdata($post);
+											<?php
+											wp_reset_postdata();
+										endforeach;
 										?>
-										<article id="artist-<?php echo the_ID(); ?>">
-											<header class="post-header">
-												<h3><a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php the_title(); ?></a></h3>
-												<p><span class="lsf">view</span> <?php echo sprintf(_n('1 view', '%s views', afdm_get_views(), 'arteforadomuseu'), afdm_get_views()); ?></p>
-											</header>
-										</article>
-										<?php
-										wp_reset_postdata();
-									endforeach;
-									?>
-								<?php endif; ?>
-							</section>
+									<?php endif; ?>
+								</section>
+							</div>
 						</div>
-					</div>
+					<?php endif; ?>
 					<div class="row">
 						<section class="recent">
 							<div class="twelve columns">
@@ -132,6 +135,7 @@
 										</div>
 									</article>
 								<?php endwhile; ?>
+								<div class="navigation"><p><?php posts_nav_link(); ?></p></div>
 							</div>
 						</section>
 					</div>
