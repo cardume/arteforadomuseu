@@ -135,8 +135,12 @@ class ArteForaDoMuseu_Geolocator {
 
 				$city_term = get_term_by('name', $city, 'city');
 
-				if($city_term)
-					$query->set('city', $city_term->slug);
+				if(!$city_term) {
+					$query->set('city_not_found', 1);
+					return $query;
+				}
+
+				$query->set('city', $city_term->slug);
 
 				remove_action('pre_get_posts', array($this, 'geo_wp_query'));
 				$have_posts = get_posts($query->query_vars);
@@ -146,7 +150,6 @@ class ArteForaDoMuseu_Geolocator {
 					$query->set('city', null);
 					$query->set('city_not_found', 1);
 				}
-
 
 			}
 
@@ -317,7 +320,7 @@ class ArteForaDoMuseu_Geolocator {
 			$ip = getenv("REMOTE_ADDR");
 
 		if($ip == '127.0.0.1')
-			$ip = '186.204.200.47';
+			$ip = '186.207.146.97';
 
 		return $ip; 
 	}

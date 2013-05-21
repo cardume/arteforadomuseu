@@ -1711,6 +1711,24 @@ body.lightbox-opened {
 				border: 1px solid lighten(green, 20%);
 			}
 		}
+		.progress-bar {
+			position: relative;
+			color: #fff;
+			text-align: center;
+			font-weight: 800;
+			line-height: 26px;
+			.progress {
+				position: absolute;
+				left: 0;
+				height: 26px;
+				.gradient(#333, #333, #555);
+			}
+			.percentage {
+				position: relative;
+				z-index: 2;
+				text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+			}
+		}
 		.half-1 {
 			width: 50%;
 			float: left;
@@ -1874,7 +1892,6 @@ body.lightbox-opened {
 			clear: both;
 			margin: 20px 0;
 			li {
-				width: 100%:
 				clear: both;
 				display: block;
 				margin: 0 0 10px;

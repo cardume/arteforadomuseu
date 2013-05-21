@@ -226,77 +226,83 @@
 
 	$(document).ready(function() {
 
-		Shadowbox.init();
+		if($('.image-gallery').length) {
 
-		var list = $(this).find('.image-list');
-		var stage = $(this).find('.image-stage');
+			Shadowbox.init();
 
-		updateStageDimensions();
-		updateImageListDimensions();
+			var list, stage;
 
-		$('[data-subsection="images"]').click(function() {
-			updateStageDimensions();
-			updateImageListDimensions();
-		});
+			$('[data-subsection="images"]').click(function() {
+				updateStageDimensions();
+				updateImageListDimensions();
+			});
 
-		$(window).resize(function() {
-			updateStageDimensions();
-			updateImageListDimensions();
-		});
+			$(window).resize(function() {
+				updateStageDimensions();
+				updateImageListDimensions();
+			});
 
-		$('.image-gallery').each(function() {
+			$('.image-gallery').each(function() {
 
-			list.find('a').click(function() {
+				list = $(this).find('.image-list');
+				stage = $(this).find('.image-stage');
 
-				var full_url = $(this).data('full');
+				updateStageDimensions();
+				updateImageListDimensions();
 
-				var stageImage = $('<a href="' + full_url + '" rel="shadowbox"><img src="' + $(this).attr('href') + '" /></a>');
+				list.find('a').click(function() {
 
-				stage.empty().append(stageImage);
+					var full_url = $(this).data('full');
 
-				stageImage.click(function() {
+					var stageImage = $('<a href="' + full_url + '" rel="shadowbox"><img src="' + $(this).attr('href') + '" /></a>');
 
-					Shadowbox.open({
-						content: full_url,
-						player: 'img'
+					stage.empty().append(stageImage);
+
+					stageImage.click(function() {
+
+						Shadowbox.open({
+							content: full_url,
+							player: 'img'
+						});
+
+						return false;
+
 					});
+
+					updateStageDimensions();
 
 					return false;
 
 				});
 
-				updateStageDimensions();
-
-				return false;
-
 			});
 
-		});
+			function updateStageDimensions() {
 
-		function updateStageDimensions() {
-
-			stage.find('a').css({
-				height: stage.parent().height()
-			});
-		}
-
-		function updateImageListDimensions() {
-
-			var size = 0;
-
-			list.find('li').each(function() {
-				size = size + $(this).height() + 10;
-			});
-
-			list.css({
-				width: size
-			});
-
-			list.find('li').each(function() {
-				$(this).css({
-					width: $(this).height()
+				stage.find('a').css({
+					height: stage.parent().height()
 				});
-			})
+			}
+
+			function updateImageListDimensions() {
+
+				var size = 0;
+
+				list.find('li').each(function() {
+					size = size + $(this).height() + 10;
+				});
+
+				list.css({
+					width: size
+				});
+
+				list.find('li').each(function() {
+					$(this).css({
+						width: $(this).height()
+					});
+				})
+
+			}
 
 		}
 	})

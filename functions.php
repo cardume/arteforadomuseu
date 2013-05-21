@@ -31,6 +31,8 @@ function afdm_register_lib() {
 	wp_register_script('jquery-ui-datepicker-pt-BR', get_stylesheet_directory_uri() . '/lib/jquery.ui.datepicker.pt-BR.js', array('jquery-ui-datepicker'));
 	wp_register_script('jquery-chosen', get_stylesheet_directory_uri() . '/lib/jquery.chosen.min.js', array('jquery'), '0.9.14');
 	wp_register_style('jquery-chosen', get_stylesheet_directory_uri() . '/lib/chosen.css');
+	wp_deregister_script('jquery-form');
+	wp_register_script('jquery-form', get_stylesheet_directory_uri() . '/lib/jquery.form.js', array('jquery'), '3.34.0-test1');
 
 	wp_register_script('shadowbox', get_stylesheet_directory_uri() . '/lib/shadowbox/shadowbox.js', array('jquery'), '3.0.3');
 	wp_enqueue_style('shadowbox', get_stylesheet_directory_uri() . '/lib/shadowbox/shadowbox.css');

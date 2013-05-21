@@ -56,10 +56,11 @@ class ArteForaDoMuseu_Artworks {
 	}
 
 	function scripts() {
-		wp_enqueue_script('afdm-artworks', $this->directory_uri . '/js/artworks.js', array('jquery', 'afdm-lightbox', 'jquery-autosize'), '0.0.5');
+		wp_enqueue_script('afdm-artworks', $this->directory_uri . '/js/artworks.js', array('jquery', 'afdm-lightbox', 'jquery-autosize', 'jquery-form'), '0.0.6');
 		wp_localize_script('afdm-artworks', 'artworks', array(
 			'ajaxurl' => admin_url('admin-ajax.php'),
-			'sending_msg' => __('Sending data...', 'arteforadomuseu')
+			'sending_msg' => __('Sending data...', 'arteforadomuseu'),
+			'crunching_msg' => __('Crunching...', 'arteforadomuseu')
 		));
 	}
 
@@ -179,7 +180,7 @@ class ArteForaDoMuseu_Artworks {
 		if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
 			return;
 
-		if (defined('DOING_AJAX') && DOING_AJAX && !(defined('ALLOWED_AJAX') && ALLOWED_AJAX))
+		if (defined('DOING_AJAX') && DOING_AJAX && !(defined('AFDM_ALLOWED_AJAX') && AFDM_ALLOWED_AJAX))
 			return;
 
 		if (false !== wp_is_post_revision($post_id))
@@ -189,6 +190,13 @@ class ArteForaDoMuseu_Artworks {
 		$this->save_artwork_dates($post_id);
 		$this->save_artwork_videos($post_id);
 		$this->save_artwork_links($post_id);
+
+		if(defined('AFDM_FRONTEND_SUBMIT') && AFDM_FRONTEND_SUBMIT) {
+			mappress_geocode_save($post_id);
+			$this->save_artwork_styles($post_id);
+			$this->save_artwork_categories($post_id);
+			$this->save_artwork_images($post_id);
+		}
 	}
 
 	function box_artwork_dimensions($post = false) {
@@ -220,7 +228,7 @@ class ArteForaDoMuseu_Artworks {
 
 		wp_enqueue_style('jquery-ui-smoothness', 'http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');
 		wp_enqueue_style('jquery-chosen');
-		wp_enqueue_script('artworks-box-dates', $this->directory_uri . '/js/artworks.box.dates.js', array('jquery', 'jquery-ui-datepicker', 'jquery-ui-datepicker-pt-BR', 'jquery-chosen'), '0.0.7');
+		wp_enqueue_script('artworks-box-dates', $this->directory_uri . '/js/artworks.box.dates.js', array('jquery', 'jquery-ui-datepicker', 'jquery-ui-datepicker-pt-BR', 'jquery-chosen'), '0.0.9');
 		wp_localize_script('artworks-box-dates', 'box_dates_settings', array(
 			'dateFormat' => 'dd/mm/yy',
 			'language' => get_bloginfo('language'),
@@ -446,7 +454,7 @@ class ArteForaDoMuseu_Artworks {
 				<script type="text/javascript">
 					jQuery(document).ready(function($) {
 						$('#style-tags').tagit({
-							fieldName: 'styles',
+							fieldName: 'styles[]',
 							tagLimit: 5,
 							availableTags: <?php echo json_encode($style_names); ?>,
 							autocomplete: { delay: 0, minLength: 2 },
@@ -462,9 +470,9 @@ class ArteForaDoMuseu_Artworks {
 
 	function save_artwork_styles($post_id) {
 
-		/*
-		 * TO DO
-		 */
+		if(isset($_REQUEST['categories'])) {
+			wp_set_object_terms($post_id, $_REQUEST['styles'], 'style');
+		}
 
 	}
 
@@ -487,7 +495,7 @@ class ArteForaDoMuseu_Artworks {
 				<select id="artwork_categories_select" name="categories">
 					<option></option>
 					<?php foreach($categories as $category) : ?>
-						<option value="<?php echo $category->term_id; ?>" <?php if($category->term_id == $category_id) echo 'selected'; ?>><?php echo $category->name; ?></option>
+						<option value="<?php echo $category->slug; ?>" <?php if($category->term_id == $category_id) echo 'selected'; ?>><?php echo $category->name; ?></option>
 					<?php endforeach; ?>
 				</select>
 			</div>
@@ -497,15 +505,15 @@ class ArteForaDoMuseu_Artworks {
 
 	function save_artwork_categories($post_id) {
 
-		/*
-		 * TO DO
-		 */
+		if(isset($_REQUEST['categories'])) {
+			wp_set_object_terms($post_id, $_REQUEST['categories'], 'category');
+		}
 
 	}
 
 	function box_artwork_images($post = false) {
 
-		wp_enqueue_script('artworks-box-images', $this->directory_uri . '/js/artworks.box.images.js', array('jquery'), '0.0.3');
+		wp_enqueue_script('artworks-box-images', $this->directory_uri . '/js/artworks.box.images.js', array('jquery'), '0.0.4');
 
 		if($post) {
 			$images = $this->get_artwork_images();
@@ -528,7 +536,7 @@ class ArteForaDoMuseu_Artworks {
 						<li>
 							<?php
 							$featured = ($featured_link == $image['id']);
-							$this->image_input_template($image['id'], $image['title'], $image['thumb_url'], $featured);
+							$this->image_input_template($image['id'], $image['title'], false, $featured);
 							?>
 						</li>
 					<?php endforeach; endif; ?>
@@ -542,7 +550,7 @@ class ArteForaDoMuseu_Artworks {
 		?>
 			<p class="input-container image main-input">
 				<input type="text" class="image-title" size="30" <?php if($id) echo 'name="artwork_images[' . $id . '][title]"'; ?> <?php if($title) echo 'value="' . $title . '"'; ?> placeholder="<?php _e('Image title', 'arteforadomuseu'); ?>" />
-				<input type="file" class="image-file" size="40" <?php if($id) echo 'name="artwork_images[' . $id . '][url]"'; ?> <?php if($thumb_url) echo 'value="' . $thumb_url . '"'; ?> placeholder="<?php _e('Image file', 'arteforadomuseu'); ?>" />
+				<input type="file" class="image-file" size="40" <?php if($id) echo 'name="artwork_image_files[]"'; ?> placeholder="<?php _e('Image file', 'arteforadomuseu'); ?>" />
 			</p>
 			<p class="input-container featured">
 				<input type="radio" <?php if($id) echo 'value="' . $id . '" id="featured_image_' . $id . '"'; ?> name="featured_image" class="featured-input" <?php if($featured) echo 'checked'; ?> /> <label <?php if($id) echo 'for="featured_image_' . $id . '"'; ?> class="featured-label"><?php _e('Featured', 'arteforadomuseu'); ?></label>
@@ -554,9 +562,34 @@ class ArteForaDoMuseu_Artworks {
 
 	function save_artwork_images($post_id) {
 
-		/*
-		 * TO DO
-		 */
+		if(isset($_FILES['artwork_image_files'])) {
+			$files = $_FILES['artwork_image_files'];
+			$data = $_REQUEST['artwork_images'];
+
+			$i = 0;
+			foreach($files['name'] as $key => $value) {
+				if($files['name'][$key]) {
+					$file = array(
+						'name'     => $files['name'][$key],
+						'type'     => $files['type'][$key],
+						'tmp_name' => $files['tmp_name'][$key],
+						'error'    => $files['error'][$key],
+						'size'     => $files['size'][$key]
+					);
+
+					$_FILES = array("artwork_images" => $file);
+					foreach($_FILES as $file => $array) {
+						if(getimagesize($array['tmp_name'])) {
+							$attachment_id = media_handle_upload($file, $post_id, array('post_title' => $data['image-' . $i]['title']));
+							if(isset($_REQUEST['featured_image']) && $data['image-' . $i]['id'] === $_REQUEST['featured_image']) {
+								set_post_thumbnail($post_id, $attachment_id);
+							}
+						}
+					}
+					$i++;
+				}
+			}
+		}
 
 	}
 
@@ -582,7 +615,7 @@ class ArteForaDoMuseu_Artworks {
 		<div id="add_artwork">
 			<h2 class="lightbox_title"><span class="lsf">addnew</span> <?php _e('Submit new artwork', 'arteforadomuseu'); ?></h2>
 			<div class="lightbox_content">
-				<form id="new_artwork">
+				<form id="new_artwork" method="post" enctype="multipart/form-data">
 					<div class="form-inputs">
 						<?php $this->artwork_form_inputs(); ?>
 					</div>
@@ -647,7 +680,32 @@ class ArteForaDoMuseu_Artworks {
 	}
 
 	function ajax_add_artwork() {
-		$this->ajax_response(array('error_msg' => 'Em desenvolvimento'));
+
+		define('AFDM_ALLOWED_AJAX', true);
+		define('AFDM_FRONTEND_SUBMIT', true);
+
+		$data = $_REQUEST;
+
+		if(!$data['title'])
+			$this->ajax_response(array('error_msg' => __('You must enter a title for the artwork', 'arteforadomuseu')));
+
+		if(!$data['categories'])
+			$this->ajax_response(array('error_msg' => __('You must select a category', 'arteforadomuseu')));
+
+		if(!$data['geocode_address'])
+			$this->ajax_response(array('error_msg' => __('You must enter the address/location of the artwork', 'arteforadomuseu')));
+
+		$post_id = wp_insert_post(array(
+			'post_type' => $this->post_type,
+			'post_status' => 'pending',
+			'post_title' => $data['title'],
+			'post_content' => $data['content']
+		));
+
+		$this->save_artwork($post_id);
+
+		$this->ajax_response(array('success_msg' => __('Congratulations! Your artwork is now pending approval, soon you\'ll see it here.', 'arteforadomuseu')));
+
 	}
 
 	/*

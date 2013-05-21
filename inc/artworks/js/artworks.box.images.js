@@ -39,9 +39,9 @@
 		function updateAttrs() {
 			list.find('li').each(function(i) {
 				var id = 'image-' + i;
-				$(this).find('.image-title').attr('name', 'artwork_links[' + id + '][title]');
-				$(this).find('.image-file').attr('name', 'artwork_links[' + id + '][file]');
-				$(this).find('.image-id').attr('name', 'artwork_links[' + id + '][id]');
+				$(this).find('.image-title').attr('name', 'artwork_images[' + id + '][title]');
+				$(this).find('.image-file').attr('name', 'artwork_image_files[]');
+				$(this).find('.image-id').attr('name', 'artwork_images[' + id + '][id]');
 				$(this).find('.image-id').val(id);
 				$(this).find('.featured-input').val(id);
 				$(this).find('.featured-input').attr('id', 'featured_image_' + id);
