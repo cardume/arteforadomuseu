@@ -8,6 +8,7 @@ require_once(STYLESHEETPATH . '/inc/geolocator/geolocator.php');
 require_once(STYLESHEETPATH . '/inc/views.php');
 
 function afdm_setup() {
+	load_child_theme_textdomain('arteforadomuseu', get_stylesheet_directory() . '/languages');
 	add_theme_support('post-thumbnails');
 	add_image_size('page-featured', 680, 270, true);
 }
