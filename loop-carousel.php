@@ -6,7 +6,7 @@
 				<li id="post-<?php the_ID(); ?>" class="clearfix">
 					<article id="post-<?php the_ID(); ?>" <?php post_class('clearfix'); ?>>
 						<div class="thumbnail-container">
-							<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php the_post_thumbnail('thumbnail'); ?></a>
+							<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php the_post_thumbnail('featured-squared'); ?></a>
 						</div>
 						<header class="post-header">
 							<?php do_action('afdm_loop_before_artwork_header'); ?>

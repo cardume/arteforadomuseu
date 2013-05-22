@@ -11,6 +11,7 @@ function afdm_setup() {
 	load_child_theme_textdomain('arteforadomuseu', get_stylesheet_directory() . '/languages');
 	add_theme_support('post-thumbnails');
 	add_image_size('page-featured', 680, 270, true);
+	add_image_size('featured-squared', 400, 400, true);
 }
 add_action('after_setup_theme', 'afdm_setup');
 
@@ -18,7 +19,7 @@ function afdm_scripts() {
 
 	wp_deregister_script('mappress-site');
 
-	wp_enqueue_style('afdm-main', get_stylesheet_directory_uri() . '/css/main.css', array(), '1.5');
+	wp_enqueue_style('afdm-main', get_stylesheet_directory_uri() . '/css/main.css', array(), '1.5.1');
 	wp_enqueue_script('responsive-nav', get_stylesheet_directory_uri(). '/lib/responsive-nav.min.js', '', '1.0');
 	wp_enqueue_script('afdm', get_stylesheet_directory_uri(). '/js/arteforadomuseu.js', array('responsive-nav', 'shadowbox'), '0.1.8');
 }
