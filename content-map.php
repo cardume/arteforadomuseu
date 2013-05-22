@@ -12,6 +12,9 @@ $data['conf'] = $conf;
 		<?php endif; ?>
 	<?php endif; ?>
 	<?php do_action('mappress_map'); ?>
+	<?php if(is_single()) : ?>
+		<a class="button light home-link" href="<?php echo home_url('/'); ?>" title="<?php _e('Go back to the main map', 'arteforadomuseu'); ?>"><?php _e('Back to main map', 'arteforadomuseu'); ?></a>
+	<?php endif; ?>
 </div>
 <?php print_r($data); ?>
 <script type="text/javascript">mappress(mappress.convertMapConf(<?php echo json_encode($data); ?>));</script>
