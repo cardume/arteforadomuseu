@@ -38,13 +38,13 @@
 				<div class="social-links">
 					<div class="social-container">
 						<div class="social-content">
-							<a href="https://www.facebook.com/pages/Arte-Fora-do-Museu/152356688151751?fref=ts" class="facebook lsf" rel="external" target="_blank">facebook</a>
-							<a href="http://instagram.com/arteforadomuseu" class="instagram lsf" rel="external" target="_blank">instagram</a>
-							<a href="https://twitter.com/arteforadomuseu" class="twitter lsf" rel="external" target="_blank">twitter</a>
-							<a href="http://www.youtube.com/arteforadomuseu" class="youtube lsf" rel="external" target="_blank">youtube</a>
+							<a href="https://www.facebook.com/pages/Arte-Fora-do-Museu/152356688151751?fref=ts" class="facebook lsf" rel="external" target="_blank">&#xE047;</a>
+							<a href="http://instagram.com/arteforadomuseu" class="instagram lsf" rel="external" target="_blank">&#xE155;</a>
+							<a href="https://twitter.com/arteforadomuseu" class="twitter lsf" rel="external" target="_blank">&#xE12f;</a>
+							<a href="http://www.youtube.com/arteforadomuseu" class="youtube lsf" rel="external" target="_blank">&#xE141;</a>
 						</div>
 					</div>
-					<span class="social-toggler lsf">share</span>
+					<span class="social-toggler lsf">&#xE118;</span>
 				</div>
 				<div class="social-interaction">
 					<a href="https://twitter.com/arteforadomuseu" class="twitter-follow-button" data-show-count="false" data-lang="pt" data-show-screen-name="false">Seguir @arteforadomuseu</a>

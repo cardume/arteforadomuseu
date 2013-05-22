@@ -20,20 +20,20 @@
 				<?php the_category(); ?>
 				<h1><?php the_title(); ?></h1>
 				<?php if(afdm_has_artist()) : ?>
-					<p class="artists"><span class="lsf">user</span> <?php _e('Artists', 'arteforadomuseu'); ?>: <?php afdm_the_artist(); ?></p>
+					<p class="artists"><span class="lsf">&#xE137;</span> <?php _e('Artists', 'arteforadomuseu'); ?>: <?php afdm_the_artist(); ?></p>
 				<?php endif; ?>
 			</header>
 			<div class="menu">
 				<?php if($videos) : ?>
-					<a href="#" data-subsection="videos"><span class="lsf">video</span> <?php _e('Videos', 'arteforadomuseu'); ?></a>
+					<a href="#" data-subsection="videos"><span class="lsf">&#xE139;</span> <?php _e('Videos', 'arteforadomuseu'); ?></a>
 				<?php endif; ?>
 				<?php if($images) : ?>
-					<a href="#" data-subsection="images"><span class="lsf">images</span> <?php _e('Gallery', 'arteforadomuseu'); ?></a>
+					<a href="#" data-subsection="images"><span class="lsf">&#xE101;</span> <?php _e('Gallery', 'arteforadomuseu'); ?></a>
 				<?php endif; ?>
 				<?php if(mappress_is_streetview()) : ?>
-					<a href="#" class="toggle-map" data-toggled-text="<?php _e('StreetView', 'arteforadomuseu'); ?>" data-default-text="<?php _e('Map', 'arteforadomuseu'); ?>"><span class="lsf">map</span> <span class="label"><?php _e('Map', 'arteforadomuseu'); ?></span></a>
+					<a href="#" class="toggle-map" data-toggled-text="<?php _e('StreetView', 'arteforadomuseu'); ?>" data-default-text="<?php _e('Map', 'arteforadomuseu'); ?>"><span class="lsf">&#xE08b;</span> <span class="label"><?php _e('Map', 'arteforadomuseu'); ?></span></a>
 				<?php endif; ?>
-				<a href="#" data-subsection="comments"><span class="lsf">comments</span> <?php _e('Comments', 'arteforadomuseu'); ?></a>
+				<a href="#" data-subsection="comments"><span class="lsf">&#xE035;</span> <?php _e('Comments', 'arteforadomuseu'); ?></a>
 			</div>
 			<?php if($dimensions || $creation_date) : ?>
 				<section class="post-data clearfix">
@@ -64,7 +64,7 @@
 			<?php endif; ?>
 			<section class="post-content">
 				<?php the_content(); ?>
-				<?php the_terms($post->ID, 'style', '<p class="styles"><span class="lsf">tag</span> ' . __('Styles', 'arteforadomuseu') . ': ', ' ', '</p>'); ?>
+				<?php the_terms($post->ID, 'style', '<p class="styles"><span class="lsf">&#xE128;</span> ' . __('Styles', 'arteforadomuseu') . ': ', ' ', '</p>'); ?>
 			</section>
 			<aside class="actions clearfix">
 				<?php do_action('afdm_loop_artwork_actions'); ?>
@@ -74,7 +74,7 @@
 			<section id="videos" class="sub-content middle-content">
 				<div class="content">
 					<div class="sub-content-header">
-						<a class="close" href="#"><?php _e('Close', 'arteforadomuseu'); ?> <span class="lsf">close</span></a>
+						<a class="close" href="#"><?php _e('Close', 'arteforadomuseu'); ?> <span class="lsf">&#xE10f;</span></a>
 						<h3><?php _e('Videos', 'arteforadomuseu'); ?></h3>
 					</div>
 					<ul class="video-list clearfix">
@@ -89,7 +89,7 @@
 			<section id="images" class="sub-content middle-content">
 				<div class="content image-gallery">
 					<div class="sub-content-header">
-						<a class="close" href="#"><?php _e('Close', 'arteforadomuseu'); ?> <span class="lsf">close</span></a>
+						<a class="close" href="#"><?php _e('Close', 'arteforadomuseu'); ?> <span class="lsf">&#xE10f;</span></a>
 						<h3><?php _e('Image gallery', 'arteforadomuseu'); ?></h3>
 					</div>
 					<div class="image-stage-container">
@@ -113,7 +113,7 @@
 		<section id="comments" class="sub-content middle-content">
 			<div class="content">
 				<div class="sub-content-header">
-					<a class="close" href="#"><?php _e('Close', 'arteforadomuseu'); ?> <span class="lsf">close</span></a>
+					<a class="close" href="#"><?php _e('Close', 'arteforadomuseu'); ?> <span class="lsf">&#xE10f;</span></a>
 					<h3><?php _e('Comments', 'arteforadomuseu'); ?></h3>
 				</div>
 				<div class="clearfix">

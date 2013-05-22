@@ -15,8 +15,8 @@
 								<p class="category"><?php echo get_the_category_list(', '); ?></p>
 								<h3><a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php the_title(); ?></a></h3>
 								<p class="meta">
-									<span class="date"><span class="lsf">time</span> <?php echo get_the_date(); ?></span>
-									<span class="views"><span class="lsf">view</span> <?php echo sprintf(_n('1 view', '%s views', afdm_get_views(), 'arteforadomuseu'), afdm_get_views()); ?></span>
+									<span class="date"><span class="lsf">&#xE12b;</span> <?php echo get_the_date(); ?></span>
+									<span class="views"><span class="lsf">&#xE13a;</span> <?php echo sprintf(_n('1 view', '%s views', afdm_get_views(), 'arteforadomuseu'), afdm_get_views()); ?></span>
 								</p>
 								<?php do_action('afdm_after_artwork_header'); ?>
 							</header>

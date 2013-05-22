@@ -64,9 +64,9 @@
 										if(is_category() && $current_category) :
 											$category_id = $current_category->term_id;
 											?>
-											<a href="<?php echo get_category_link($category_id); ?>" class="current-menu-item <?php echo $current_category->slug; ?>"><?php echo $current_category->name; ?> <span class="lsf">down</span></a>
+											<a href="<?php echo get_category_link($category_id); ?>" class="current-menu-item <?php echo $current_category->slug; ?>"><?php echo $current_category->name; ?> <span class="lsf">&#xE03e;</span></a>
 										<?php else : ?>
-											<a href="#"><?php _e('Categories', 'arteforadomuseu'); ?> <span class="lsf">down</span></a>
+											<a href="#"><?php _e('Categories', 'arteforadomuseu'); ?> <span class="lsf">&#xE03e;</span></a>
 										<?php endif; ?>
 										<ul class="category-list">
 											<?php if($current_category) : ?>

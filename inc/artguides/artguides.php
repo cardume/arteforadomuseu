@@ -504,7 +504,7 @@ class ArteForaDoMuseu_ArtGuides {
 		if(!$this->can_edit_any())
 			return false;
 		?>
-		<a class="add_artwork_to_guide" data-artwork="<?php echo $artwork_id; ?>" data-artwork-title="<?php echo get_the_title($artwork_id); ?>" href="#"><span class="lsf">addnew</span> <?php _e('Add to art guide', 'arteforadomuseu'); ?></a>
+		<a class="add_artwork_to_guide" data-artwork="<?php echo $artwork_id; ?>" data-artwork-title="<?php echo get_the_title($artwork_id); ?>" href="#"><span class="lsf">&#xE041;</span> <?php _e('Add to art guide', 'arteforadomuseu'); ?></a>
 		<?php
 	}
 
@@ -524,7 +524,7 @@ class ArteForaDoMuseu_ArtGuides {
 		<form id="remove_artwork">
 			<input type="hidden" name="guide_id" value="<?php echo $guide_id; ?>" />
 			<input type="hidden" name="artwork_id" value="<?php echo $artwork_id; ?>" />
-			<button title="<?php _e('Remove this artwork from the art guide', 'arteforadomuseu'); ?>"><span class="lsf">remove</span> <?php _e('Remove', 'arteforadomuseu'); ?></button>
+			<button title="<?php _e('Remove this artwork from the art guide', 'arteforadomuseu'); ?>"><span class="lsf">&#xE10f;</span> <?php _e('Remove', 'arteforadomuseu'); ?></button>
 		</form>
 		<?php
 	}
@@ -546,7 +546,7 @@ class ArteForaDoMuseu_ArtGuides {
 		?>
 		<form id="delete_artguide">
 			<input type="hidden" name="guide_id" value="<?php echo $guide_id; ?>" />
-			<button class="remove" title="<?php _e('Permanently delete this art guide', 'arteforadomuseu'); ?>"><span class="lsf">remove</span> <?php _e('Delete', 'arteforadomuseu'); ?></button>
+			<button class="remove" title="<?php _e('Permanently delete this art guide', 'arteforadomuseu'); ?>"><span class="lsf">&#xE10f;</span> <?php _e('Delete', 'arteforadomuseu'); ?></button>
 		</form>
 		<?php
 	}
@@ -554,7 +554,7 @@ class ArteForaDoMuseu_ArtGuides {
 	function add_box() {
 		?>
 		<div id="add_guide">
-			<h2 class="lightbox_title"><span class="lsf">addnew</span> <?php _e('New art guide', 'arteforadomuseu'); ?></h2>
+			<h2 class="lightbox_title"><span class="lsf">&#xE041;</span> <?php _e('New art guide', 'arteforadomuseu'); ?></h2>
 			<div class="lightbox_content">
 				<form id="new_guide" class="clearfix">
 					<div class="form-inputs">
@@ -575,7 +575,7 @@ class ArteForaDoMuseu_ArtGuides {
 		$user_guides = $this->get_from_user();
 		?>
 		<div id="add_artwork_to_guide">
-			<h2 class="lightbox_title"><span class="lsf">addnew</span> <?php printf(__('Add &ldquo;%s&rdquo; to:', 'arteforadomuseu'), '<span class="title"></span>'); ?></h2>
+			<h2 class="lightbox_title"><span class="lsf">&#xE041;</span> <?php printf(__('Add &ldquo;%s&rdquo; to:', 'arteforadomuseu'), '<span class="title"></span>'); ?></h2>
 			<div class="lightbox_content">
 				<?php if($user_guides) : ?>
 					<form id="add_to_existing_guide" class="clearfix">
@@ -656,7 +656,7 @@ class ArteForaDoMuseu_ArtGuides {
 
 	function jeditable_post_title($title, $post_id) {
 		if(get_post_type($post_id) == $this->post_type && $this->can_edit($post_id) && $this->is_singular) {
-			return '<span class="jeditable-container"><span class="jeditable" ' . $this->jeditable('post_title', 'textarea', $post_id) . '>' . $title . '</span><span class="tip"><span class="lsf">edit</span> ' . __('Double-click to edit', 'arteforadomuseu') . '</span>';
+			return '<span class="jeditable-container"><span class="jeditable" ' . $this->jeditable('post_title', 'textarea', $post_id) . '>' . $title . '</span><span class="tip"><span class="lsf">&#xE041;</span> ' . __('Double-click to edit', 'arteforadomuseu') . '</span>';
 		}
 		return $title;
 	}
@@ -669,7 +669,7 @@ class ArteForaDoMuseu_ArtGuides {
 			if(!trim(str_replace(array('\n', '\r'), '', strip_tags($content))))
 				$content = '';
 
-			return '<div class="jeditable-container"><div class="jeditable" ' . $this->jeditable('post_content', 'wysiwyg', $post_id) . '>' . $content . '</div><span class="tip"><span class="lsf">edit</span> ' . __('Double-click to edit', 'arteforadomuseu') . '</div>';
+			return '<div class="jeditable-container"><div class="jeditable" ' . $this->jeditable('post_content', 'wysiwyg', $post_id) . '>' . $content . '</div><span class="tip"><span class="lsf">&#xE041;</span> ' . __('Double-click to edit', 'arteforadomuseu') . '</div>';
 		}
 
 		return $content;
@@ -683,7 +683,7 @@ class ArteForaDoMuseu_ArtGuides {
 			if(!trim(str_replace(array('\n', '\r'), '', strip_tags($excerpt))))
 				$excerpt = '';
 
-			return '<div class="jeditable-container"><div class="jeditable" ' . $this->jeditable('post_excerpt', 'textarea', $post_id) . '>' . $excerpt . '</div><span class="tip"><span class="lsf">edit</span> ' . __('Double-click to edit', 'arteforadomuseu') . '</div>';
+			return '<div class="jeditable-container"><div class="jeditable" ' . $this->jeditable('post_excerpt', 'textarea', $post_id) . '>' . $excerpt . '</div><span class="tip"><span class="lsf">&#xE041;</span> ' . __('Double-click to edit', 'arteforadomuseu') . '</div>';
 		}
 
 		return $excerpt;

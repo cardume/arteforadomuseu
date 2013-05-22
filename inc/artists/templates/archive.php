@@ -23,7 +23,7 @@
 									<div class="three columns alpha">
 										<header class="post-header">
 											<h3><a href="<?php the_permalink(); ?>" title="<?php echo $post->post_title; ?>"><?php the_title(); ?></a></h3>
-											<p><span class="lsf">checkboxempty</span> <?php echo sprintf(_n('1 artwork', '%s artworks', afdm_get_artist_artwork_count(), 'arteforadomuseu'), afdm_get_artist_artwork_count()); ?></p>
+											<p><span class="lsf">&#xE02b;</span> <?php echo sprintf(_n('1 artwork', '%s artworks', afdm_get_artist_artwork_count(), 'arteforadomuseu'), afdm_get_artist_artwork_count()); ?></p>
 											<div class="buttons clearfix">
 												<?php afdm_get_artist_visit_edit_button(); ?>
 												<?php afdm_get_artist_delete_button(); ?>
@@ -93,7 +93,7 @@
 											<article id="artist-<?php echo the_ID(); ?>">
 												<header class="post-header">
 													<h3><a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php the_title(); ?></a></h3>
-													<p><span class="lsf">view</span> <?php echo sprintf(_n('1 view', '%s views', afdm_get_views(), 'arteforadomuseu'), afdm_get_views()); ?></p>
+													<p><span class="lsf">&#xE13a;</span> <?php echo sprintf(_n('1 view', '%s views', afdm_get_views(), 'arteforadomuseu'), afdm_get_views()); ?></p>
 												</header>
 											</article>
 											<?php
@@ -117,7 +117,7 @@
 											<div class="three columns alpha">
 												<header class="post-header">
 													<h3><a href="<?php the_permalink(); ?>" title="<?php echo $post->post_title; ?>"><?php the_title(); ?></a></h3>
-													<p><span class="lsf">checkboxempty</span> <?php echo sprintf(_n('1 artwork', '%s artworks', afdm_get_artist_artwork_count(), 'arteforadomuseu'), afdm_get_artist_artwork_count()); ?></p>
+													<p><span class="lsf">&#xE02b;</span> <?php echo sprintf(_n('1 artwork', '%s artworks', afdm_get_artist_artwork_count(), 'arteforadomuseu'), afdm_get_artist_artwork_count()); ?></p>
 													<div class="buttons clearfix">
 														<?php afdm_get_artist_visit_edit_button(); ?>
 														<?php afdm_get_artist_delete_button(); ?>

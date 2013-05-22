@@ -26,9 +26,9 @@
 									<div class="three columns alpha">
 										<header class="post-header">
 											<h3><a href="<?php the_permalink(); ?>" title="<?php echo $post->post_title; ?>"><?php the_title(); ?></a></h3>
-											<p><span class="lsf">user</span> <?php _e('by', 'arteforadomuseu'); ?> <a href="<?php echo afdm_get_user_artguides_link(get_the_author_meta('ID')); ?>"><?php the_author(); ?></a></p>
-											<p><span class="lsf">time</span> <?php _e('added', 'arteforadomuseu'); ?> <?php echo get_the_date(); ?></p>
-											<p><span class="lsf">checkboxempty</span> <?php echo sprintf(_n('1 artwork', '%s artworks', afdm_get_artguide_artwork_count(), 'arteforadomuseu'), afdm_get_artguide_artwork_count()); ?></p>
+											<p><span class="lsf">&#xE137;</span> <?php _e('by', 'arteforadomuseu'); ?> <a href="<?php echo afdm_get_user_artguides_link(get_the_author_meta('ID')); ?>"><?php the_author(); ?></a></p>
+											<p><span class="lsf">&#xE12b;</span> <?php _e('added', 'arteforadomuseu'); ?> <?php echo get_the_date(); ?></p>
+											<p><span class="lsf">&#xE02b;</span> <?php echo sprintf(_n('1 artwork', '%s artworks', afdm_get_artguide_artwork_count(), 'arteforadomuseu'), afdm_get_artguide_artwork_count()); ?></p>
 											<div class="buttons clearfix">
 												<?php afdm_get_artguide_visit_edit_button(); ?>
 												<?php afdm_get_artguide_delete_button(); ?>
@@ -98,8 +98,8 @@
 											<article id="artguide-<?php echo the_ID(); ?>">
 												<header class="post-header">
 													<h3><a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php the_title(); ?></a></h3>
-													<p><span class="lsf">user</span> <?php _e('by', 'arteforadomuseu'); ?> <a href="<?php echo afdm_get_user_artguides_link(get_the_author_meta('ID')); ?>"><?php the_author(); ?></a></p>
-													<p><span class="lsf">view</span> <?php echo sprintf(_n('1 view', '%s views', afdm_get_views(), 'arteforadomuseu'), afdm_get_views()); ?></p>
+													<p><span class="lsf">&#xE137;</span> <?php _e('by', 'arteforadomuseu'); ?> <a href="<?php echo afdm_get_user_artguides_link(get_the_author_meta('ID')); ?>"><?php the_author(); ?></a></p>
+													<p><span class="lsf">&#xE13a;</span> <?php echo sprintf(_n('1 view', '%s views', afdm_get_views(), 'arteforadomuseu'), afdm_get_views()); ?></p>
 												</header>
 											</article>
 											<?php
@@ -123,9 +123,9 @@
 											<div class="three columns alpha">
 												<header class="post-header">
 													<h3><a href="<?php the_permalink(); ?>" title="<?php echo $post->post_title; ?>"><?php the_title(); ?></a></h3>
-													<p><span class="lsf">user</span> <?php _e('by', 'arteforadomuseu'); ?> <a href="<?php echo afdm_get_user_artguides_link(get_the_author_meta('ID')); ?>"><?php the_author(); ?></a></p>
-													<p><span class="lsf">time</span> <?php _e('added', 'arteforadomuseu'); ?> <?php echo get_the_date(); ?></p>
-													<p><span class="lsf">checkboxempty</span> <?php echo sprintf(_n('1 artwork', '%s artworks', afdm_get_artguide_artwork_count(), 'arteforadomuseu'), afdm_get_artguide_artwork_count()); ?></p>
+													<p><span class="lsf">&#xE137;</span> <?php _e('by', 'arteforadomuseu'); ?> <a href="<?php echo afdm_get_user_artguides_link(get_the_author_meta('ID')); ?>"><?php the_author(); ?></a></p>
+													<p><span class="lsf">&#xE12b;</span> <?php _e('added', 'arteforadomuseu'); ?> <?php echo get_the_date(); ?></p>
+													<p><span class="lsf">&#xE02b;</span> <?php echo sprintf(_n('1 artwork', '%s artworks', afdm_get_artguide_artwork_count(), 'arteforadomuseu'), afdm_get_artguide_artwork_count()); ?></p>
 													<div class="buttons clearfix">
 														<?php afdm_get_artguide_visit_edit_button(); ?>
 														<?php afdm_get_artguide_delete_button(); ?>

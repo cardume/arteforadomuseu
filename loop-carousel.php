@@ -24,8 +24,8 @@
 			<?php endwhile; ?>
 		</ul>
 		<div class="carousel-controllers">
-			<a class="next" href="#" title="<?php _e('Next', 'arteforadomuseu'); ?>"><span class="lsf">right</span></a>
-			<a class="prev" href="#" title="<?php _e('Previous', 'arteforadomuseu'); ?>"><span class="lsf">left</span></a>
+			<a class="next" href="#" title="<?php _e('Next', 'arteforadomuseu'); ?>"><span class="lsf">&#xE112;</span></a>
+			<a class="prev" href="#" title="<?php _e('Previous', 'arteforadomuseu'); ?>"><span class="lsf">&#xE080;</span></a>
 		</div>
 	</section>
 <?php endif; ?>

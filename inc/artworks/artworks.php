@@ -617,7 +617,7 @@ class ArteForaDoMuseu_Artworks {
 	function add_artwork_box() {
 		?>
 		<div id="add_artwork">
-			<h2 class="lightbox_title"><span class="lsf">addnew</span> <?php _e('Submit new artwork', 'arteforadomuseu'); ?></h2>
+			<h2 class="lightbox_title"><span class="lsf">&#xE041;</span> <?php _e('Submit new artwork', 'arteforadomuseu'); ?></h2>
 			<div class="lightbox_content">
 				<form id="new_artwork" method="post" enctype="multipart/form-data">
 					<div class="form-inputs">
