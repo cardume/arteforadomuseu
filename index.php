@@ -6,8 +6,6 @@
 
 	<?php if(!is_paged()) : ?>
 
-		<?php do_action('afdm_before_content'); ?>
-
 		<?php
 		query_posts(array(
 			'post_type' => 'artist',
@@ -29,6 +27,8 @@
 		?>
 
 		<?php get_template_part('content', 'popular'); ?>
+
+		<?php do_action('afdm_before_content'); ?>
 
 	<?php endif; ?>
 
