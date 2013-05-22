@@ -193,7 +193,7 @@ body.lightbox-opened{overflow:hidden;}
 .lightbox_section .lightbox_container form select{padding:5px;width:100%;}
 .lightbox_section .lightbox_container form input[type=submit],.lightbox_section .lightbox_container form .close{padding:12px;font-size:12px;margin:0 5px 0 0;}
 #add_to_existing_guide{margin-bottom:20px;border-bottom:1px dotted #aaa;}#add_to_existing_guide .form-inputs,#add_to_existing_guide .form-actions{float:left;}
-#add_to_existing_guide .form-inputs{width:65%;margin-right:5%;}#add_to_existing_guide .form-inputs input[type=text],#add_to_existing_guide .form-inputs textarea,#add_to_existing_guide .form-inputs select{width:100%;padding:10px;font-family:"Open Sans";}
+#add_to_existing_guide .form-inputs{width:60%;margin-right:5%;}#add_to_existing_guide .form-inputs input[type=text],#add_to_existing_guide .form-inputs textarea,#add_to_existing_guide .form-inputs select{width:100%;padding:10px;font-family:"Open Sans";}
 #add_to_existing_guide .form-actions{margin-top:24px;float:right;}
 #new_artwork #artwork_dimensions_box{margin-bottom:20px;}#new_artwork #artwork_dimensions_box .input-container textarea{width:100%;height:117px;padding:5px;}
 #new_artwork #artwork_dimensions_box .input-container input,#new_artwork #artwork_dimensions_box .input-container label{margin:0;display:inline;}
@@ -207,10 +207,10 @@ body.lightbox-opened{overflow:hidden;}
 #new_artwork #artwork_dates_box .box-inputs .input-container.currently-active{text-align:center;}
 #new_artwork .loop-box .tip{color:#999;font-style:italic;width:70%;float:left;margin-right:20px;}
 #new_artwork .loop-box .new-button{float:right;margin-top:-20px;width:10%;}
-#new_artwork .loop-box .box-inputs{width:100%;clear:both;margin:20px 0;}#new_artwork .loop-box .box-inputs li{clear:both;display:block;margin:0 0 10px;padding:10px;background:#f0f0f0;height:30px;}#new_artwork .loop-box .box-inputs li .main-input{width:65%;float:left;}#new_artwork .loop-box .box-inputs li .main-input input{width:100%;margin:0;}#new_artwork .loop-box .box-inputs li .main-input input.link-title,#new_artwork .loop-box .box-inputs li .main-input input.image-title{width:30%;margin-right:10px;float:left;}
+#new_artwork .loop-box .box-inputs{width:100%;clear:both;margin:20px 0;}#new_artwork .loop-box .box-inputs li{clear:both;display:block;margin:0 0 10px;padding:10px;background:#f0f0f0;height:30px;}#new_artwork .loop-box .box-inputs li .main-input{width:60%;float:left;}#new_artwork .loop-box .box-inputs li .main-input input{width:100%;margin:0;}#new_artwork .loop-box .box-inputs li .main-input input.link-title,#new_artwork .loop-box .box-inputs li .main-input input.image-title{width:30%;margin-right:10px;float:left;}
 #new_artwork .loop-box .box-inputs li .main-input input.link-url,#new_artwork .loop-box .box-inputs li .main-input input.image-file{width:65%;float:left;}
 #new_artwork .loop-box .box-inputs li .main-input input.image-file{margin:4px;}
-#new_artwork .loop-box .box-inputs li .featured{width:20%;float:left;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;padding:5px 20px;}#new_artwork .loop-box .box-inputs li .featured label{display:inline;}
+#new_artwork .loop-box .box-inputs li .featured{width:25%;float:left;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;padding:5px 20px;}#new_artwork .loop-box .box-inputs li .featured label{display:inline;}
 #new_artwork .loop-box .box-inputs li .button.remove{float:right;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}
 #new_artwork #geocode_box{margin:0 0 20px;}#new_artwork #geocode_box #geocode_address{width:80%;float:left;padding:11px;margin:0;}
 #new_artwork #geocode_box .button.geocode_address{width:20%;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;margin:0;}
