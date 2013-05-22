@@ -151,7 +151,7 @@ body {
 }
 
 @top: 120px;
-@bottom: 40px;
+@bottom: 60px;
 
 @gray: #999;
 @mural: #fbe900;
@@ -1697,9 +1697,10 @@ input[type=submit] {
 	width: 100%;
 	padding: 0;
 	background: #1f1f1f;
+	z-index: 101;
 	#footer-nav {
 		ul {
-			margin: 15px 0;
+			margin: 25px 0;
 			padding: 0;
 			li {
 				float: left;
@@ -1720,6 +1721,57 @@ input[type=submit] {
 			}
 		}
 	}
+	.credits {
+		padding: 10px 0;
+		text-align: center;
+		display: table;
+		a {
+			display: table-cell;
+			vertical-align: middle;
+			width: 1%;
+			margin-right: 10px;
+			opacity: .7;
+		}
+	}
+	.cc {
+		p {
+			position: relative;
+			margin: 25px 0;
+			img {
+				opacity: .7;
+			}
+			.text {
+				display: none;
+				position: absolute;
+				z-index: 9999;
+				bottom: 30px;
+				left: 50%;
+				margin-left: -90px;
+				width: 150px;
+				background: #333;
+				padding: 10px;
+				font-size: 11px;
+				.box-shadow(0 2px 5px rgba(0,0,0,0.6));
+				&:after {
+					content: '';
+					width: 0;
+					height: 0;
+					border-left: 10px solid transparent;
+					border-right: 10px solid transparent;
+					border-top: 10px solid #333;
+					position: absolute;
+					bottom: -10px;
+					left: 50%;
+					z-index: 1000;
+				}
+			}
+			&:hover {
+				.text {
+					display: block;
+				}
+			}
+		}
+	}
 	.social {
 		margin: 10px 0;
 		float: right;
@@ -1732,9 +1784,11 @@ input[type=submit] {
 			}
 		}
 		.social-links {
-			float: left;
-			font-size: 20px;
-			line-height: 20px;
+			float: right;
+			clear: both;
+			margin-bottom: 8px;
+			font-size: 15px;
+			line-height: 15px;
 			a {
 				color: #555;
 				margin-left: 10px;
