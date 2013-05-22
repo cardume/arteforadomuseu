@@ -12,18 +12,18 @@ class ArteForaDoMuseu_Featured {
 	var $featured_meta = 'featured_content';
 
 	function __construct() {
+		add_action('init', array($this, 'setup'));
+	}
+
+	function setup() {
 		$this->set_post_types();
-		$this->setup();
+		add_action('add_meta_boxes', array($this, 'add_metabox'));
+		add_action('save_post', array($this, 'save'));
 	}
 
 	function set_post_types() {
 		$this->post_types = apply_filters('afdm_featured_post_types', $this->post_types);
 		return $this->post_types;
-	}
-
-	function setup() {
-		add_action('add_meta_boxes', array($this, 'add_metabox'));
-		add_action('save_post', array($this, 'save'));
 	}
 
 	function add_metabox() {

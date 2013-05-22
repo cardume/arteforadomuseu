@@ -10,12 +10,12 @@ class ArteForaDoMuseu_Lightbox {
 	var $directory_uri = '';
 
 	function __construct() {
-		$this->set_directories();
-		add_action('wp_enqueue_scripts', array($this, 'scripts'));
+		add_action('init', array($this, 'setup'));
 	}
 
-	function set_directories() {
+	function setup() {
 		$this->directory_uri = apply_filters('lightbox_directory_uri', get_stylesheet_directory_uri() . '/inc/lightbox');
+		add_action('wp_enqueue_scripts', array($this, 'scripts'));
 	}
 
 	function scripts() {

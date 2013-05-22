@@ -18,6 +18,10 @@ class ArteForaDoMuseu_Artworks {
 	var $directory = '';
 
 	function __construct() {
+		add_action('init', array($this, 'setup'));
+	}
+
+	function setup() {
 		$this->set_directories();
 		$this->setup_views();
 		$this->setup_scripts();
@@ -77,7 +81,7 @@ class ArteForaDoMuseu_Artworks {
 	 */
 
 	function register_taxonomies() {
-		add_action('init', array($this, 'taxonomy_style'));
+		$this->taxonomy_style();
 	}
 
 	function taxonomy_style() {

@@ -10,9 +10,13 @@ class ArteForaDoMuseu_Views {
 	var $post_types = array('post');
 
 	function __construct() {
+		add_action('init', array($this, 'setup'));
+	}
+
+	function setup() {
 		$this->post_types();
 		$this->setup_views();
-	}	
+	}
 
 	function setup_views() {
 		add_action('wp_head', array($this, 'hook_views'));
