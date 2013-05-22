@@ -1,14 +1,15 @@
 <footer id="colophon">
 	<div class="container">
-		<div class="four columns">
+		<div class="three columns">
 			<nav id="footer-nav">
 				<?php wp_nav_menu(array('theme_location' => 'footer_menu')); ?>
 			</nav>
 		</div>
-		<div class="four columns">
+		<div class="five columns">
 			<div class="credits">
-				<a href="http://culturainglesa.com.br/" rel="external" target="_blank"><img src="<?php echo get_stylesheet_directory_uri(); ?>/img/logo-cultura.png" /></a>
-				<a href="http://culturainglesa.com.br/" rel="external" target="_blank"><img src="<?php echo get_stylesheet_directory_uri(); ?>/img/logo-minc.png" /></a>
+				<span class="credits-title">Apoio</span>
+				<a href="http://culturainglesasp.com.br/" rel="external" target="_blank" title="Cultura Inglesa"><img alt="Cultura Inglesa" src="<?php echo get_stylesheet_directory_uri(); ?>/img/logo-cultura.png" /></a>
+				<a href="http://cultura.gov.br/" rel="external" target="_blank" title="Ministério da Cultura"><img alt="Ministério da Cultura" src="<?php echo get_stylesheet_directory_uri(); ?>/img/logo-minc.png" /></a>
 			</div>
 		</div>
 		<div class="one column">

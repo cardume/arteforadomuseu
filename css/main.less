@@ -1722,15 +1722,20 @@ input[type=submit] {
 		}
 	}
 	.credits {
-		padding: 10px 0;
+		padding: 10px 0 10px 0;
 		text-align: center;
 		display: table;
-		a {
+		> * {
 			display: table-cell;
 			vertical-align: middle;
 			width: 1%;
 			margin-right: 10px;
 			opacity: .7;
+			&.credits-title {
+				font-size: 11px;
+				color: #666;
+				margin: 5px 0 0;
+			}
 		}
 	}
 	.cc {
