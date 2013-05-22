@@ -277,34 +277,35 @@
 
 			});
 
-			function updateStageDimensions() {
+		}
 
-				stage.find('a').css({
-					height: stage.parent().height()
+		function updateStageDimensions() {
+
+			stage.find('a').css({
+				height: stage.parent().height()
+			});
+		}
+
+		function updateImageListDimensions() {
+
+			var size = 0;
+
+			list.find('li').each(function() {
+				size = size + $(this).height() + 10;
+			});
+
+			list.css({
+				width: size
+			});
+
+			list.find('li').each(function() {
+				$(this).css({
+					width: $(this).height()
 				});
-			}
-
-			function updateImageListDimensions() {
-
-				var size = 0;
-
-				list.find('li').each(function() {
-					size = size + $(this).height() + 10;
-				});
-
-				list.css({
-					width: size
-				});
-
-				list.find('li').each(function() {
-					$(this).css({
-						width: $(this).height()
-					});
-				})
-
-			}
+			})
 
 		}
-	})
+
+	});
 
 })(jQuery);
