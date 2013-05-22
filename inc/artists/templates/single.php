@@ -13,7 +13,7 @@
 		<section class="post-content">
 			<?php the_content(); ?>
 		</section>
-		<?php query_posts(afdm_get_artguide_query()); ?>
+		<?php query_posts(afdm_get_artist_query()); ?>
 			<section id="artworks" class="child-section">
 				<div class="section-title">
 					<h2><?php _e('Artworks', 'arteforadomuseu'); ?></h2>
