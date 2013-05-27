@@ -297,6 +297,16 @@ input[type=submit] {
 			position: relative;
 			z-index: 1;
 			padding: 0;
+			max-height: 204px;
+			overflow-x: hidden;
+			overflow-y: auto;
+			&::-webkit-scrollbar {
+				width: 5px;
+				.gradient(#f0f0f0, #ddd, #f0f0f0);
+			}
+			&::-webkit-scrollbar-thumb {
+				background: #333;
+			}
 			li {
 				margin: 0;
 				padding: 0;

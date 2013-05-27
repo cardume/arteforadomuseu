@@ -201,7 +201,7 @@ class ArteForaDoMuseu_Geolocator {
 					<?php foreach($cities as $city) : ?>
 						<?php if($user_city == $city->name) continue; ?>
 						<li>
-							<a href="?select_city=<?php echo $city->term_id; ?>"><?php echo $city->name; ?></a>
+							<a href="<?php echo home_url('?select_city=' . $city->term_id); ?>"><?php echo $city->name; ?></a>
 						</li>
 					<?php endforeach; ?>
 				</ul>

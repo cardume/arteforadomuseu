@@ -497,7 +497,9 @@ class ArteForaDoMuseu_Artists {
 			'post_type' => $this->post_type,
 			'post_status' => array('publish', 'private', 'pending', 'draft', 'future'),
 			'posts_per_page' => -1,
-			'not_geo_query' => 1
+			'not_geo_query' => 1,
+			'orderby' => 'title',
+			'order' => 'ASC'
 		));
 		?>
 		<div id="add_artwork_to_artist">
