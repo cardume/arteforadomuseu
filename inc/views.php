@@ -10,7 +10,7 @@ class ArteForaDoMuseu_Views {
 	var $post_types = array('post');
 
 	function __construct() {
-		add_action('init', array($this, 'setup'));
+		add_action('mappress_init', array($this, 'setup'));
 	}
 
 	function setup() {

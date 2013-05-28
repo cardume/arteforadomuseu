@@ -15,7 +15,7 @@ class ArteForaDoMuseu_Geolocator {
 
 	function __construct() {
 
-		add_action('init', array($this, 'setup'));
+		add_action('mappress_init', array($this, 'setup'));
 
 	}
 
@@ -143,7 +143,9 @@ class ArteForaDoMuseu_Geolocator {
 				$query->set('city', $city_term->slug);
 
 				remove_action('pre_get_posts', array($this, 'geo_wp_query'));
+
 				$have_posts = get_posts($query->query_vars);
+
 				add_action('pre_get_posts', array($this, 'geo_wp_query'));
 
 				if(!$have_posts) {
