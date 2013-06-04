@@ -22,6 +22,18 @@ function afdm_scripts() {
 	wp_enqueue_style('afdm-main', get_stylesheet_directory_uri() . '/css/main.css', array(), '1.5.5');
 	wp_enqueue_script('responsive-nav', get_stylesheet_directory_uri(). '/lib/responsive-nav.min.js', '', '1.0');
 	wp_enqueue_script('afdm', get_stylesheet_directory_uri(). '/js/arteforadomuseu.js', array('responsive-nav', 'shadowbox'), '0.1.9');
+
+	if(!is_single()) {
+		wp_enqueue_script('afdm-filter', get_stylesheet_directory_uri() . '/js/arteforadomuseu.filterCategories.js', array('jquery', 'mappress.markers'), '0.0.5');
+		wp_localize_script('afdm-filter', 'afdmFilter', array(
+			'categories' => array(
+				array(
+					'slug' => 'colaborativo',
+					'title' => 'Apenas obras colaborativas'
+				)
+			)
+		));
+	}
 }
 
 function afdm_register_lib() {
