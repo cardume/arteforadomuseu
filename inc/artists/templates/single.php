@@ -4,14 +4,33 @@
 
 	<?php mappress_featured(true, true); ?>
 
+	<?php
+	$videos = afdm_get_videos();
+	$links = afdm_get_links();
+	?>
+
 	<section id="content">
 		<header class="single-post-header clearfix">
 			<?php the_post_thumbnail('page-featured'); ?>
 			<h2><a href="<?php echo afdm_artists_get_archive_link(); ?>" title="<?php _e('Artists', 'arteforadomuseu'); ?>"><?php _e('Artists', 'arteforadomuseu'); ?></a></h2>
 			<h1><?php the_title(); ?></h1>
 		</header>
+		<div class="menu">
+			<?php if($videos) : ?>
+				<a href="#" data-subsection="videos"><span class="lsf">&#xE139;</span> <?php _e('Videos', 'arteforadomuseu'); ?></a>
+			<?php endif; ?>
+			<a href="#" data-subsection="comments"><span class="lsf">&#xE035;</span> <?php _e('Comments', 'arteforadomuseu'); ?></a>
+		</div>
 		<section class="post-content">
 			<?php the_content(); ?>
+			<?php if($links) : ?>
+				<h3>Links</h3>
+				<ul class="post-links">
+					<?php foreach ($links as $link) : ?>
+						<li><a href="<?php echo $link['url'] ; ?>" rel="external" title="<?php echo $link['title']; ?>"><?php echo $link['title']; ?></a></li>
+					<?php endforeach; ?>
+				</ul>
+			<?php endif; ?>
 		</section>
 		<?php query_posts(afdm_get_artist_query()); ?>
 			<?php if(have_posts()) : ?>
@@ -23,6 +42,32 @@
 				</section>
 			<?php endif; ?>
 		<?php wp_reset_query(); ?>
+	</section>
+	<?php if($videos) : ?>
+		<section id="videos" class="sub-content middle-content">
+			<div class="content">
+				<div class="sub-content-header">
+					<a class="close" href="#"><?php _e('Close', 'arteforadomuseu'); ?> <span class="lsf">&#xE10f;</span></a>
+					<h3><?php _e('Videos', 'arteforadomuseu'); ?></h3>
+				</div>
+				<ul class="video-list clearfix">
+					<?php foreach($videos as $video) : ?>
+						<li><?php echo $GLOBALS['wp_embed']->autoembed($video['url']); ?></li>
+					<?php endforeach; ?>
+				</ul>
+			</div>
+		</section>
+	<?php endif; ?>
+	<section id="comments" class="sub-content middle-content">
+		<div class="content">
+			<div class="sub-content-header">
+				<a class="close" href="#"><?php _e('Close', 'arteforadomuseu'); ?> <span class="lsf">&#xE10f;</span></a>
+				<h3><?php _e('Comments', 'arteforadomuseu'); ?></h3>
+			</div>
+			<div class="clearfix">
+				<?php comments_template(); ?>
+			</div>
+		</div>
 	</section>
 
 <?php endif; ?>

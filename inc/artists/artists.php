@@ -70,7 +70,7 @@ class ArteForaDoMuseu_Artists {
 			'labels' => $labels,
 			'hierarchical' => false,
 			'description' => __('Artists', 'arteforadomuseu'),
-			'supports' => array('title', 'editor', 'author', 'excerpt', 'thumbnail'),
+			'supports' => array('title', 'editor', 'author', 'excerpt', 'thumbnail', 'comments'),
 			'public' => true,
 			'show_ui' => true,
 			'show_in_menu' => true,

@@ -1197,9 +1197,43 @@ input[type=submit] {
 	}
 	.post-content {
 		margin: 20px 40px 40px;
+		.jeditable-container {
+			margin-bottom: 20px;
+		}
 		a,
 		strong {
 			color: #f0f0f0;
+		}
+		h3 {
+			color: #777;
+			font-weight: 800;
+			font-size: 16px;
+			line-height: 22px;
+			text-transform: uppercase;
+		}
+		.post-links {
+			margin: 0 0 20px;
+			li {
+				margin: 0;
+				padding: 0;
+				a {
+					margin: 0;
+					display: block;
+					font-size: 12px;
+					line-height: 12px;
+					display: block;
+					border-bottom: 1px dotted #5f5f5f;
+					padding: 10px;
+					background: #444;
+					color: #f0f0f0;
+					text-decoration: none;
+					font-weight: 800;
+					&:hover {
+						background: #101010;
+						color: #fff;
+					}
+				}
+			}
 		}
 	}
 	.featured-section {

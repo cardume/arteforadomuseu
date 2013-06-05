@@ -3,6 +3,7 @@
 <?php if(have_posts()) : the_post(); ?>
 
 	<?php
+	$links = afdm_get_links();
 	$videos = afdm_get_videos();
 	$images = afdm_get_artwork_images();
 	$featured_video_id = afdm_get_featured_video_id();
@@ -64,6 +65,14 @@
 			<?php endif; ?>
 			<section class="post-content">
 				<?php the_content(); ?>
+				<?php if($links) : ?>
+					<h3>Links</h3>
+					<ul class="post-links">
+						<?php foreach ($links as $link) : ?>
+							<li><a href="<?php echo $link['url'] ; ?>" rel="external" title="<?php echo $link['title']; ?>"><?php echo $link['title']; ?></a></li>
+						<?php endforeach; ?>
+					</ul>
+				<?php endif; ?>
 				<?php the_terms($post->ID, 'style', '<p class="styles"><span class="lsf">&#xE128;</span> ' . __('Styles', 'arteforadomuseu') . ': ', ' ', '</p>'); ?>
 			</section>
 			<aside class="actions clearfix">

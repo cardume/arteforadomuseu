@@ -105,7 +105,10 @@ html::-webkit-scrollbar-thumb,body::-webkit-scrollbar-thumb{background:#111;}htm
 .displaying-map #content .post-data .dimensions{float:left;width:45%;}
 .displaying-map #content .post-data .dates{float:right;width:45%;}
 .displaying-map #content .post-data strong{font-size:11px;line-height:16px;width:50%;display:block;float:left;margin:0 5px 5px 0;color:#eee;}
-.displaying-map #content .post-content{margin:20px 40px 40px;}.displaying-map #content .post-content a,.displaying-map #content .post-content strong{color:#f0f0f0;}
+.displaying-map #content .post-content{margin:20px 40px 40px;}.displaying-map #content .post-content .jeditable-container{margin-bottom:20px;}
+.displaying-map #content .post-content a,.displaying-map #content .post-content strong{color:#f0f0f0;}
+.displaying-map #content .post-content h3{color:#777;font-weight:800;font-size:16px;line-height:22px;text-transform:uppercase;}
+.displaying-map #content .post-content .post-links{margin:0 0 20px;}.displaying-map #content .post-content .post-links li{margin:0;padding:0;}.displaying-map #content .post-content .post-links li a{margin:0;font-size:12px;line-height:12px;display:block;border-bottom:1px dotted #5f5f5f;padding:10px;background:#444;color:#f0f0f0;text-decoration:none;font-weight:800;}.displaying-map #content .post-content .post-links li a:hover{background:#101010;color:#fff;}
 .displaying-map #content .featured-section{-webkit-box-shadow:0 0 10px #0f0f0f;-khtml-box-shadow:0 0 10px #0f0f0f;-moz-box-shadow:0 0 10px #0f0f0f;-o-box-shadow:0 0 10px #0f0f0f;box-shadow:0 0 10px #0f0f0f;margin-top:-40px;margin-bottom:40px;position:relative;}.displaying-map #content .featured-section .section-title{margin:0;position:absolute;top:0;left:0;z-index:5;}.displaying-map #content .featured-section .section-title h2{border:0;padding:10px 0 5px 40px;border-bottom:5px solid rgba(0, 0, 0, 0.7);text-shadow:1px 1px 0 #000;font-size:11px;text-transform:uppercase;}
 .displaying-map #content .featured-section .posts-section.carousel{padding:0;height:40%;}.displaying-map #content .featured-section .posts-section.carousel .posts-list{border:0;}.displaying-map #content .featured-section .posts-section.carousel .posts-list li article .thumbnail-container img{margin-top:0;}
 .displaying-map #content .featured-section .posts-section.carousel .posts-list li article .post-header{padding-left:40px;}

@@ -174,12 +174,38 @@ class ArteForaDoMuseu_Artworks {
 			'advanced',
 			'high'
 		);
+
+
+		/*
+		 * Artists videos and links
+		 */
+
+		if(post_type_exists('artist')) {
+
+			// Videos
+			add_meta_box(
+				'artwork_videos',
+				__('Videos', 'arteforadomuseu'),
+				array($this, 'box_artwork_videos'),
+				'artist',
+				'advanced',
+				'high'
+			);
+
+			// Links
+			add_meta_box(
+				'artwork_links',
+				__('Links', 'arteforadomuseu'),
+				array($this, 'box_artwork_links'),
+				'artist',
+				'advanced',
+				'high'
+			);
+
+		}
 	}
 
 	function save_artwork($post_id) {
-
-		if(get_post_type($post_id) != $this->post_type)
-			return;
 
 		if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
 			return;
