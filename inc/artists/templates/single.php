@@ -14,6 +14,19 @@
 			<?php the_post_thumbnail('page-featured'); ?>
 			<h2><a href="<?php echo afdm_artists_get_archive_link(); ?>" title="<?php _e('Artists', 'arteforadomuseu'); ?>"><?php _e('Artists', 'arteforadomuseu'); ?></a></h2>
 			<h1><?php the_title(); ?></h1>
+			<div class="header-meta">
+				<?php
+				$age = afdm_get_artist_age();
+				if($age) : ?>
+					<p class="lsf-icon" title="calendar"><?php echo $age; ?> <?php _e('years old', 'arteforadomuseu'); ?></p>
+					<p><strong><?php _e('Birth', 'arteforadomuseu'); ?></strong>: <?php echo get_post_meta(get_the_ID(), 'birth_date', true); ?></p>
+					<?php
+					$death = get_post_meta(get_the_ID(), 'death_date', true);
+					if($death) : ?>
+						<p><strong><?php _e('Death', 'arteforadomuseu'); ?></strong>: <?php echo $death; ?></p> 
+					<?php endif; ?>
+				<?php endif; ?>
+			</div>
 		</header>
 		<div class="menu">
 			<?php if($videos) : ?>

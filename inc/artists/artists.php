@@ -25,6 +25,7 @@ class ArteForaDoMuseu_Artists {
 		$this->set_directories();
 		$this->set_slug();
 		$this->setup_post_type();
+		$this->setup_metaboxes();
 		$this->setup_query();
 		$this->setup_views();
 		$this->setup_marker_query();
@@ -96,6 +97,92 @@ class ArteForaDoMuseu_Artists {
 	function setup_featured($post_types) {
 		$post_types[] = $this->post_type;
 		return $post_types;
+	}
+
+	/*
+	 * Metabox
+	 */
+
+	function setup_metaboxes() {
+		add_action('add_meta_boxes', array($this, 'register_boxes'));	
+		add_action('save_post', array($this, 'save_artist_age'));
+		add_action('admin_footer', array($this, 'admin_css'));
+	}
+
+	function admin_css() {
+		wp_enqueue_style('artwork-admin', $this->directory_uri . '/css/admin.css');
+	}
+
+	function register_boxes() {
+		add_meta_box(
+			'artist_age',
+			__('Artist age', 'arteforadomuseu'),
+			array($this, 'box_artist_age'),
+			'artist',
+			'advanced',
+			'high'
+		);
+	}
+
+	function box_artist_age($post = false) {
+
+		wp_enqueue_script('jquery-ui-datepicker');
+		wp_enqueue_style('jquery-ui-smoothness', 'http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');
+
+		if($post) {
+			$birth = get_post_meta($post->ID, 'birth_date', true);
+			$death = get_post_meta($post->ID, 'death_date', true);
+		}
+		?>
+		<div id="artist_age_box">
+			<h4><?php _e('Artist\'s age', 'arteforadomuseu'); ?></h4>
+			<p class="tip"><?php _e('Fill birth and death dates', 'arteforadomuseu'); ?></p>
+			<div class="box-inputs">
+				<p class="input-container">
+					<input type="text" class="datepicker" name="birth_date" <?php if($birth) echo 'value="' . $birth . '"'; ?> placeholder="<?php _e('Birth date', 'arteforadomuseu'); ?>" />
+				</p>
+				<p class="input-container">
+					<input type="text" class="datepicker" name="death_date" <?php if($death) echo 'value="' . $death . '"'; ?> placeholder="<?php _e('Death date', 'arteforadomuseu'); ?>" />
+				</p>
+			</div>
+			<script type="text/javascript">
+				(function($) {
+
+					$(document).ready(function() {
+
+						$('#artist_age_box .datepicker').datepicker({
+							yearRange: '-500:+0',
+							changeMonth: true,
+							changeYear: true,
+							dateFormat: 'dd/mm/yy'
+						});
+
+					});
+
+				})(jQuery);
+			</script>
+		</div>
+		<?php
+	}
+
+	function save_artist_age($post_id) {
+
+		if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
+			return;
+
+		if (defined('DOING_AJAX') && DOING_AJAX && !(defined('AFDM_ALLOWED_AJAX') && AFDM_ALLOWED_AJAX))
+			return;
+
+		if (false !== wp_is_post_revision($post_id))
+			return;
+
+		if(isset($_POST['birth_date'])) {
+			update_post_meta($post_id, 'birth_date', $_POST['birth_date']);
+		}
+
+		if(isset($_POST['death_date'])) {
+			update_post_meta($post_id, 'death_date', $_POST['death_date']);
+		}
 	}
 
 	/*
@@ -422,6 +509,42 @@ class ArteForaDoMuseu_Artists {
 		} else {
 			return false;
 		}
+	}
+
+	function get_age($post_id) {
+		global $post;
+		$post_id = $post_id ? $post_id : $post->ID;
+
+		$birth = get_post_meta($post_id, 'birth_date', true);
+		$death = get_post_meta($post_id, 'death_date', true);
+
+		if($birth) {
+
+			if(!$death) {
+				$death = date('d/m/Y');
+			}
+
+			$birth_date = DateTime::createFromFormat('d/m/Y', $birth);
+
+			$death_date = DateTime::createFromFormat('d/m/Y', $death);
+
+			$diff = $death_date->diff($birth_date);
+
+			return $diff->y;
+
+		}
+
+		return false;
+	}
+
+	function is_dead($post_id) {
+		global $post;
+		$post_id = $post_id ? $post_id : $post->ID;
+
+		if(get_post_meta($post_id, 'death_date'))
+			return true;
+
+		return false;
 	}
 
 	/*
@@ -760,4 +883,14 @@ function afdm_has_artist($post_id = false) {
 function afdm_the_artist($post_id = false) {
 	global $artists;
 	return $artists->the_artist($post_id);
+}
+
+function afdm_get_artist_age($post_id = false) {
+	global $artists;
+	return $artists->get_age($post_id);
+}
+
+function afdm_is_artist_dead($post_id = false) {
+	global $artists;
+	return $artists->is_dead($post_id);
 }
