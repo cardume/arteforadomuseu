@@ -40,7 +40,7 @@
 				<h3>Links</h3>
 				<ul class="post-links">
 					<?php foreach ($links as $link) : ?>
-						<li><a href="<?php echo $link['url'] ; ?>" rel="external" title="<?php echo $link['title']; ?>"><?php echo $link['title']; ?></a></li>
+						<li><a href="<?php echo $link['url'] ; ?>" rel="external" target="_blank" title="<?php echo $link['title']; ?>"><?php echo $link['title']; ?></a></li>
 					<?php endforeach; ?>
 				</ul>
 			<?php endif; ?>

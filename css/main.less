@@ -626,218 +626,6 @@ input[type=submit] {
 	}
 }
 
-.posts-section {
-	.posts-list {
-		color: #444;
-		a {
-			color: #333;
-		}
-		article {
-			min-height: 0;
-			.border-radius(0);
-			position: relative;
-			.thumbnail-container {
-				min-width: 150px;
-				width: 30%;
-				float: right;
-				margin: 0 0 0 20px;
-				.wp-post-image {
-					width: 100%;
-					height: auto;
-					display: block;
-				}
-			}
-			.post-header {
-				padding: 20px;
-				.category {
-					text-transform: uppercase;
-					font-weight: 200;
-					margin: 0;
-					a {
-						text-decoration: none;
-						color: #666;
-					}
-				}
-				h3 {
-					font-weight: 800;
-					font-size: 20px;
-					a {
-						color: #333;
-					}
-				}
-				p.meta {
-					span {
-						margin: 0 0 5px;
-						span {
-							display: inline;
-							&.lsf {
-								margin-right: 5px;
-							}
-						}
-					}
-				}
-				.header-actions {
-					border-top: 1px dotted #ccc;
-					padding-top: 10px;
-					padding-bottom: 10px;
-					a {
-						font-size: 11px;
-						font-weight: bold;
-						text-decoration: none;
-						display: block;
-						color: #666;
-						margin: 0 0 5px;
-					}
-				}
-			}
-			.post-content {
-				padding: 0 20px 0 20px;
-				.post-excerpt {
-					max-height: none !important;
-				}
-			}
-			.actions {
-				.gradient(#222, #222, #303030);
-				.border-radius(0);
-				border-bottom: 1px solid #303030;
-				display:block;
-				a,
-				button,
-				.button,
-				input[type=submit] {
-					.lsf {
-						font-size: 200%;
-						margin-right: 5px;
-						color: #555;
-						line-height: 10px;
-					}
-				}
-				button,
-				.button,
-				input[type=submit] {
-				}
-			}
-		}
-	}
-	&.carousel {
-		position: relative;
-		height: 30%;
-		.posts-list {
-			width: 100%;
-			height: 100%;
-			position: relative;
-			background: #0f0f0f;
-			overflow: hidden;
-			margin: 0;
-			padding: 0;
-			li {
-				position: absolute;
-				top: 0;
-				right: 0;
-				bottom: 0;
-				left: 100%;
-				width: 100%;
-				padding: 0;
-				margin: 0;
-				.transition(all .4s ease-in-out);
-				&.active {
-					left: 0;
-					z-index: 2;
-					article {
-						.post-header {
-							.category {
-								margin-left: 0;
-							}
-							h3 {
-								margin-left: 0;
-							}
-						}
-					}
-				}
-				article {
-					.thumbnail-container {
-						width: 100%;
-						height: 100%;
-						overflow: hidden;
-						margin: 0;
-						.wp-post-image {
-							min-width: 100%;
-							min-height: 100%;
-							width: auto;
-							height: auto;
-							display: block;
-						}
-					}
-					.post-header {
-						position: absolute;
-						bottom: 0;
-						padding: 10px 10px 10px 20px;
-						.category {
-							float: none;
-							font-weight: 200;
-							margin-left: 50px;
-							.transition(all 1.5s ease-in-out);
-							a {
-								color: #fff;
-								text-shadow: 1px 1px 0px rgba(0,0,0,0.8);
-							}
-						}
-						h3 {
-							font-weight: 800;
-							font-size: 18px;
-							line-height: 24px;
-							margin-bottom: 0;
-							margin-left: 50px;
-							.transition(all 1.5s ease-in-out);
-							a {
-								color: #fff;
-								text-shadow: 2px 2px 0px rgba(0,0,0,0.5);
-							}
-						}
-					}
-				}
-			}
-		}
-		.carousel-controllers {
-			.transition(all .2s ease-in-out);
-			a {
-				opacity: 0;
-				position: absolute;
-				top: 50%;
-				margin-top: -40px;
-				font-size: 10px;
-				z-index: 5;
-				text-decoration: none;
-				.lsf {
-					font-size: 30px;
-					line-height: 30px;
-					color: #fff;
-					text-shadow: 2px 2px 2px rgba(0,0,0,0.8);
-					display: block;
-					padding: 20px;
-					margin: 0;
-				}
-				&.next {
-					right: 0px;
-				}
-				&.prev {
-					left: 0px;
-				}
-			}
-		}
-		&:hover {
-			.carousel-controllers {
-				a {
-					opacity: .4;
-					&:hover {
-						opacity: .8;
-					}
-				}
-			}
-		}
-	}
-}
-
 .middle-content {
 	top: @top;
 	bottom: @bottom;
@@ -971,6 +759,9 @@ input[type=submit] {
 	margin: 0;
 	z-index: 100;
 	.transition(right .2s ease-in-out);
+	a {
+		color: #f0f0f0;
+	}
 	.content-message {
 		margin: 0 40px 20px;
 		background: #f0f0f0;
@@ -1341,6 +1132,218 @@ input[type=submit] {
 			text-decoration: none;
 			font-size: 12px;
 			line-height: 12px;
+		}
+	}
+	.posts-section {
+		.posts-list {
+			color: #444;
+			a {
+				color: #333;
+			}
+			article {
+				min-height: 0;
+				.border-radius(0);
+				position: relative;
+				.thumbnail-container {
+					min-width: 150px;
+					width: 30%;
+					float: right;
+					margin: 0 0 0 20px;
+					.wp-post-image {
+						width: 100%;
+						height: auto;
+						display: block;
+					}
+				}
+				.post-header {
+					padding: 20px;
+					.category {
+						text-transform: uppercase;
+						font-weight: 200;
+						margin: 0;
+						a {
+							text-decoration: none;
+							color: #666;
+						}
+					}
+					h3 {
+						font-weight: 800;
+						font-size: 20px;
+						a {
+							color: #333;
+						}
+					}
+					p.meta {
+						span {
+							margin: 0 0 5px;
+							span {
+								display: inline;
+								&.lsf {
+									margin-right: 5px;
+								}
+							}
+						}
+					}
+					.header-actions {
+						border-top: 1px dotted #ccc;
+						padding-top: 10px;
+						padding-bottom: 10px;
+						a {
+							font-size: 11px;
+							font-weight: bold;
+							text-decoration: none;
+							display: block;
+							color: #666;
+							margin: 0 0 5px;
+						}
+					}
+				}
+				.post-content {
+					padding: 0 20px 0 20px;
+					.post-excerpt {
+						max-height: none !important;
+					}
+				}
+				.actions {
+					.gradient(#222, #222, #303030);
+					.border-radius(0);
+					border-bottom: 1px solid #303030;
+					display:block;
+					a,
+					button,
+					.button,
+					input[type=submit] {
+						color: #999;
+						.lsf {
+							font-size: 200%;
+							margin-right: 5px;
+							color: #555;
+							line-height: 10px;
+						}
+					}
+					button,
+					.button,
+					input[type=submit] {
+					}
+				}
+			}
+		}
+		&.carousel {
+			position: relative;
+			height: 30%;
+			.posts-list {
+				width: 100%;
+				height: 100%;
+				position: relative;
+				background: #0f0f0f;
+				overflow: hidden;
+				margin: 0;
+				padding: 0;
+				li {
+					position: absolute;
+					top: 0;
+					right: 0;
+					bottom: 0;
+					left: 100%;
+					width: 100%;
+					padding: 0;
+					margin: 0;
+					.transition(all .4s ease-in-out);
+					&.active {
+						left: 0;
+						z-index: 2;
+						article {
+							.post-header {
+								.category {
+									margin-left: 0;
+								}
+								h3 {
+									margin-left: 0;
+								}
+							}
+						}
+					}
+					article {
+						.thumbnail-container {
+							width: 100%;
+							height: 100%;
+							overflow: hidden;
+							margin: 0;
+							.wp-post-image {
+								min-width: 100%;
+								min-height: 100%;
+								width: auto;
+								height: auto;
+								display: block;
+							}
+						}
+						.post-header {
+							position: absolute;
+							bottom: 0;
+							padding: 10px 10px 10px 20px;
+							.category {
+								float: none;
+								font-weight: 200;
+								margin-left: 50px;
+								.transition(all 1.5s ease-in-out);
+								a {
+									color: #fff;
+									text-shadow: 1px 1px 0px rgba(0,0,0,0.8);
+								}
+							}
+							h3 {
+								font-weight: 800;
+								font-size: 18px;
+								line-height: 24px;
+								margin-bottom: 0;
+								margin-left: 50px;
+								.transition(all 1.5s ease-in-out);
+								a {
+									color: #fff;
+									text-shadow: 2px 2px 0px rgba(0,0,0,0.5);
+								}
+							}
+						}
+					}
+				}
+			}
+			.carousel-controllers {
+				.transition(all .2s ease-in-out);
+				a {
+					opacity: 0;
+					position: absolute;
+					top: 50%;
+					margin-top: -40px;
+					font-size: 10px;
+					z-index: 5;
+					text-decoration: none;
+					.lsf {
+						font-size: 30px;
+						line-height: 30px;
+						color: #fff;
+						text-shadow: 2px 2px 2px rgba(0,0,0,0.8);
+						display: block;
+						padding: 20px;
+						margin: 0;
+					}
+					&.next {
+						right: 0px;
+					}
+					&.prev {
+						left: 0px;
+					}
+				}
+			}
+			&:hover {
+				.carousel-controllers {
+					a {
+						opacity: .4;
+						&:hover {
+							opacity: .8;
+						}
+					}
+				}
+			}
 		}
 	}
 }
