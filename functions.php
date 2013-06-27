@@ -55,9 +55,9 @@ function afdm_register_lib() {
 	wp_register_script('jquery-tag-it', get_stylesheet_directory_uri() . '/lib/tag-it.min.js', array('jquery', 'jquery-ui-core', 'jquery-ui-widget', 'jquery-ui-position', 'jquery-ui-autocomplete'), '2.0');
 }
 
-add_action('wp_enqueue_scripts', 'afdm_register_lib', 4);
-add_action('wp_enqueue_scripts', 'afdm_scripts', 5);
-add_action('admin_footer', 'afdm_register_lib', 5);
+add_action('wp_enqueue_scripts', 'afdm_register_lib', 10);
+add_action('wp_enqueue_scripts', 'afdm_scripts', 10);
+add_action('admin_footer', 'afdm_register_lib', 10);
 
 function afdm_marker_extent() {
 	return true;
