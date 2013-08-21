@@ -10,8 +10,13 @@
 		query_posts(array(
 			'post_type' => 'artist',
 			'posts_per_page' => 4,
-			'mappress_featured' => 1,
-			'not_geo_query' => 1
+			'not_geo_query' => 1,
+			'meta_query' => array(
+				array(
+					'key' => '_mappress_featured',
+					'value' => 1
+				)
+			)
 		));
 		if(have_posts() && !get_query_var('city_not_found')) :
 			?>
