@@ -3,7 +3,6 @@
  * Mousehover bubble content
  */
 ?>
-<span class="arrow">&nbsp;</span>
 <?php the_post_thumbnail('thumbnail'); ?>
 <?php the_category(); ?>
 <h4><?php the_title(); ?></h4>

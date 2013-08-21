@@ -16,4 +16,4 @@ $data['conf'] = $conf;
 		<a class="button light home-link" href="<?php echo home_url('/'); ?>" title="<?php _e('Go back to the main map', 'arteforadomuseu'); ?>"><?php _e('Back to main map', 'arteforadomuseu'); ?></a>
 	<?php endif; ?>
 </div>
-<script type="text/javascript">mappress(mappress.convertMapConf(<?php echo json_encode($data); ?>));</script>
+<script type="text/javascript">mappress(mappress.parseConf(<?php echo json_encode($data); ?>));</script>
