@@ -47,7 +47,7 @@
 			</div>
 			<div class="three columns">
 				<?php afdm_city_selector(); ?>
-			</div>
+			&nbsp;</div>
 			<div class="seven columns">
 				<div id="masthead-nav">
 					<div class="clearfix">
