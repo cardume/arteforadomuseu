@@ -165,7 +165,7 @@ jQuery(function($) {
 	$(document).ready(function() {
 
 		if(geolocator_confs.enable) {
-			mappress.mapReady(function(map) {
+			jeo.mapReady(function(map) {
 				var geolocator = afdmGeolocator();
 				geolocator.geolocated(function() {
 					geolocator.centerMap('city', map);

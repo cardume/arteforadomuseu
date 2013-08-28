@@ -30,7 +30,7 @@
 						*/
 						?>
 						<aside class="actions clearfix">
-							<?php echo mappress_find_post_on_map_button(); ?>
+							<?php echo jeo_find_post_on_map_button(); ?>
 							<?php do_action('afdm_loop_artwork_actions'); ?>
 						</aside>
 					</article>

@@ -9,7 +9,7 @@
 	var $markers;
 	var filtering = [];
 
-	mappress.markersReady(function() {
+	jeo.markersReady(function() {
 
 		$filter = $('<ul class="category-filters" />');
 		$.each(categories, function(i, cat) {

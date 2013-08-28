@@ -1,6 +1,6 @@
 Arte Fora do Museu
 ==================
 
-Arte Fora do Museu site project based on WordPress child theme [mappress](https://github.com/cardume/mappress).
+Arte Fora do Museu site project based on WordPress child theme [JEO](https://github.com/cardume/jeo).
 
 Still a draft.

@@ -2,7 +2,7 @@
 
 <?php if(have_posts()) : the_post(); ?>
 
-	<?php mappress_featured(true, true); ?>
+	<?php jeo_featured(true, true); ?>
 
 	<?php
 	$videos = afdm_get_videos();

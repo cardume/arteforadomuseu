@@ -18,7 +18,7 @@ class ArteForaDoMuseu_Artists {
 	var $is_singular = false;
 
 	function __construct() {
-		add_action('mappress_init', array($this, 'setup'));
+		add_action('jeo_init', array($this, 'setup'));
 	}
 
 	function setup() {
@@ -47,8 +47,8 @@ class ArteForaDoMuseu_Artists {
 
 	function setup_post_type() {
 		$this->register_post_type();
-		add_filter('mappress_mapped_post_types', array($this, 'unset_from_mappress_mapped'));
-		add_filter('mappress_featured_post_types', array($this, 'setup_featured'));
+		add_filter('jeo_mapped_post_types', array($this, 'unset_from_jeo_mapped'));
+		add_filter('jeo_featured_post_types', array($this, 'setup_featured'));
 	}
 
 	function register_post_type() {
@@ -89,7 +89,7 @@ class ArteForaDoMuseu_Artists {
 		return $post_types;
 	}
 
-	function unset_from_mappress_mapped($post_types) {
+	function unset_from_jeo_mapped($post_types) {
 		unset($post_types[$this->post_type]);
 		return $post_types;
 	}
@@ -236,7 +236,7 @@ class ArteForaDoMuseu_Artists {
 	 */
 
 	function setup_marker_query() {
-		add_filter('mappress_marker_query', array($this, 'query'));
+		add_filter('jeo_marker_query', array($this, 'query'));
 	}
 
 	function query($query) {

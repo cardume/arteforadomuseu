@@ -12,7 +12,7 @@ class ArteForaDoMuseu_Featured {
 	var $featured_meta = 'featured_content';
 
 	function __construct() {
-		add_action('mappress_init', array($this, 'setup'));
+		add_action('jeo_init', array($this, 'setup'));
 	}
 
 	function setup() {

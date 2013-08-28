@@ -15,7 +15,7 @@ class ArteForaDoMuseu_Geolocator {
 
 	function __construct() {
 
-		add_action('mappress_init', array($this, 'setup'));
+		add_action('jeo_init', array($this, 'setup'));
 
 	}
 
@@ -40,8 +40,8 @@ class ArteForaDoMuseu_Geolocator {
 	 * NOT USED
 
 	function scripts() {
-		if(mappress_get_geocode_service() == 'gmaps' && mappress_get_gmaps_api_key()) {
-			wp_enqueue_script('afdm-geolocator', get_stylesheet_directory_uri() . '/inc/geolocator/js/geolocator.js', array('jquery', 'google-maps-api', 'mappress'), '0.0.4');
+		if(jeo_get_geocode_service() == 'gmaps' && jeo_get_gmaps_api_key()) {
+			wp_enqueue_script('afdm-geolocator', get_stylesheet_directory_uri() . '/inc/geolocator/js/geolocator.js', array('jquery', 'google-maps-api', 'jeo'), '0.0.4');
 			wp_localize_script('afdm-geolocator', 'geolocator_confs', array(
 				'enable' => is_front_page(),
 				'latlng' => $this->get_user_latlng()
@@ -52,16 +52,16 @@ class ArteForaDoMuseu_Geolocator {
 
 
 	/*
-	 * City taxonomy connected to MapPress geocode box
+	 * City taxonomy connected to jeo geocode box
 	 */
 
 	function register_taxonomy() {
 		$this->taxonomy_city();
-		add_action('mappress_geocode_box_save', array($this, 'populate_city'));
+		add_action('jeo_geocode_box_save', array($this, 'populate_city'));
 	}
 
 	function geo_post_types() {
-		return apply_filters('afdm_geo_post_types', mappress_get_mapped_post_types());
+		return apply_filters('afdm_geo_post_types', jeo_get_mapped_post_types());
 	}
 
 	function taxonomy_city() {
@@ -102,7 +102,7 @@ class ArteForaDoMuseu_Geolocator {
 
 	}
 
-	// save mappress city data to taxonomy
+	// save jeo city data to taxonomy
 
 	function populate_city($post_id) {
 		if(isset($_POST['geocode_city'])) {

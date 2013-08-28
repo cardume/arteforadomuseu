@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-<?php mappress_featured(); ?>
+<?php jeo_featured(); ?>
 
 <section id="content">
 
@@ -13,7 +13,7 @@
 			'not_geo_query' => 1,
 			'meta_query' => array(
 				array(
-					'key' => '_mappress_featured',
+					'key' => '_jeo_featured',
 					'value' => 1
 				)
 			)

@@ -12,7 +12,7 @@
 	$termination_date = afdm_get_termination_date();
 	?>
 
-	<?php mappress_map(); ?>
+	<?php jeo_map(); ?>
 
 	<article>
 		<section id="content" class="single-post">
@@ -31,7 +31,7 @@
 				<?php if($images) : ?>
 					<a href="#" data-subsection="images"><span class="lsf">&#xE101;</span> <?php _e('Gallery', 'arteforadomuseu'); ?></a>
 				<?php endif; ?>
-				<?php if(mappress_is_streetview()) : ?>
+				<?php if(jeo_is_streetview()) : ?>
 					<a href="#" class="toggle-map" data-toggled-text="<?php _e('StreetView', 'arteforadomuseu'); ?>" data-default-text="<?php _e('Map', 'arteforadomuseu'); ?>"><span class="lsf">&#xE08b;</span> <span class="label"><?php _e('Map', 'arteforadomuseu'); ?></span></a>
 				<?php endif; ?>
 				<a href="#" data-subsection="comments"><span class="lsf">&#xE035;</span> <?php _e('Comments', 'arteforadomuseu'); ?></a>

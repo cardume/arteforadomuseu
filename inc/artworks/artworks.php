@@ -18,7 +18,7 @@ class ArteForaDoMuseu_Artworks {
 	var $directory = '';
 
 	function __construct() {
-		add_action('mappress_init', array($this, 'setup'));
+		add_action('jeo_init', array($this, 'setup'));
 	}
 
 	function setup() {
@@ -56,7 +56,7 @@ class ArteForaDoMuseu_Artworks {
 
 	function setup_scripts() {
 		add_action('wp_enqueue_scripts', array($this, 'scripts'));
-		add_action('mappress_geocode_scripts', array($this, 'geocode_scripts'));
+		add_action('jeo_geocode_scripts', array($this, 'geocode_scripts'));
 	}
 
 	function scripts() {
@@ -69,11 +69,11 @@ class ArteForaDoMuseu_Artworks {
 	}
 
 	function geocode_scripts() {
-		$geocode_service = mappress_get_geocode_service();
-		$gmaps_key = mappress_get_gmaps_api_key();
+		$geocode_service = jeo_get_geocode_service();
+		$gmaps_key = jeo_get_gmaps_api_key();
 		if($geocode_service == 'gmaps' && $gmaps_key)
 			wp_enqueue_script('google-maps-api');
-		wp_enqueue_script('mappress.geocode.box');
+		wp_enqueue_script('jeo.geocode.box');
 	}
 
 	/*
@@ -222,7 +222,7 @@ class ArteForaDoMuseu_Artworks {
 		$this->save_artwork_links($post_id);
 
 		if(defined('AFDM_FRONTEND_SUBMIT') && AFDM_FRONTEND_SUBMIT) {
-			mappress_geocode_save($post_id);
+			jeo_geocode_save($post_id);
 			$this->save_artwork_styles($post_id);
 			$this->save_artwork_categories($post_id);
 			$this->save_artwork_images($post_id);
@@ -690,7 +690,7 @@ class ArteForaDoMuseu_Artworks {
 			<?php $this->box_artwork_dates($post); ?>
 		</div>
 		<div class="clearfix">
-			<?php mappress_geocode_box($post); ?>
+			<?php jeo_geocode_box($post); ?>
 		</div>
 		<?php
 	}
