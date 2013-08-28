@@ -26,12 +26,6 @@ if(have_posts()) :
 		</div>
 	</div>
 
-<?php else : ?>
-
-	<div class="section-message">
-		<p><?php echo $city; ?> <?php _e('doesn\'t have artworks, yet!', 'arteforadomuseu'); ?></p>
-	</div>
-
 <?php
 endif;
 wp_reset_query();
