@@ -133,3 +133,13 @@ function afdm_city_not_found_message() {
 }
 
 add_action('afdm_before_content', 'afdm_city_not_found_message');
+
+function afdm_flush_rewrite() {
+	global $pagenow;
+	if(is_admin() && $_REQUEST['activated'] && $pagenow == 'themes.php') {
+		global $wp_rewrite;
+		$wp_rewrite->init();
+		$wp_rewrite->flush_rules();
+	}
+}
+add_action('init', 'afdm_flush_rewrite');
