@@ -619,7 +619,7 @@ class ArteForaDoMuseu_ArtGuides {
 	function setup_jeditable() {
 
 		if(!is_admin() && !is_feed() && is_user_logged_in()) {
-			add_action('wp_enqueue_scripts', array($this, 'jeditable_scripts'));
+			add_action('jeo_enqueue_scripts', array($this, 'jeditable_scripts'));
 			add_filter('the_title', array($this, 'jeditable_post_title'), 10, 2);
 			add_filter('the_content', array($this, 'jeditable_post_content'), 100);
 			//add_filter('the_excerpt', array($this, 'jeditable_post_excerpt'), 100); nope!

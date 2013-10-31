@@ -2,9 +2,11 @@
 
 	$(document).ready(function() {
 
-		var navigation = responsiveNav('#main-nav', {
-			label: 'menu'
-		});
+		if($('#main-nav').length) {
+			var navigation = responsiveNav('#main-nav', {
+				label: 'menu'
+			});
+		}
 
 		$(window).scroll(function() {
 			if($(window).scrollTop() >= 10) {
@@ -30,15 +32,14 @@
 				current = items.first(),
 				controllers = carousel.find('.carousel-controllers');
 
-			setTimeout(function() {
-				show(current);
-			}, 200);
+			if(items.length === 1){
+				controllers.hide();
+			}
+
+			show(current);
 
 			if(autorun)
 				var t = setInterval(next, 8000);
-
-			if(items.length === 1)
-				controllers.hide();
 
 			controllers.on('click', 'a', function() {
 
@@ -46,11 +47,6 @@
 					next();
 				else
 					previous();
-
-				if(autorun && t) {
-					clearInterval(t);
-					t = setInterval(next, 8000);
-				}
 
 				return false;
 
@@ -60,7 +56,7 @@
 
 				hide(current);
 
-				if(current.is('li:last'))
+				if(current.is('li:last-child'))
 					current = items.first()
 				else
 					current = current.next('li');
@@ -73,7 +69,7 @@
 
 				hide(current);
 
-				if(current.is('li:first'))
+				if(current.is('li:first-child'))
 					current = items.last()
 				else
 					current = current.prev('li');
@@ -83,6 +79,10 @@
 			}
 
 			function show(el) {
+				if(autorun && t) {
+					clearInterval(t);
+					t = setInterval(next, 8000);
+				}
 				el.addClass('active');
 			}
 
@@ -99,9 +99,9 @@
 	 * Subsection
 	 */
 
-	$(document).ready(function() {
+	jeo.mapReady(function() {
 
-		var s = subsection.init();
+		subsection.init();
 
 		$('[data-subsection]').click(function() {
 
@@ -114,7 +114,7 @@
 
 			var toggler = $(this);
 
-			subsection.close(s);
+			subsection.close();
 
 			if($('.map-container .map').hasClass('open')) {
 				$('.map-container .map').removeClass('open');
@@ -184,9 +184,11 @@
 		},
 		open: function(id) {
 
-			this.close(this);
+			this.close();
 
 			this.subcontent = $('#' + id + '.sub-content');
+
+			this.previousMapRight = $('.map-container').css('right');
 
 			if(this.subcontent.length) {
 
@@ -197,27 +199,39 @@
 					right: this.subcontent.width()
 				});
 
+				$('.map-container').css({
+					right: $('#content').width() * 2
+				});
+
+				jeo.map.invalidateSize(true);
+
 			}
 
 			window.location.hash = 'section=' + id;
 
 			return this;
 		},
-		close: function(section) {
+		close: function() {
 
-			section.parent.css({
+			this.parent.css({
 				right: 0
 			});
 
-			section.subcontents.removeClass('active').css({
-				right: -section.subcontents.width()
+			this.subcontents.removeClass('active').css({
+				right: -this.subcontents.width()
 			});
+
+			$('.map-container').css({
+				right: this.previousMapRight
+			});
+
+			jeo.map.invalidateSize(true);
 
 			window.location.hash = '';
 
-			return section;
+			return this;
 
-		},
+		}
 	}
 
 	/*
