@@ -2120,6 +2120,14 @@ body.lightbox-opened {
 				padding: 10px 20px;
 				background: #fefefe;
 			}
+			input[type=text],
+			textarea,
+			select {
+				.box-sizing(border-box);
+			}
+			.chzn-container {
+				width: 100% !important;
+			}
 			input.title {
 				display: block;
 				width: 100%;
@@ -2177,6 +2185,9 @@ body.lightbox-opened {
 }
 
 #new_artwork {
+	#artwork_artist_box {
+		margin-bottom: 20px;
+	}
 	#artwork_dimensions_box {
 		margin-bottom: 20px;
 		.input-container {
@@ -2212,9 +2223,6 @@ body.lightbox-opened {
 				padding-right: 20px;
 				select {
 					width: 100%;
-				}
-				.chzn-container {
-					width: 100% !important;
 				}
 				input, 
 				label {

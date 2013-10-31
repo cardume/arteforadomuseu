@@ -270,7 +270,7 @@ class ArteForaDoMuseu_Artists {
 
 		$post_id = false;
 
-		if(!$this->can_edit_any())
+		if(!$this->can_edit($_REQUEST['artwork_id']))
 			$this->ajax_response(array('error_msg' => __('You are not allowed to do that', 'arteforadomuseu')));
 
 		if(!$post_id) {
@@ -564,6 +564,8 @@ class ArteForaDoMuseu_Artists {
 		$user_id = $user_id ? $user_id : wp_get_current_user()->ID;
 		if(user_can($user_id, 'edit_post', $post_id))
 			return true;
+		else if(user_can($user_id, 'edit_posts') && !$this->has_artist($post_id))
+			return true;
 		return false;
 	}
 
@@ -602,7 +604,7 @@ class ArteForaDoMuseu_Artists {
 	 */
 
 	function hook_ui_elements() {
-		if(is_user_logged_in() && $this->can_edit_any()) {
+		if(is_user_logged_in()) {
 			add_action('wp_footer', array($this, 'add_artwork_box'));
 		}
 		add_action('afdm_loop_artwork_actions', array($this, 'add_artwork_button'));
@@ -631,13 +633,18 @@ class ArteForaDoMuseu_Artists {
 				<?php if($artists) : ?>
 					<form id="add_to_existing_artist" class="clearfix">
 						<input type="hidden" class="artwork_id" name="artwork_id" />
-						<div class="form-inputs">
+						<div class="form-inputs row">
 							<h3><?php _e('Artists', 'arteforadomuseu'); ?></h3>
 							<select class="artists" name="post_id">
 								<?php foreach($artists as $artist) : ?>
 									<option value="<?php echo $artist->ID; ?>"><?php echo $artist->post_title; ?></option>
 								<?php endforeach; ?>
 							</select>
+							<script type="text/javascript">
+								jQuery(document).ready(function($) {
+									$('select.artists').chosen();
+								});
+							</script>
 						</div>
 						<div class="form-actions">
 							<input type="submit" value="<?php _e('Add artwork', 'arteforadomuseu'); ?>" />
@@ -653,7 +660,7 @@ class ArteForaDoMuseu_Artists {
 	function add_artwork_button($artwork_id = false) {
 		global $post;
 		$artwork_id = $artwork_id ? $artwork_id : $post->ID;
-		if(!$this->can_edit_any())
+		if(!$this->can_edit($artwork_id))
 			return;
 		?>
 		<a class="add_artwork_to_artist" data-artwork="<?php echo $artwork_id; ?>" data-artwork-title="<?php echo get_the_title($artwork_id); ?>" href="#"><span class="lsf">&#xE041;</span> <?php _e('Register artist', 'arteforadomuseu'); ?></a>

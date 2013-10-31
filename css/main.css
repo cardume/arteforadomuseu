@@ -206,6 +206,8 @@ body.lightbox-opened{overflow:hidden;}
 .lightbox_section .lightbox_container .two-thirds-1{width:66%;float:left;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;padding-right:15px;}
 .lightbox_section .lightbox_container .one-third-2{width:33%;float:left;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;padding-left:15px;}
 .lightbox_section .lightbox_container form{width:100%;}.lightbox_section .lightbox_container form .form-section{margin:0 0 20px;padding:10px 20px;background:#fefefe;}
+.lightbox_section .lightbox_container form input[type=text],.lightbox_section .lightbox_container form textarea,.lightbox_section .lightbox_container form select{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}
+.lightbox_section .lightbox_container form .chzn-container{width:100% !important;}
 .lightbox_section .lightbox_container form input.title{display:block;width:100%;font-size:28px;padding:12px;line-height:28px;font-weight:200;font-family:"Open Sans";}
 .lightbox_section .lightbox_container form textarea{display:block;width:100%;padding:15px;}
 .lightbox_section .lightbox_container form select{padding:5px;width:100%;}
@@ -213,12 +215,12 @@ body.lightbox-opened{overflow:hidden;}
 #add_to_existing_guide{margin-bottom:20px;border-bottom:1px dotted #aaa;}#add_to_existing_guide .form-inputs,#add_to_existing_guide .form-actions{float:left;}
 #add_to_existing_guide .form-inputs{width:60%;margin-right:5%;}#add_to_existing_guide .form-inputs input[type=text],#add_to_existing_guide .form-inputs textarea,#add_to_existing_guide .form-inputs select{width:100%;padding:10px;font-family:"Open Sans";}
 #add_to_existing_guide .form-actions{margin-top:24px;float:right;}
+#new_artwork #artwork_artist_box{margin-bottom:20px;}
 #new_artwork #artwork_dimensions_box{margin-bottom:20px;}#new_artwork #artwork_dimensions_box .input-container textarea{width:100%;height:117px;padding:5px;}
 #new_artwork #artwork_dimensions_box .input-container input,#new_artwork #artwork_dimensions_box .input-container label{margin:0;display:inline;}
 #new_artwork #artwork_dimensions_box .input-container input{width:80%;font-size:16px;padding:14px;}
 #new_artwork #artwork_dimensions_box .input-container label{margin-left:10px;color:#999;}
 #new_artwork #artwork_dates_box{margin-bottom:20px;}#new_artwork #artwork_dates_box .box-inputs{display:table;width:100%;}#new_artwork #artwork_dates_box .box-inputs .input-container{display:table-cell;vertical-align:middle;padding-right:20px;}#new_artwork #artwork_dates_box .box-inputs .input-container select{width:100%;}
-#new_artwork #artwork_dates_box .box-inputs .input-container .chzn-container{width:100% !important;}
 #new_artwork #artwork_dates_box .box-inputs .input-container input,#new_artwork #artwork_dates_box .box-inputs .input-container label{margin:0;display:inline;}
 #new_artwork #artwork_dates_box .box-inputs .input-container input[type=text]{width:100%;}
 #new_artwork #artwork_dates_box .box-inputs .input-container label{margin-left:10px;color:#333;}

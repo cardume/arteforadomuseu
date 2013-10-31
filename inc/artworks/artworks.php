@@ -226,6 +226,7 @@ class ArteForaDoMuseu_Artworks {
 			$this->save_artwork_styles($post_id);
 			$this->save_artwork_categories($post_id);
 			$this->save_artwork_images($post_id);
+			$this->save_artwork_artist($post_id);
 		}
 	}
 
@@ -418,6 +419,46 @@ class ArteForaDoMuseu_Artworks {
 		<?php
 	}
 
+	function box_artwork_artist($post = false) {
+
+		wp_enqueue_script('artworks-box-artist', $this->directory_uri . '/js/artworks.box.artist.js', array('jquery', 'jquery-chosen'), '0.0.9');
+		wp_localize_script('artworks-box-artist', 'box_artist_settings', array(
+			'isAdmin' => is_admin()
+		));
+
+		$artists = get_posts(array(
+			'post_type' => 'artist',
+			'post_status' => array('publish', 'private', 'pending', 'draft', 'future'),
+			'posts_per_page' => -1,
+			'not_geo_query' => 1,
+			'orderby' => 'title',
+			'order' => 'ASC'
+		));
+
+		if($artists) :
+			?>
+				<div id="artwork_artist_box">
+					<h4><?php _e('Artist', 'arteforadomuseu'); ?></h3>
+					<select class="chosen" name="artwork_artist_id" data-placeholder="<?php _e('Select an existing artist', 'arteforadomuseu'); ?>">
+						<option></option>
+						<?php foreach($artists as $artist) : ?>
+							<option value="<?php echo $artist->ID; ?>"><?php echo $artist->post_title; ?></option>
+						<?php endforeach; ?>
+					</select>
+				</div>
+			<?php
+		endif;
+
+	}
+
+	function save_artwork_artist($post_id) {
+
+		if(isset($_POST['artwork_artist_id'])) {
+			add_post_meta($_POST['artwork_artist_id'], '_artworks', $post_id);
+		}
+
+	}
+
 	function link_input_template($id = false, $title = false, $url = false, $featured = false) {
 		?>
 			<p class="input-container link main-input">
@@ -470,7 +511,7 @@ class ArteForaDoMuseu_Artworks {
 		}
 		?>
 		<div id="artwork_styles_box">
-			<h4><?php _e('Tag styles for this artwork', 'arteforadomuseu'); ?></h4>
+			<h4><?php _e('Tag styles for this artwork (comma separated)', 'arteforadomuseu'); ?></h4>
 			<div class="box-inputs">
 				<ul id="style-tags">
 					<?php
@@ -673,6 +714,9 @@ class ArteForaDoMuseu_Artworks {
 			<div class="one-third-2">
 				<?php $this->box_artwork_dimensions($post); ?>
 			</div>
+		</div>
+		<div class="clearfix">
+			<?php $this->box_artwork_artist($post); ?>
 		</div>
 		<h3><?php _e('Multimedia', 'arteforadomuseu'); ?></h3>
 		<div class="multimedia form-section">
