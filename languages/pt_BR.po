@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arte Fora do Museu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-22 20:25-0300\n"
-"PO-Revision-Date: 2013-05-22 20:26-0300\n"
+"POT-Creation-Date: 2013-10-31 15:30-0300\n"
+"PO-Revision-Date: 2013-10-31 15:32-0300\n"
 "Last-Translator: Miguel Peixe <miguel@cardume.art.br>\n"
 "Language-Team: Cardume <miguel@cardume.art.br>\n"
 "Language: \n"
@@ -18,77 +18,73 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../single.php:23
-#: ../header.php:56
-#: ../content-marker-bubble.php:12
+#: ../single.php:24
+#: ../header.php:57
+#: ../content-marker-bubble.php:11
 msgid "Artists"
 msgstr "Artistas"
 
-#: ../single.php:28
-#: ../single.php:78
-#: ../inc/artworks/artworks.php:161
-#: ../inc/artworks/artworks.php:309
+#: ../single.php:29
+#: ../single.php:87
 msgid "Videos"
 msgstr "Vídeos"
 
-#: ../single.php:31
+#: ../single.php:32
 msgid "Gallery"
 msgstr "Galeria"
 
-#: ../single.php:34
+#: ../single.php:35
 msgid "StreetView"
 msgstr "StreetView"
 
-#: ../single.php:34
+#: ../single.php:35
 msgid "Map"
 msgstr "Mapa"
 
-#: ../single.php:36
-#: ../single.php:117
+#: ../single.php:37
+#: ../single.php:126
 msgid "Comments"
 msgstr "Comentários"
 
-#: ../single.php:42
+#: ../single.php:43
 msgid "Dimensions"
 msgstr "Dimensões"
 
-#: ../single.php:50
+#: ../single.php:51
 msgid "Dates"
 msgstr "Datas"
 
-#: ../single.php:52
+#: ../single.php:53
 msgid "Creation"
 msgstr "Criação"
 
-#: ../single.php:57
+#: ../single.php:58
 msgid "Termination"
 msgstr "Término"
 
-#: ../single.php:67
-#: ../inc/artworks/artworks.php:90
-#: ../inc/artworks/artworks.php:104
+#: ../single.php:76
 msgid "Styles"
 msgstr "Estilos"
 
-#: ../single.php:77
-#: ../single.php:92
-#: ../single.php:116
+#: ../single.php:86
+#: ../single.php:101
+#: ../single.php:125
 msgid "Close"
 msgstr "Fechar"
 
-#: ../single.php:93
+#: ../single.php:102
 msgid "Image gallery"
 msgstr "Galeria de imagens"
 
-#: ../header.php:55
+#: ../header.php:56
 msgid "Art guides"
 msgstr "Roteiros"
 
-#: ../header.php:69
+#: ../header.php:70
 msgid "Categories"
 msgstr "Categorias"
 
-#: ../header.php:73
+#: ../header.php:74
 msgid "Choose another category:"
 msgstr "Escolha outra categoria:"
 
@@ -100,39 +96,39 @@ msgstr "Voltar para o mapa principal"
 msgid "Back to main map"
 msgstr "Voltar para o mapa principal"
 
-#: ../functions.php:71
+#: ../functions.php:89
 msgid "Login"
 msgstr "Entrar"
 
-#: ../functions.php:74
+#: ../functions.php:92
 msgid "Login with: "
 msgstr "Entrar como:"
 
-#: ../functions.php:84
+#: ../functions.php:102
 msgid "Hello"
 msgstr "Olá"
 
-#: ../functions.php:84
+#: ../functions.php:102
 msgid "Logout"
 msgstr "Sair"
 
-#: ../functions.php:88
+#: ../functions.php:106
 msgid "Dashboard"
 msgstr "Painel de controle"
 
-#: ../functions.php:106
+#: ../functions.php:124
 msgid "We couldn't find anything for your city."
 msgstr "Não encontramos resultados para a sua cidade."
 
-#: ../functions.php:107
+#: ../functions.php:125
 msgid "Showing all cities results"
 msgstr "Exibindo resultados de todas as cidades"
 
-#: ../functions.php:110
+#: ../functions.php:128
 msgid "Click here to add an artwork"
 msgstr "Clique aqui para adicionar uma obra"
 
-#: ../functions.php:112
+#: ../functions.php:130
 msgid "Login to submit an artwork!"
 msgstr "Faça o login para enviar uma obra!"
 
@@ -141,7 +137,7 @@ msgid "Results for: "
 msgstr "Resultados para:"
 
 #: ../category.php:13
-#: ../index.php:37
+#: ../index.php:42
 msgid "Latest artworks"
 msgstr "Últimas obras"
 
@@ -152,10 +148,6 @@ msgstr "Popular em"
 #: ../content-popular.php:21
 msgid "Popular"
 msgstr "Popular"
-
-#: ../content-popular.php:32
-msgid "doesn't have artworks, yet!"
-msgstr "não tem obras, ainda!"
 
 #: ../loop.php:19
 #, php-format
@@ -205,14 +197,15 @@ msgstr "Próximo"
 msgid "Previous"
 msgstr "Anterior"
 
-#: ../index.php:20
+#: ../searchform.php:3
+msgid "Search and hit enter"
+msgstr "Escreva sua busca e pressione enter"
+
+#: ../index.php:25
 msgid "Featured artists"
 msgstr "Artistas em destaque"
 
 #: ../inc/featured.php:33
-#: ../inc/artworks/artworks.php:339
-#: ../inc/artworks/artworks.php:402
-#: ../inc/artworks/artworks.php:560
 msgid "Featured"
 msgstr "Destaque"
 
@@ -221,6 +214,8 @@ msgid "Featured content"
 msgstr "Conteúdo destacado"
 
 #: ../inc/artworks/artworks.php:66
+#: ../inc/artguides/artguides.php:489
+#: ../inc/artists/artists.php:616
 msgid "Sending data..."
 msgstr "Enviando dados..."
 
@@ -281,7 +276,7 @@ msgid "Choose from most used styles"
 msgstr "Escolher entre os estilos mais utilizados"
 
 #: ../inc/artworks/artworks.php:141
-#: ../inc/artworks/artworks.php:212
+#: ../inc/artworks/artworks.php:239
 msgid "Artwork dimensions"
 msgstr "Dimensões da obra"
 
@@ -290,135 +285,148 @@ msgid "Artwork dates"
 msgstr "Datas da obra"
 
 #: ../inc/artworks/artworks.php:171
-#: ../inc/artworks/artworks.php:371
+#: ../inc/artworks/artworks.php:198
+#: ../inc/artworks/artworks.php:398
 msgid "Links"
 msgstr "Links"
 
-#: ../inc/artworks/artworks.php:215
+#: ../inc/artworks/artworks.php:242
 msgid "Describe the dimensions"
 msgstr "Descreva as dimensões"
 
-#: ../inc/artworks/artworks.php:249
+#: ../inc/artworks/artworks.php:276
 msgid "Creation and termination dates"
 msgstr "Datas de criação e término"
 
-#: ../inc/artworks/artworks.php:260
-#: ../inc/artworks/artworks.php:261
+#: ../inc/artworks/artworks.php:287
+#: ../inc/artworks/artworks.php:288
 msgid "Creation year"
 msgstr "Ano de criação"
 
-#: ../inc/artworks/artworks.php:268
-#: ../inc/artworks/artworks.php:269
+#: ../inc/artworks/artworks.php:295
+#: ../inc/artworks/artworks.php:296
 msgid "Termination year"
 msgstr "Ano de término"
 
-#: ../inc/artworks/artworks.php:276
+#: ../inc/artworks/artworks.php:303
 msgid "Currently active"
 msgstr "Atualmente ativa"
 
-#: ../inc/artworks/artworks.php:310
+#: ../inc/artworks/artworks.php:337
 msgid "Video URLs from YouTube, Vimeo, Blip.tv, Dailymotion, Qik or Flickr"
 msgstr "Links de vídeo do YouTube, Vimeo, Blip.tv, Dailymotion , Qik ou Flickr"
 
-#: ../inc/artworks/artworks.php:311
+#: ../inc/artworks/artworks.php:338
 msgid "Add video"
 msgstr "Adicionar vídeo"
 
-#: ../inc/artworks/artworks.php:336
+#: ../inc/artworks/artworks.php:363
 msgid "Video url"
 msgstr "Link"
 
-#: ../inc/artworks/artworks.php:342
-#: ../inc/artworks/artworks.php:405
-#: ../inc/artworks/artworks.php:563
+#: ../inc/artworks/artworks.php:369
+#: ../inc/artworks/artworks.php:472
+#: ../inc/artworks/artworks.php:630
+#: ../inc/artguides/artguides.php:527
+#: ../inc/artists/artists.php:686
 msgid "Remove"
 msgstr "Remover"
 
-#: ../inc/artworks/artworks.php:372
+#: ../inc/artworks/artworks.php:399
 msgid "Links related to this artwork"
 msgstr "Links relacionados à essa obra"
 
-#: ../inc/artworks/artworks.php:373
+#: ../inc/artworks/artworks.php:400
 msgid "Add link"
 msgstr "Adicionar link"
 
-#: ../inc/artworks/artworks.php:398
+#: ../inc/artworks/artworks.php:441
+#: ../inc/artists/artists.php:58
+msgid "Artist"
+msgstr "Artista"
+
+#: ../inc/artworks/artworks.php:442
+msgid "Select an existing artist"
+msgstr "Selecione um artista existente"
+
+#: ../inc/artworks/artworks.php:465
 msgid "Link title"
 msgstr "Título do link"
 
-#: ../inc/artworks/artworks.php:399
+#: ../inc/artworks/artworks.php:466
 msgid "Link url"
 msgstr "URL do link"
 
-#: ../inc/artworks/artworks.php:447
-msgid "Tag styles for this artwork"
-msgstr "Marque os estilos dessa obra"
+#: ../inc/artworks/artworks.php:514
+msgid "Tag styles for this artwork (comma separated)"
+msgstr "Marque os estilos dessa obra (separados por vírgula)"
 
-#: ../inc/artworks/artworks.php:497
+#: ../inc/artworks/artworks.php:564
 msgid "Select a category"
 msgstr "Selecione uma categoria"
 
-#: ../inc/artworks/artworks.php:529
+#: ../inc/artworks/artworks.php:596
 msgid "Images"
 msgstr "Imagens"
 
-#: ../inc/artworks/artworks.php:530
+#: ../inc/artworks/artworks.php:597
 msgid "Pictures for this artwork"
 msgstr "Fotos desta obra"
 
-#: ../inc/artworks/artworks.php:531
+#: ../inc/artworks/artworks.php:598
 msgid "Add image"
 msgstr "Adicionar imagem"
 
-#: ../inc/artworks/artworks.php:556
+#: ../inc/artworks/artworks.php:623
 msgid "Image title"
 msgstr "Título"
 
-#: ../inc/artworks/artworks.php:557
+#: ../inc/artworks/artworks.php:624
 msgid "Image file"
 msgstr "Arquivo"
 
-#: ../inc/artworks/artworks.php:613
+#: ../inc/artworks/artworks.php:680
 msgid "Submit an artwork"
 msgstr "Enviar uma obra"
 
-#: ../inc/artworks/artworks.php:620
+#: ../inc/artworks/artworks.php:687
 msgid "Submit new artwork"
 msgstr "Enviar nova obra"
 
-#: ../inc/artworks/artworks.php:627
+#: ../inc/artworks/artworks.php:694
 msgid "Submit"
 msgstr "Enviar"
 
-#: ../inc/artworks/artworks.php:628
+#: ../inc/artworks/artworks.php:695
+#: ../inc/artguides/artguides.php:566
+#: ../inc/artguides/artguides.php:593
+#: ../inc/artguides/artguides.php:607
+#: ../inc/artists/artists.php:651
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: ../inc/artworks/artworks.php:638
-msgid "Title"
-msgstr "Título"
+#: ../inc/artworks/artworks.php:705
+msgid "Title (optional)"
+msgstr "Título (opcional)"
 
-#: ../inc/artworks/artworks.php:639
+#: ../inc/artworks/artworks.php:706
+#: ../inc/artguides/artguides.php:562
 msgid "Description"
 msgstr "Descrição"
 
-#: ../inc/artworks/artworks.php:651
+#: ../inc/artworks/artworks.php:721
 msgid "Multimedia"
 msgstr "Multimídia"
 
-#: ../inc/artworks/artworks.php:694
-msgid "You must enter a title for the artwork"
-msgstr "Você deve inserir um título para a obra"
-
-#: ../inc/artworks/artworks.php:697
+#: ../inc/artworks/artworks.php:768
 msgid "You must select a category"
 msgstr "Você deve selecionar uma categoria"
 
-#: ../inc/artworks/artworks.php:700
+#: ../inc/artworks/artworks.php:771
 msgid "You must enter the address/location of the artwork"
 msgstr "Você deve inserir o endereço/localização da obra"
 
-#: ../inc/artworks/artworks.php:711
+#: ../inc/artworks/artworks.php:782
 msgid "Congratulations! Your artwork is now pending approval, soon you'll see it here."
 msgstr "Parabéns! Sua obra está pendente para aprovação, em breve a verá por aqui."
 
@@ -465,10 +473,10 @@ msgstr "Nenhum roteiro foi encontrado na lixeira"
 #: ../inc/artguides/artguides.php:216
 #: ../inc/artguides/artguides.php:247
 #: ../inc/artguides/artguides.php:699
-#: ../inc/artists/artists.php:187
-#: ../inc/artists/artists.php:207
-#: ../inc/artists/artists.php:215
-#: ../inc/artists/artists.php:665
+#: ../inc/artists/artists.php:274
+#: ../inc/artists/artists.php:294
+#: ../inc/artists/artists.php:302
+#: ../inc/artists/artists.php:797
 msgid "You are not allowed to do that"
 msgstr "Você não tem permissões para fazer isso"
 
@@ -480,7 +488,7 @@ msgstr "Você precisa de um título para o seu roteiro"
 #: ../inc/artguides/artguides.php:198
 #: ../inc/artguides/artguides.php:226
 #: ../inc/artguides/artguides.php:715
-#: ../inc/artists/artists.php:681
+#: ../inc/artists/artists.php:813
 msgid "Something went wrong"
 msgstr "Algo deu errado"
 
@@ -490,7 +498,7 @@ msgstr "Seu novo roteiro foi criado."
 
 #: ../inc/artguides/artguides.php:200
 #: ../inc/artguides/artguides.php:242
-#: ../inc/artists/artists.php:202
+#: ../inc/artists/artists.php:289
 msgid "Click here to close"
 msgstr "Clique aqui para fechar"
 
@@ -515,7 +523,7 @@ msgid "Artwork has been removed from this art guide"
 msgstr "Obra removida do roteiro"
 
 #: ../inc/artguides/artguides.php:488
-#: ../inc/artists/artists.php:490
+#: ../inc/artists/artists.php:615
 msgid "Are you sure?"
 msgstr "Você tem certeza?"
 
@@ -538,12 +546,12 @@ msgid "Remove this artwork from the art guide"
 msgstr "Remover obra deste roteiro"
 
 #: ../inc/artguides/artguides.php:533
-#: ../inc/artists/artists.php:560
+#: ../inc/artists/artists.php:692
 msgid "Visit"
 msgstr "Visitar"
 
 #: ../inc/artguides/artguides.php:535
-#: ../inc/artists/artists.php:562
+#: ../inc/artists/artists.php:694
 msgid "Visit/edit"
 msgstr "Visitar/editar"
 
@@ -552,22 +560,26 @@ msgid "Permanently delete this art guide"
 msgstr "Remover deste roteiro permanentemente"
 
 #: ../inc/artguides/artguides.php:549
-#: ../inc/artists/artists.php:576
+#: ../inc/artists/artists.php:708
 msgid "Delete"
 msgstr "Deletar"
+
+#: ../inc/artguides/artguides.php:561
+msgid "Title"
+msgstr "Título"
 
 #: ../inc/artguides/artguides.php:565
 msgid "Create"
 msgstr "Criar"
 
 #: ../inc/artguides/artguides.php:578
-#: ../inc/artists/artists.php:504
+#: ../inc/artists/artists.php:631
 #, php-format
 msgid "Add &ldquo;%s&rdquo; to:"
 msgstr "Adicionar &ldquo;%s&rdquo; ao:"
 
 #: ../inc/artguides/artguides.php:592
-#: ../inc/artists/artists.php:518
+#: ../inc/artists/artists.php:650
 msgid "Add artwork"
 msgstr "Adicionar obra"
 
@@ -576,26 +588,26 @@ msgid "Create and add artwork"
 msgstr "Criar e adicionar obra"
 
 #: ../inc/artguides/artguides.php:643
-#: ../inc/artists/artists.php:609
+#: ../inc/artists/artists.php:741
 msgid "Double-click to edit..."
 msgstr "Clique duas vezes para editar..."
 
 #: ../inc/artguides/artguides.php:644
-#: ../inc/artists/artists.php:610
+#: ../inc/artists/artists.php:742
 msgid "Saving..."
 msgstr "Salvando..."
 
 #: ../inc/artguides/artguides.php:659
 #: ../inc/artguides/artguides.php:672
 #: ../inc/artguides/artguides.php:686
-#: ../inc/artists/artists.php:625
-#: ../inc/artists/artists.php:638
-#: ../inc/artists/artists.php:652
+#: ../inc/artists/artists.php:757
+#: ../inc/artists/artists.php:770
+#: ../inc/artists/artists.php:784
 msgid "Double-click to edit"
 msgstr "Clique duas vezes para editar"
 
 #: ../inc/artguides/artguides.php:694
-#: ../inc/artists/artists.php:660
+#: ../inc/artists/artists.php:792
 msgid "Missing post id"
 msgstr "Faltando ID do objeto"
 
@@ -625,7 +637,7 @@ msgstr[0] "1 obra"
 msgstr[1] "%s obras"
 
 #: ../inc/artguides/templates/single.php:28
-#: ../inc/artists/templates/single.php:20
+#: ../inc/artists/templates/single.php:52
 msgid "Artworks"
 msgstr "Obras"
 
@@ -661,7 +673,7 @@ msgid "Popular cities"
 msgstr "Cidades populares"
 
 #: ../inc/geolocator/geolocator.php:74
-#: ../inc/geolocator/geolocator.php:198
+#: ../inc/geolocator/geolocator.php:200
 msgid "All cities"
 msgstr "Todas as cidades"
 
@@ -701,79 +713,120 @@ msgstr "Adicionar ou remover cidades"
 msgid "Choose from most used cities"
 msgstr "Escolha entre as cidades mais utilizadas"
 
-#: ../inc/geolocator/geolocator.php:192
+#: ../inc/geolocator/geolocator.php:194
 msgid "Select a city"
 msgstr "Selecione uma cidade"
 
-#: ../inc/geolocator/geolocator.php:196
+#: ../inc/geolocator/geolocator.php:198
 msgid "Choose another city:"
 msgstr "Escolha outra cidade:"
 
-#: ../inc/artists/artists.php:57
-msgid "Artist"
-msgstr "Artista"
-
-#: ../inc/artists/artists.php:58
+#: ../inc/artists/artists.php:59
 msgid "Add artist"
 msgstr "Adicionar artista"
 
-#: ../inc/artists/artists.php:59
+#: ../inc/artists/artists.php:60
 msgid "Add new artist"
 msgstr "Adicionar novo artista"
 
-#: ../inc/artists/artists.php:60
+#: ../inc/artists/artists.php:61
 msgid "Edit artist"
 msgstr "Editar artista"
 
-#: ../inc/artists/artists.php:61
+#: ../inc/artists/artists.php:62
 msgid "New artist"
 msgstr "Novo artista"
 
-#: ../inc/artists/artists.php:62
+#: ../inc/artists/artists.php:63
 msgid "View artist"
 msgstr "Ver artista"
 
-#: ../inc/artists/artists.php:63
+#: ../inc/artists/artists.php:64
 msgid "Search artists"
 msgstr "Buscar artistas"
 
-#: ../inc/artists/artists.php:64
+#: ../inc/artists/artists.php:65
 msgid "No artist found"
 msgstr "Nenhum artista foi encontrado"
 
-#: ../inc/artists/artists.php:65
+#: ../inc/artists/artists.php:66
 msgid "No artist found in the trash"
 msgstr "Nenhum artista foi encontrado na lixeira"
 
-#: ../inc/artists/artists.php:191
+#: ../inc/artists/artists.php:119
+msgid "Artist age"
+msgstr "Idade do artista"
+
+#: ../inc/artists/artists.php:138
+msgid "Artist's age"
+msgstr "Idade do artista"
+
+#: ../inc/artists/artists.php:139
+msgid "Fill birth and death dates"
+msgstr "Preencha datas de nascimento e falecimento"
+
+#: ../inc/artists/artists.php:142
+msgid "Birth date"
+msgstr "Data de nascimento"
+
+#: ../inc/artists/artists.php:145
+msgid "Death date"
+msgstr "Data de falecimento"
+
+#: ../inc/artists/artists.php:278
 msgid "You need to select an artist"
 msgstr "Você precisa selecionar um artista"
 
-#: ../inc/artists/artists.php:199
+#: ../inc/artists/artists.php:286
 msgid "This artwork is already part of the selected artist"
 msgstr "Esta obra já está "
 
-#: ../inc/artists/artists.php:202
+#: ../inc/artists/artists.php:289
 msgid "The selected artwork has been added to this artist!"
 msgstr "A obra seleciona foi adicionada a este artista!"
 
-#: ../inc/artists/artists.php:210
+#: ../inc/artists/artists.php:297
 msgid "Artist has been deleted"
 msgstr "Artista foi deletado"
 
-#: ../inc/artists/artists.php:218
+#: ../inc/artists/artists.php:305
 msgid "Artwork has been removed from this artist"
 msgstr "Obra foi removida deste artista"
 
-#: ../inc/artists/artists.php:534
+#: ../inc/artists/artists.php:666
 msgid "Register artist"
 msgstr "Vincular artista"
 
-#: ../inc/artists/artists.php:554
+#: ../inc/artists/artists.php:686
 msgid "Remove this artwork from the artist"
 msgstr "Remover obra deste artista"
 
-#: ../inc/artists/artists.php:576
+#: ../inc/artists/artists.php:708
 msgid "Permanently delete this artist"
 msgstr "Remover artista permanentemente"
 
+#: ../inc/artists/templates/single.php:21
+msgid "years old"
+msgstr "anos"
+
+#: ../inc/artists/templates/single.php:22
+msgid "Birth"
+msgstr "Nascimento"
+
+#: ../inc/artists/templates/single.php:26
+msgid "Death"
+msgstr "Falecimento"
+
+#: ../inc/instagram/instagram.php:65
+msgid "Collaborative Instagram map"
+msgstr "Mapa colaborativo"
+
+#: ../inc/instagram/instagram.php:66
+msgid "Use the hashtag #arteforadomuseu to appear on our collaborative map"
+msgstr "Utilize a hashtag #arteforadomuseu para aparecer no nosso mapa colaborativo"
+
+#~ msgid "doesn't have artworks, yet!"
+#~ msgstr "não tem obras, ainda!"
+
+#~ msgid "You must enter a title for the artwork"
+#~ msgstr "Você deve inserir um título para a obra"

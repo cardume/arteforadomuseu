@@ -702,7 +702,7 @@ class ArteForaDoMuseu_Artworks {
 
 	function artwork_form_inputs($post = false) {
 		?>
-		<input type="text" name="title" class="title" placeholder="<?php _e('Title', 'arteforadomuseu'); ?>" />
+		<input type="text" name="title" class="title" placeholder="<?php _e('Title (optional)', 'arteforadomuseu'); ?>" />
 		<textarea name="content" placeholder="<?php _e('Description', 'arteforadomuseu'); ?>"></textarea>
 		<div class="clearfix">
 			<div class="two-thirds-1">
@@ -761,7 +761,8 @@ class ArteForaDoMuseu_Artworks {
 		$data = $_REQUEST;
 
 		if(!$data['title'])
-			$this->ajax_response(array('error_msg' => __('You must enter a title for the artwork', 'arteforadomuseu')));
+			$data['title'] = 'Obra sem título';
+//			$this->ajax_response(array('error_msg' => __('You must enter a title for the artwork', 'arteforadomuseu')));
 
 		if(!$data['categories'])
 			$this->ajax_response(array('error_msg' => __('You must select a category', 'arteforadomuseu')));
