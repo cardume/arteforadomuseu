@@ -36,7 +36,7 @@ var afdmInstagramLayer;
 
 		$.each(data, function(i, item) {
 
-			if(item.location) {
+			if(item.location && item.id !== '223294677306317009_30601285') {
 
 				var marker = L.marker([item.location.latitude, item.location.longitude]);
 
@@ -72,7 +72,7 @@ var afdmInstagramLayer;
 
 		map.fitBounds(markerLayer.getBounds());
 		map.setZoom(map.getZoom() -1);
-		
+
 	}
 
 })(jQuery);
