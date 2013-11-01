@@ -85,32 +85,7 @@ class AFDM_Slider {
 						'type' => $translate_fields['text'],
 						'instructions' => 'Link to where the slider item will redirect',
 						'required' => 1,
-					),
-					array (
-						'default_value' => 0,
-						'message' => 'Hide slider title (show only featured image)',
-						'key' => 'field_51e3306f71941',
-						'label' => 'Hide title',
-						'name' => 'hide_title',
-						'type' => 'true_false',
-					),
-					array (
-						'save_format' => 'url',
-						'preview_size' => 'medium',
-						'library' => 'all',
-						'key' => 'field_51e3310097a91',
-						'label' => 'Background image',
-						'name' => 'background_image',
-						'type' => 'image',
-					),
-					array (
-						'default_value' => '#333333',
-						'key' => 'field_51e3308571942',
-						'label' => 'Background color',
-						'name' => 'background_color',
-						'type' => 'color_picker',
-						'instructions' => 'Slide background color',
-					),
+					)
 				),
 				'location' => array (
 					array (
