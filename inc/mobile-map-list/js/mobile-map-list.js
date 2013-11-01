@@ -27,9 +27,9 @@
 
 		});
 
-		$('.toggle-map').click(function() {
+		$('.toggle-map,.find-on-map,.center-map').click(function() {
 			activate('map');
-		})
+		});
 
 	});
 
