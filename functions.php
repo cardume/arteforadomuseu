@@ -9,6 +9,8 @@ require_once(STYLESHEETPATH . '/inc/views.php');
 
 include_once(STYLESHEETPATH . '/inc/instagram/instagram.php');
 
+include_once(STYLESHEETPATH . '/inc/mobile-map-list/mobile-map-list.php');
+
 include_once(STYLESHEETPATH . '/inc/slider.php'); // Featured slider
 
 /*
