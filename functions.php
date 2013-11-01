@@ -9,6 +9,21 @@ require_once(STYLESHEETPATH . '/inc/views.php');
 
 include_once(STYLESHEETPATH . '/inc/instagram/instagram.php');
 
+include_once(STYLESHEETPATH . '/inc/slider.php'); // Featured slider
+
+/*
+ * Advanced Custom Fields
+ */
+
+function afdm_acf_path() {
+	return get_stylesheet_directory_uri() . '/inc/acf/';
+}
+add_filter('acf/helpers/get_dir', 'afdm_acf_path');
+
+define('ACF_LITE', false);
+require_once(STYLESHEETPATH . '/inc/acf/acf.php');
+include_once(STYLESHEETPATH . '/inc/acf/add-ons/acf-qtranslate/acf-qtranslate.php');
+
 function afdm_setup() {
 	load_child_theme_textdomain('arteforadomuseu', get_stylesheet_directory() . '/languages');
 	add_theme_support('post-thumbnails');
