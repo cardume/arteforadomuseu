@@ -9,8 +9,10 @@
 		mapContainer = $('.map-container');
 		listContainer = $('#content');
 
-		if(!mapContainer.length)
+		if(!mapContainer.length) {
+			toggler.hide();
 			return false;
+		}
 
 		$(window).resize(toggle).resize();
 
