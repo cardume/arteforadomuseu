@@ -4,7 +4,7 @@
 
 		if($('#main-nav').length) {
 			var navigation = responsiveNav('#main-nav', {
-				label: 'menu'
+				label: '&#xE08e'
 			});
 		}
 
