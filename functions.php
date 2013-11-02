@@ -103,7 +103,7 @@ function afdm_get_user_menu() {
 		<?php
 		if(!is_user_logged_in()) :
 			?>
-			<span class="dropdown-title login clearfix"><span class="lsf icon">&#xE087;</span> <?php _e('Login', 'arteforadomuseu'); ?></span>
+			<span class="dropdown-title login clearfix"><span class="lsf icon">&#xE087;</span> <span class="icon-title"><?php _e('Login', 'arteforadomuseu'); ?></span></span>
 			<div class="dropdown-content">
 				<div class="login-content">
 					<p><?php _e('Login with: ', 'arteforadomuseu'); ?></p>
