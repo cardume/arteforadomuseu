@@ -522,6 +522,7 @@ input[type=submit] {
 			float: left;
 			position: relative;
 			z-index: 100;
+			max-width: 150px;
 			.dropdown-title {
 				border: 1px solid #111;
 				padding: 9px 10px;
@@ -537,10 +538,18 @@ input[type=submit] {
 				.arrow {
 					font-size: 100%;
 					margin-left: 10px;
+					float: right;
 				}
 				.lsf.icon {
+					float: left;
 					margin-right: 10px;
 				}
+			}
+			.user-name {
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				overflow: hidden;
+				display: block;
 			}
 			.dropdown-content {
 				display: none;
@@ -2481,7 +2490,7 @@ body.wysiwyg p {
 		}
 		.user-meta {
 			.user-name {
-				display:none;
+				display:none !important;
 			}
 		}
 	}

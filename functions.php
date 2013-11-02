@@ -103,7 +103,7 @@ function afdm_get_user_menu() {
 		<?php
 		if(!is_user_logged_in()) :
 			?>
-			<span class="dropdown-title login"><span class="lsf icon">&#xE087;</span> <?php _e('Login', 'arteforadomuseu'); ?> <span class="lsf arrow">&#xE03e;</span></span>
+			<span class="dropdown-title login clearfix"><span class="lsf icon">&#xE087;</span> <?php _e('Login', 'arteforadomuseu'); ?> <span class="lsf arrow">&#xE03e;</span></span>
 			<div class="dropdown-content">
 				<div class="login-content">
 					<p><?php _e('Login with: ', 'arteforadomuseu'); ?></p>
@@ -113,7 +113,7 @@ function afdm_get_user_menu() {
 			<?php
 		else :
 			?>
-			<span class="dropdown-title login"><span class="lsf icon">&#xE137;</span> <span class="user-name"><?php echo wp_get_current_user()->display_name; ?></span> <span class="lsf arrow">&#xE03e;</span></span>
+			<span class="dropdown-title login clearfix"><span class="lsf icon">&#xE137;</span> <span class="user-name"><?php echo wp_get_current_user()->display_name; ?></span></span>
 			<div class="dropdown-content">
 				<div class="logged-in">
 					<p><?php _e('Hello', 'arteforadomuseu'); ?>, <?php echo wp_get_current_user()->display_name; ?>. <a class="logout" href="<?php echo wp_logout_url(home_url()); ?>" title="<?php _e('Logout', 'arteforadomuseu'); ?>"><?php _e('Logout', 'arteforadomuseu'); ?> <span class="lsf">&#xE088;</span></a></p>
