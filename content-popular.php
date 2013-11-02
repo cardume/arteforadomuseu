@@ -22,6 +22,8 @@ if(have_posts()) :
 
 else :
 
+	wp_reset_query();
+
 	global $wp_query;
 
 	$city = afdm_get_user_city();
