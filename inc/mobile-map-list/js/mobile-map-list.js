@@ -28,14 +28,15 @@
 		});
 
 		$('.toggle-map,.find-on-map,.center-map').click(function() {
-			activate('map');
+			if(isMobile())
+				activate('map');
 		});
 
 	});
 
 	function toggle() {
 
-		if($(window).width() < 767) {
+		if(isMobile()) {
 
 			activate('map');
 			toggler.show();
@@ -47,6 +48,10 @@
 
 		}
 
+	}
+
+	function isMobile() {
+		return ($(window).width() < 767);
 	}
 
 	function activate(element) {
