@@ -772,7 +772,7 @@ class ArteForaDoMuseu_Artworks {
 
 		$post_id = wp_insert_post(array(
 			'post_type' => $this->post_type,
-			'post_status' => 'pending',
+			'post_status' => 'publish',
 			'post_title' => $data['title'],
 			'post_content' => $data['content']
 		));

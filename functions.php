@@ -162,3 +162,23 @@ function afdm_flush_rewrite() {
 	}
 }
 add_action('init', 'afdm_flush_rewrite');
+
+function w3c_banner() {
+	?>
+	<a class="w3c-banner" href="http://redir.esp.br/s/?14309.71.331899.0.2.11474.9.2880608.0.10.0.0.138538.0.0.22d6d" target="_blank">
+		<img src="<?php echo get_stylesheet_directory_uri(); ?>/img/w3c_banner.png" />
+	</a>
+	<style>
+		a.w3c-banner {
+			position: fixed;
+			top: 0;
+			right: 0;
+			z-index: 99999;
+		}
+		a.w3c-banner img {
+			display: block;
+		}
+	</style>
+	<?php
+}
+add_action('wp_footer', 'w3c_banner');
